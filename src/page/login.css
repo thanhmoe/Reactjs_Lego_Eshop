@@ -1,0 +1,52 @@
+.container {
+    width: 100%;
+    height: 100%;
+}
+.backgroundImage {
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.formLogin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: -25px 0 0 -25px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+}
+.formLogin>input {
+    border: none;
+}
+.forminput{
+    height: 30px;
+    width: 200px;
+}
+.btn-group{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 0 0;
+}
+.btnLogin{
+    background-color: deepskyblue;
+}
+.decs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-message{
+    color: red;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
