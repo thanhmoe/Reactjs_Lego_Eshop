@@ -11,9 +11,9 @@ const myAccount = {
     password: '123'
 }
 const fakeToken = 'ey123123123123'
-
+//notify success
 function loginSuccess() {
-    notify('success', 'Logged In!', {})
+    notify('success', 'Logged In!', 'top-right')
 }
 
 
@@ -82,7 +82,7 @@ const Login = () => {
     return <div className='container'>
         <img className='backgroundImage' src={backgroundImage} alt="" />
         <div className='formLogin'>
-            <h3 className='decs'>Login</h3>
+            <h3 className='decs'>LOGIN TO W3</h3>
             <p className='decs'>Become a W3Schooler</p>
             <div className='form-group'>
                 <input

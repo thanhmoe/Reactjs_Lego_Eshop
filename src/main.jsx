@@ -30,11 +30,10 @@ export const cookies = new Cookies(null, { path: '/' })
 
 //custom notify
 export const notify = (type, content, config) => {
-  const { position } = config
   switch (type) {
     case 'success':
       toast.success(content, {
-        position: "top-right",
+        position: config,
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -46,7 +45,7 @@ export const notify = (type, content, config) => {
       break;
     case 'warn':
       toast.warn(content, {
-        position: "top-right",
+        position: config,
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -56,18 +55,30 @@ export const notify = (type, content, config) => {
         theme: "light",
       });
       break;
-      case 'error':
-        toast.error(content, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        break;
+    case 'error':
+      toast.error(content, {
+        position: config,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      break;
+    case 'info':
+      toast.info(content, {
+        position: config,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      break;
 
     default:
       break;

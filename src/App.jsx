@@ -112,15 +112,15 @@ let user1 = {
 }
 
 function notLogin() {
-  notify('warn', 'Please Login First!', {})
+  notify('info', 'Please Login First!','top-center')
 }
 
 
 function App() {
 
   const navigate = useNavigate();
-  
-//kiem tra xem da co token dang nhap chua
+
+  //kiem tra xem da co token dang nhap chua
   useEffect(() => {
     const token = cookies.get('token')
     const user = cookies.get('user')
@@ -132,6 +132,8 @@ function App() {
 
     }
   }, [])
+
+  
 
   return (
     <>

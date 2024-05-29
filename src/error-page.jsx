@@ -5,7 +5,7 @@ export default function ErrorPage() {
   console.error(error);
 
   return (
-    <div id="error-page">
+    <div className="errorpage" id="error-page">
       <h1>Oops123!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
