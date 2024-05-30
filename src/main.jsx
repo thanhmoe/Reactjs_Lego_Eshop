@@ -13,71 +13,34 @@ import Login from './page/login';
 import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-]);
+import MainLayout from './layout/index.jsx';
 
 export const cookies = new Cookies(null, { path: '/' })
 
 //custom notify
-export const notify = (type, content, config) => {
+export const notify = (type, content, position) => {
+  const config = {
+    position: position,
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  }
   switch (type) {
     case 'success':
-      toast.success(content, {
-        position: config,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.success(content, config);
       break;
     case 'warn':
-      toast.warn(content, {
-        position: config,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.warn(content, config);
       break;
     case 'error':
-      toast.error(content, {
-        position: config,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error(content, config);
       break;
     case 'info':
-      toast.info(content, {
-        position: config,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.info(content, config);
       break;
 
     default:
@@ -87,11 +50,25 @@ export const notify = (type, content, config) => {
 
 }
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout>
+      <App />
+    </MainLayout>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+]);
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {/* <ToastContainer /> */}
     <RouterProvider router={router} />
-    <ToastContainer />
   </React.StrictMode>,
 )
