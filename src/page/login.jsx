@@ -11,10 +11,7 @@ const myAccount = {
     password: '123'
 }
 const fakeToken = 'ey123123123123'
-//notify success
-function loginSuccess() {
-    notify('success', 'Logged In!', 'top-right')
-}
+
 
 
 const Login = () => {
@@ -37,7 +34,7 @@ const Login = () => {
         if (isValid()) {
             cookies.set('token', fakeToken)
             navigate('/')
-            loginSuccess()
+            notify('success', 'Logged In!', 'top-right')
             if (isCheck) {
                 cookies.set('user', myAccount)
             }

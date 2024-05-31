@@ -2,18 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
-  Navigate,
-  RouterProvider,
-  useNavigate,
+  RouterProvider
 } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'universal-cookie';
 import App from './App.jsx';
 import ErrorPage from "./error-page";
+import './i18n.js';
 import './index.css';
-import Login from './page/login';
-import Cookies from 'universal-cookie';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import MainLayout from './layout/index.jsx';
+import Contact from './page/contact.jsx';
+import Login from './page/login';
+import News from './page/news.jsx';
+import Products from './page/products.jsx';
 
 export const cookies = new Cookies(null, { path: '/' })
 
@@ -59,6 +61,24 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/products",
+    element: <MainLayout>
+      <Products />
+    </MainLayout>,
+  },
+  {
+    path: "/contact",
+    element: <MainLayout>
+      <Contact />
+    </MainLayout>,
+  },
+  {
+    path: "/news",
+    element: <MainLayout>
+      <News />
+    </MainLayout>,
+  },
+  {
     path: "/login",
     element: <Login />,
   },
@@ -68,7 +88,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <ToastContainer /> */}
+    <ToastContainer />
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
