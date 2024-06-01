@@ -30,21 +30,8 @@ function App() {
 
   return (
     <>
-      {/* <div>
-        {Object.keys(langs).map((lang) => (
-          <button type='submit' key={lang} onClick={() => i18next.changeLanguage(lang)} disabled={i18next.resolvedLanguage == lang}> {langs[lang].nativeName} </button>
-        ))}
-      </div >
-      <p>
-        <Trans i18nkey='decscription'>
-          heloo
-        </Trans >
-      </p>
-      {t('decs')} */}
       <p>{t('productName')}</p>
       <p>{t('confirm', {ns: 'common'})}</p>
-      <Button onClick={() => i18next.changeLanguage('en')}>En</Button>
-      <Button onClick={() => i18next.changeLanguage('vi')}>Vi</Button>
     </>
   )
 }

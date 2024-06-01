@@ -6,54 +6,53 @@ import avatar from '../../public/assets/avatar.png';
 import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
+import i18next from "i18next";
 
+const itemsLangChoice = [
+  {
+    key: '1',
+    label: (
+      <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
+        <img className="countryFlag" src="/assets/usa.png" alt="usa"/>
+        <span>English</span>
+      </div>
 
+    ),
 
-const handleLanguageChange = (event) => {
-  const lang = event.target.value;
-  setSelectedLanguage(lang.nativeName); z
-  i18next.changeLanguage(lang)
-};
+  },
+  {
+    key: '2',
+    label: (
+      <div  className="countryName" onClick={() => i18next.changeLanguage('vi')}>
+        <img className="countryFlag" src="/assets/vietnam.png" alt="vietnam"/>
+        <span>Vietnamese</span>
+      </div>
 
+    ),
+  }
+];
 
 const items = [
   {
     key: '1',
-    type: 'group',
-    label: 'Group title',
-    children: [
-      {
-        key: '1-1',
-        label: '1st menu item',
-      },
-      {
-        key: '1-2',
-        label: '2nd menu item',
-      },
-    ],
+    label: 'Setting',
   },
   {
-    key: '2',
-    label: 'sub menu',
-    children: [
-      {
-        key: '2-1',
-        label: '3rd menu item',
-      },
-      {
-        key: '2-2',
-        label: '4th menu item',
-      },
-    ],
+    type: 'divider',
+  },
+  {
+    label: 'Logout',
+    key: '3',
   },
 ];
 
 
 
 export default function Header({ isOpen, setOpen }) {
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+
   const navigate = useNavigate();
   return <>
+
 
     <div className="header">
       <div className="brand">
@@ -69,11 +68,25 @@ export default function Header({ isOpen, setOpen }) {
           <li><a> <QuestionCircleOutlined style={{ color: 'white' }} /> About</a></li>
         </ul>
       </div>
+      <div className="langChoice">
+        <Dropdown
+          menu={{ items: itemsLangChoice }}
+          trigger={['hover']}
+        >
+          <a className="langChoiceText">
+            <Space>
+              Language
+            <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
+      </div>
+
+
+
       <div className="avatar">
         <Dropdown
-          menu={{
-            items,
-          }}
+          menu={{ items }}
           trigger={['click']}
         >
           <a onClick={(e) => e.preventDefault()}>

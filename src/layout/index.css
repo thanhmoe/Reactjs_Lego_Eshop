@@ -70,6 +70,7 @@
 }
 
 .avatar {
+
     .imgAvatar {
         width: 30px;
         padding: 10px;
@@ -102,6 +103,22 @@
 
 
     }
+}
+.langChoice{
+    padding: 20px;
+    .langChoiceText{
+        color: azure;
+    }
+    cursor: pointer;
+
+}
+.countryFlag{
+    width: 20px;
+    margin-right: 10px;
+    
+}
+.countryName{
+    display: flex;
 }
 
 
