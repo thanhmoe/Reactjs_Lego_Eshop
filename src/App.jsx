@@ -19,14 +19,14 @@ function App() {
 
  
   //kiem tra xem da co token dang nhap chua
-  useEffect(() => {
-    const token = cookies.get('token')
-    if (!token) {
-      navigate('/login')
-      notify('info', 'Please Login First!', 'top-center')
+  // useEffect(() => {
+  //   const token = cookies.get('token')
+  //   if (!token) {
+  //     navigate('/login')
+  //     notify('info', 'Please Login First!', 'top-center')
 
-    }
-  }, [])
+  //   }
+  // }, [])
 
   return (
     <>
