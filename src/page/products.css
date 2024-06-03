@@ -1,0 +1,33 @@
+.productList {
+    display: flex;
+    gap: 50px;
+    padding: 20px;
+}
+.searchbar{
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.image {
+    border-radius: 5px;
+    padding: 20px;
+    width: 200px;
+    align-self: center;
+}
+.image:hover{
+    cursor: pointer;
+}
+
+.btnBuy {
+    background-color: rgb(235, 235, 235);
+    border-radius: 20px;
+    color: #00ADB5
+}

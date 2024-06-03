@@ -5,7 +5,7 @@ import './App.css'
 import { cookies, notify } from './main'
 import { useTranslation } from "react-i18next"
 import { Button } from "antd"
-
+import { CCarousel } from '@coreui/react'
 
 let user1 = {
   username: 'thanhhhh',
@@ -15,23 +15,20 @@ let user1 = {
 
 function App() {
   const navigate = useNavigate();
-  const {t} = useTranslation(['product', 'common']);
-
- 
+  const { t } = useTranslation(['common']);
   //kiem tra xem da co token dang nhap chua
   useEffect(() => {
     const token = cookies.get('token')
     if (!token) {
       navigate('/login')
       notify('info', 'Please Login First!', 'top-center')
-
     }
   }, [])
 
   return (
     <>
-      <p>{t('productName')}</p>
-      <p>{t('confirm', {ns: 'common'})}</p>
+      <CCarousel />
+      <p>{t('Welcome')}</p>
     </>
   )
 }

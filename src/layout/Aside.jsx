@@ -1,25 +1,33 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import i18next from "i18next";
+import { useTranslation } from "react-i18next"
 
 
-const MenuItem = [
-  {
-    name: 'Products',
-    path: '/products'
-  },
-  {
-    name: 'Contact',
-    path: '/contact'
-  },
-  {
-    name: 'News',
-    path: '/news'
-  }
-]
+
 
 
 export default function Aside() {
   const navigate = useNavigate();
+  const { t } = useTranslation(['common']);
+
+  const MenuItem = [
+    {
+      name: t('Products'),
+      path: '/products',
+    },
+    {
+      name: t('Contact'),
+      path: '/contact'
+    },
+    {
+      name: t('News'),
+      path: '/news'
+    }
+  ]
+
+
+
   return <div className='aside'>
     <div className='groupItem'>
       <ul>
