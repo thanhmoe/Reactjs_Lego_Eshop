@@ -1,3 +1,14 @@
 {
-    "confirm": "Xac Nhan"
+    "confirm": "Confirm",
+    "Home": "Trang Chủ",
+    "Products": "Sản Phẩm",
+    "News": "Tin Tức",
+    "Contact": "Liên Hệ",
+    "About Us": "Về Chúng Tôi",
+    "Language": "Ngôn Ngữ",
+    "English": "Tiếng Anh",
+    "Vietnamese": "Tiếng Việt",
+    "Setting": "Cài đặt",
+    "Logout": "Đăng Xuất",
+    "Welcome": "Chao mung den W3 X"
 }

@@ -17,6 +17,7 @@
 }
 
 .header {
+    /* position: fixed; */
     display: flex;
     width: 100%;
     color: white;
@@ -30,9 +31,11 @@
 .brand {
     display: flex;
     width: 30%;
-    .nameBrand{
+
+    .nameBrand {
         cursor: pointer;
     }
+
     .imgLogo {
         padding: 10px;
         width: 50px;
@@ -86,17 +89,21 @@
     .groupItem {
         ul {
             cursor: pointer;
-            li a{
+
+            li a {
                 color: azure;
             }
+
             margin: 0;
             padding: 0;
             list-style-type: none;
-            .item{
+
+            .item {
                 padding: 10px;
                 transition: all linear 0.5s;
             }
-            .item:hover{
+
+            .item:hover {
                 background-color: rgb(129, 131, 131);
             }
         }
@@ -104,20 +111,25 @@
 
     }
 }
-.langChoice{
+
+.langMenu {
     padding: 20px;
-    .langChoiceText{
+
+    .langMenuText {
         color: azure;
     }
+
     cursor: pointer;
 
 }
-.countryFlag{
+
+.countryFlag {
     width: 20px;
     margin-right: 10px;
-    
+
 }
-.countryName{
+
+.countryName {
     display: flex;
 }
 
@@ -126,7 +138,9 @@
     width: 100%;
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 70, 121, 1) 85%, rgba(0, 212, 255, 1) 100%);
     text-align: center;
-    .coppyright{
+
+    .coppyright {
         color: azure;
     }
+
 }

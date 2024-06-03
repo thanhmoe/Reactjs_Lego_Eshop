@@ -7,50 +7,84 @@ import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutline
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next"
+import { cookies } from "../main";
 
-const itemsLangChoice = [
-  {
-    key: '1',
-    label: (
-      <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
-        <img className="countryFlag" src="/assets/usa.png" alt="usa"/>
-        <span>English</span>
-      </div>
 
-    ),
 
-  },
-  {
-    key: '2',
-    label: (
-      <div  className="countryName" onClick={() => i18next.changeLanguage('vi')}>
-        <img className="countryFlag" src="/assets/vietnam.png" alt="vietnam"/>
-        <span>Vietnamese</span>
-      </div>
-
-    ),
-  }
-];
-
-const items = [
-  {
-    key: '1',
-    label: 'Setting',
-  },
-  {
-    type: 'divider',
-  },
-  {
-    label: 'Logout',
-    key: '3',
-  },
-];
 
 
 
 export default function Header({ isOpen, setOpen }) {
-
+  const { t } = useTranslation(['common']);
   const navigate = useNavigate();
+  function logout() {
+    const token = cookies.remove('token')
+    navigate('/login')
+
+  }
+
+  const headerItem = [
+    {
+      name: <a><HomeOutlined style={{ color: 'white' }} />{t('Home')}</a>,
+      path: '/',
+    },
+    {
+      name: <a> <ProductOutlined style={{ color: 'white' }} /> {t('Products')}</a>,
+      path: '/products',
+    },
+    {
+      name: <a> <ReadOutlined style={{ color: 'white' }} /> {t('Contact')}</a>,
+      path: '/contact'
+    },
+    {
+      name: <a> <ReadOutlined style={{ color: 'white' }} /> {t('News')}</a>,
+      path: '/news'
+    },
+    {
+      name: <a> <ReadOutlined style={{ color: 'white' }} /> {t('About Us')}</a>,
+      path: '/about',
+    },
+  ]
+
+
+  const items = [
+    {
+      key: '1',
+      label: t('Setting'),
+    },
+    {
+      type: 'divider',
+    },
+    {
+      label: <a onClick={()=> logout()}> {t('Logout')}  </a>,
+      key: '3',
+    },
+  ];
+
+  const itemsMenuLang = [
+    {
+      key: '1',
+      label: (
+        <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
+          <img className="countryFlag" src="/assets/usa.png" alt="usa" />
+          <span>{t('English')}</span>
+        </div>
+
+      ),
+
+    },
+    {
+      key: '2',
+      label: (
+        <div className="countryName" onClick={() => i18next.changeLanguage('vi')}>
+          <img className="countryFlag" src="/assets/vietnam.png" alt="vietnam" />
+          <span>{t('Vietnamese')}</span>
+        </div>
+
+      ),
+    }
+  ];
   return <>
 
 
@@ -61,22 +95,22 @@ export default function Header({ isOpen, setOpen }) {
       </div>
       <div className="menu-item">
         <ul>
-          <li><a><HomeOutlined style={{ color: 'white' }} /> Home</a></li>
-          <li><a> <ProductOutlined style={{ color: 'white' }} /> Product</a></li>
-          <li><a> <ReadOutlined style={{ color: 'white' }} /> News</a></li>
-          <li><a> <PhoneOutlined style={{ color: 'white' }} /> Contact</a></li>
-          <li><a> <QuestionCircleOutlined style={{ color: 'white' }} /> About</a></li>
+          {headerItem.map((item, index) => (
+            <li key={index} onClick={() => navigate(item.path)}>
+              {item.name}
+            </li>
+          ))}
         </ul>
       </div>
-      <div className="langChoice">
+      <div className="langMenu">
         <Dropdown
-          menu={{ items: itemsLangChoice }}
+          menu={{ items: itemsMenuLang }}
           trigger={['hover']}
         >
-          <a className="langChoiceText">
+          <a className="langMenuText" onClick={(e) => e.preventDefault()}>
             <Space>
-              Language
-            <DownOutlined />
+              {t('Language')}
+              <DownOutlined />
             </Space>
           </a>
         </Dropdown>
@@ -87,8 +121,7 @@ export default function Header({ isOpen, setOpen }) {
       <div className="avatar">
         <Dropdown
           menu={{ items }}
-          trigger={['click']}
-        >
+          trigger={['click']}>
           <a onClick={(e) => e.preventDefault()}>
             <Space>
               <img className="imgAvatar" src={avatar} alt="" />

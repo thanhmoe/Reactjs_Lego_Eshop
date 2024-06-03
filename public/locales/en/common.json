@@ -1,3 +1,14 @@
 {
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "Home": "Home",
+    "Products": "Products",
+    "News": "News",
+    "Contact": "Contact",
+    "About Us": "About Us",
+    "Language": "Language",
+    "English": "English",
+    "Vietnamese": "Vietnamese",
+    "Setting": "Setting",
+    "Logout": "Log Out",
+    "Welcome": "Welcome to W3 X"
 }
