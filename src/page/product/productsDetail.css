@@ -1,0 +1,28 @@
+.productsDetail {
+    display: flex;
+    padding: 20px;
+    /* border: 1px solid red; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
+    justify-self: center;
+
+}
+
+.leftInfo {
+    float: left;
+
+}
+
+.imageDetail {
+    max-width: 300px;
+
+}
+
+.detailInfo {
+    border: 1px solid rebeccapurple;
+
+}
+
+.information{
+margin-bottom: 0;
+}

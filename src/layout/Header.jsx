@@ -18,7 +18,7 @@ import { cookies } from "../main";
 export default function Header({ isOpen, setOpen }) {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
-  function logout() {
+  function signOut() {
     const token = cookies.remove('token')
     navigate('/login')
 
@@ -34,7 +34,7 @@ export default function Header({ isOpen, setOpen }) {
       path: '/products',
     },
     {
-      name: <a> <ReadOutlined style={{ color: 'white' }} /> {t('Contact')}</a>,
+      name: <a> <PhoneOutlined style={{ color: 'white' }} /> {t('Contact')}</a>,
       path: '/contact'
     },
     {
@@ -42,7 +42,7 @@ export default function Header({ isOpen, setOpen }) {
       path: '/news'
     },
     {
-      name: <a> <ReadOutlined style={{ color: 'white' }} /> {t('About Us')}</a>,
+      name: <a> <QuestionCircleOutlined style={{ color: 'white' }} /> {t('About Us')}</a>,
       path: '/about',
     },
   ]
@@ -57,8 +57,8 @@ export default function Header({ isOpen, setOpen }) {
       type: 'divider',
     },
     {
-      label: <a onClick={()=> logout()}> {t('Logout')}  </a>,
-      key: '3',
+      label: <a onClick={()=> signOut()}> {t('SignOut')}  </a>,
+      key: '2',
     },
   ];
 

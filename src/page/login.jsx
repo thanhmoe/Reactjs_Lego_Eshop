@@ -79,7 +79,7 @@ const Login = () => {
     return <div className='container'>
         <img className='backgroundImage' src={backgroundImage} alt="" />
         <div className='formLogin'>
-            <h3 className='decs'>LOGIN TO W3</h3>
+            <h3 className='decs'>LOGIN TO X</h3>
             <p className='decs'>Become a W3Schooler</p>
             <div className='form-group'>
                 <input

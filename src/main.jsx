@@ -12,11 +12,12 @@ import ErrorPage from "./error-page";
 import './i18n.js';
 import './index.css';
 import MainLayout from './layout/index.jsx';
-import Products from './page/products.jsx';
+import Products from './page/product/products.jsx';
 import Contact from './page/contact.jsx';
 import News from './page/news.jsx';
 import About from './page/about.jsx';
 import Login from './page/login.jsx';
+import ProductsDetail from './page/product/productsDetail.jsx';
 
 
 export const cookies = new Cookies(null, { path: '/' })
@@ -68,6 +69,23 @@ const router = createBrowserRouter([
       <Products />
     </MainLayout>,
   },
+  {
+    path: "/products/:productId",
+    element: <MainLayout>
+      <ProductsDetail />
+    </MainLayout>,
+  },
+
+
+  {
+    path: "/detail",
+    element: <MainLayout>
+      <ProductsDetail />
+    </MainLayout>,
+  },
+
+
+
   {
     path: "/contact",
     element: <MainLayout>
