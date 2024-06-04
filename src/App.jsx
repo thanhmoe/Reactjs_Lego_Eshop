@@ -17,6 +17,16 @@ function App() {
   const navigate = useNavigate();
   const { t } = useTranslation(['common']);
   //kiem tra xem da co token dang nhap chua
+<<<<<<< HEAD
+  // useEffect(() => {
+  //   const token = cookies.get('token')
+  //   if (!token) {
+  //     navigate('/login')
+  //     notify('info', 'Please Login First!', 'top-center')
+
+  //   }
+  // }, [])
+=======
   useEffect(() => {
     const token = cookies.get('token')
     if (!token) {
@@ -24,6 +34,7 @@ function App() {
       notify('info', 'Please Login First!', 'top-center')
     }
   }, [])
+>>>>>>> fdcf4dc3108751c2ab35407cb2cd3a7ae973f9d6
 
   return (
     <>
