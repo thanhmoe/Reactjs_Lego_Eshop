@@ -106,14 +106,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-<<<<<<< HEAD
-    element:
-     <Login />,
-=======
     element: <Suspense fallback={<h2>loading</h2>}>
       <Login />
     </Suspense>,
->>>>>>> fdcf4dc3108751c2ab35407cb2cd3a7ae973f9d6
   },
 ]);
 
