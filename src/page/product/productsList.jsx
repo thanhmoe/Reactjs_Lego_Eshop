@@ -3,7 +3,6 @@ import '/src/page/product/products.css'
 import productsData from "../../assets/data/productsData";
 import { Link, useNavigate } from "react-router-dom";
 import products from "./products";
-// import { useHistory } from "react-router-dom";
 
 
 
@@ -13,7 +12,6 @@ const productList = ({ searchQuery, sortOption }) => {
 
     const linkToDetail = (id) => {
         console.log(id)
-        //   productsData.map(product)
         navigate(`/products/${id}`)
     }
 
@@ -22,7 +20,7 @@ const productList = ({ searchQuery, sortOption }) => {
             product.productName.toLowerCase().includes(query.toLowerCase())
         )
         switch (sort) {
-            case 'nameAcs':
+            case 'nameAsc':
                 filteredProducts.sort((a, b) => a.productName.localeCompare(b.productName));
                 break;
             case 'nameDesc':
@@ -48,11 +46,11 @@ const productList = ({ searchQuery, sortOption }) => {
                 <div key={products.id} className="productInfo">
                     {/* <img onClick={() => navigate(`/products/${products.id}`)} className="imageProduct" src={products.image} /> */}
                     <img onClick={() => linkToDetail(products.id)} className="imageProduct" src={products.image} />
-                    <h3><Link to={`/products/${products.id}`}>{products.productName}</Link></h3>
+                    <h3>{products.productName}</h3>
                     <p>Description:{products.decsription}</p>
                     <p>Chip:{products.Chip}</p>
                     <p>Display:{products.Display}</p>
-                    <h3>Price:{products.price}$</h3>
+                    <h3>Price:${products.price}</h3>
                     <button className="btnBuy">Add to cart</button>
                 </div>
             ))}

@@ -4,7 +4,9 @@
     gap: 20px;
     padding: 20px;
 }
-
+.searchbar{
+    padding: 20px;
+}
 .productInfo {
     display: flex;
     flex-direction: column;
