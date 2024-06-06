@@ -1,6 +1,7 @@
 .contentBody {
     display: flex;
     justify-content: center;
+    
 }
 
 
@@ -17,7 +18,6 @@
 
 .leftInfo {
     grid-column: 1;
-    display: flex;
     flex: 1;
 }
 
@@ -36,21 +36,39 @@
     border-bottom: 1px solid #d0d0d0;
 }
 
-.information {
-    margin-top: 20px;
-
-}
-
 .comment {
     flex-direction: column;
     border-top: 1px solid #d0d0d0;
-    
+
 }
-.commented li{
-   border: 1px solid #d0d0d0;
-   border-radius: 5px;
-   margin: 10px;
+
+.comment ul {
+    list-style: none;
+    padding: 10px;
 }
+
+.commented li {
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+
+    padding: 10px;
+
+}
+
+.btnCmt {
+    background-color: #505252;
+    color: #FFFFFF;
+    padding: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.inputCmt {
+    padding: 10px;
+    margin-left: 10px;
+}
+
 
 @media (max-width: 768px) {
     .productsDetail {

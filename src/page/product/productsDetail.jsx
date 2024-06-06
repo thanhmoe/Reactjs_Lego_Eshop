@@ -2,12 +2,25 @@ import React, { useState } from "react";
 import './productsDetail.css'
 import { useParams } from "react-router-dom";
 import productsData from "../../assets/data/productsData.js";
-
+import { CommentOutlined } from '@ant-design/icons';
 
 export default function productsDetail() {
     const { productId } = useParams();
     const thisProduct = productsData.find(p => p.id === productId)
-    let listComments = []
+
+    const [scrollPosition, setScrollPosition] = useState(0)
+    const handleScroll = (e) => {
+        const { scrollTop, scrollHeight, clientHeight } = e.target
+        const position = Math.ceil(
+            (scrollTop / (scrollHeight - clientHeight)) * 100
+        );
+        setScrollPosition(position)
+    }
+
+
+
+
+    const [value, setValue] = useState('')
     const [listComment, setListComment] = useState([
         {
             id: 1,
@@ -23,23 +36,30 @@ export default function productsDetail() {
         },
 
     ])
-    const [value, setValue] = useState('')
+
 
     const onSubmit = () => {
-        const addComment = value
-        listComments.push(addComment)
-        console.log(listComments)
-    }
-    const handleCommentChange = () => {
-        let nextComment = listComment.push()
-        setListComment(nextComment)
+        if (value) {
+            let nextComment = {
+                id: crypto.randomUUID(),
+                text: value,
+            }
+            const nextComments = [...listComment, nextComment]
+            setListComment(nextComments)
+            setValue('')
+            console.log(listComment)
+        }
+
     }
 
 
 
     return <>
 
+
+        
         <div className="productsDetail">
+
             <div className="leftInfo">
                 <img className="imageDetail" src={thisProduct.image} alt={thisProduct.name} />
             </div>
@@ -50,9 +70,6 @@ export default function productsDetail() {
                 <p>Display:{thisProduct.Display}</p>
                 <h3>${thisProduct.price}</h3>
                 <button className="btnBuy">Add to cart</button>
-                <div className="information">
-                    <p> more infor goes here</p>
-                </div>
             </div>
             <div className="comment">
                 <h3>
@@ -62,13 +79,14 @@ export default function productsDetail() {
 
                     {listComment.map(comment => (
                         <ul className="commented" key={comment.id}>
-                            <li>{comment.text}
+                            <li><CommentOutlined />
+                                <p>{comment.text}</p>
                             </li>
                         </ul>
                     ))}
                 </div>
                 <div>
-                    <input onChange={(e) => setValue(e.target.value)} placeholder="write comment here" className="inputText"></input>
+                    <input className='inputCmt' onChange={(e) => setValue(e.target.value)} placeholder="write comment here"></input>
                     <button onClick={onSubmit} className="btnCmt"> Submit</button>
                 </div>
             </div>

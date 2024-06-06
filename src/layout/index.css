@@ -1,19 +1,15 @@
-
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-}
 
 .mainLayout {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    /* overflow-y: scroll; */
 }
 
 .header {
@@ -23,12 +19,17 @@ body {
     background: linear-gradient(90deg, rgba(57, 62, 70, 1) 6%, rgba(9, 70, 121, 1) 57%, rgba(2, 0, 36, 1) 99%);
     padding: 10px;
     width: 100%;
+    overflow: hidden;
 }
 
 .body {
+    /* display: flex; */
+    height: 100vh;
+
+}
+
+.body.is-shown {
     display: flex;
-    flex: 1;
-    width: 100%;
 }
 
 .contentBody {
@@ -36,18 +37,58 @@ body {
     padding: 20px;
 }
 
-.aside {
-    transition: all linear 0.5s;
-    width: 20%;
-    background-color: #393E46;
+.contentBody.is-shown {
+    margin-left: 20%;
+    flex: 1;
     padding: 20px;
 }
 
+.sider {
+   
+    background-color: #393E46;
+    height: 100%;
+}
+
+.aside {
+    transition: all linear 0.5s;
+    width: 20%;
+
+}
+
+.aside .groupItem ul {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.aside .groupItem ul .item {
+    padding: 10px;
+    transition: all linear 0.5s;
+}
+
+.aside a {
+    color: azure;
+}
+
+.aside .groupItem ul .item:hover {
+    background-color: rgb(129, 131, 131);
+}
+
+.aside.is-shown {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: -1;
+}
+
+
+
 .footer {
     text-align: center;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 70, 121, 1) 85%, rgba(0, 212, 255, 1) 100%);
+    background: linear-gradient(90deg, rgba(57, 62, 70, 1) 6%, rgba(9, 70, 121, 1) 57%, rgba(2, 0, 36, 1) 99%);
     padding: 10px;
-    color:azure;
+    color: azure;
 }
 
 @media (max-width: 768px) {
@@ -61,7 +102,9 @@ body {
 }
 
 @media (max-width: 480px) {
-    .header, .footer {
+
+    .header,
+    .footer {
         flex-direction: column;
         text-align: center;
     }
@@ -80,30 +123,31 @@ body {
 .brand {
     display: flex;
     margin-left: 3%;
-    .imgLogo{
+
+    .imgLogo {
         padding: 10px;
         width: 50px;
         cursor: pointer;
     }
 }
 
-.nameBrand{
+.nameBrand {
     cursor: pointer;
     padding: 10px;
     color: azure;
 }
 
-.avatar{
+.avatar {
     margin-right: 20px;
+
     .imgAvatar {
         width: 50px;
         padding: 10px;
         cursor: pointer;
     }
-} 
+}
 
 .menu-item ul {
-    /* width: 100%; */
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
@@ -127,24 +171,7 @@ body {
     text-decoration: underline;
 }
 
-.aside .groupItem ul {
-    cursor: pointer;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
 
-.aside .groupItem ul .item {
-    padding: 10px;
-    transition: all linear 0.5s;
-}
-.aside a{
-    color: azure;
-}
-
-.aside .groupItem ul .item:hover {
-    background-color: rgb(129, 131, 131);
-}
 
 
 .langMenu {
