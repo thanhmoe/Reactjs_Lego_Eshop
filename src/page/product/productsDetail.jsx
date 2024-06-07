@@ -8,17 +8,6 @@ export default function productsDetail() {
     const { productId } = useParams();
     const thisProduct = productsData.find(p => p.id === productId)
 
-    const [scrollPosition, setScrollPosition] = useState(0)
-    const handleScroll = (e) => {
-        const { scrollTop, scrollHeight, clientHeight } = e.target
-        const position = Math.ceil(
-            (scrollTop / (scrollHeight - clientHeight)) * 100
-        );
-        setScrollPosition(position)
-    }
-
-
-
 
     const [value, setValue] = useState('')
     const [listComment, setListComment] = useState([

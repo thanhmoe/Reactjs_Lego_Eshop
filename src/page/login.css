@@ -23,10 +23,7 @@
 .formLogin>input {
     border: none;
 }
-.forminput{
-    height: 30px;
-    width: 200px;
-}
+
 .btn-group{
     display: flex;
     justify-content: center;

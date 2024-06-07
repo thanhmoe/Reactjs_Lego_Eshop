@@ -1,19 +1,53 @@
 .contact-page {
+   display: flex;
    
+
 }
 
 .formContact {
- 
+    display: flex;
+    flex-direction: column;
     border-radius: 10px;
     padding: 20px;
     background-color: white;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 500px;
+    height: 700px;
+    justify-content: center;
+
 }
 
-.forminput-massage {
-    min-height: 150px;
+.form-group {
+    padding: 20px;
 }
-.forminput{
-   
-   
+
+
+.forminput {
+    width: 100%;
+    height: 30px;
+
+}
+
+.btn-group {
+    gap: 20px;
+    padding: 10px 15px;
+}
+
+.btnSubmit,
+.btnClear {
+    background-color: #00ADB5;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.forminput-massage{
+    resize: none;
+    height: 50px;
+    padding: 5px;
+    
+}
+.form-message{
+    font-size: small;
 }
