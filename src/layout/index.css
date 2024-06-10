@@ -24,7 +24,7 @@
 
 .body {
     /* display: flex; */
-    height: 100vh;
+    min-height: 100vh;
 
 }
 
@@ -50,6 +50,7 @@
 }
 
 .aside {
+    background-color: #393E46;
     transition: all linear 0.5s;
     width: 20%;
 
@@ -79,7 +80,6 @@
     position: fixed;
     top: 0;
     height: 100%;
-    z-index: -1;
 }
 
 
@@ -88,6 +88,10 @@
     text-align: center;
     background: linear-gradient(90deg, rgba(57, 62, 70, 1) 6%, rgba(9, 70, 121, 1) 57%, rgba(2, 0, 36, 1) 99%);
     padding: 10px;
+    color: azure;
+    
+}
+.footer p{
     color: azure;
 }
 
@@ -138,7 +142,6 @@
 }
 
 .avatar {
-    margin-right: 20px;
 
     .imgAvatar {
         width: 50px;

@@ -41,6 +41,13 @@
     border-top: 1px solid #d0d0d0;
 
 }
+.comment-component{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    gap: 20px;
+}
 
 .comment ul {
     list-style: none;
@@ -59,14 +66,13 @@
     background-color: #505252;
     color: #FFFFFF;
     padding: 10px;
-    margin-left: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .inputCmt {
     padding: 10px;
-    margin-left: 10px;
+    width: 100%;
 }
 
 

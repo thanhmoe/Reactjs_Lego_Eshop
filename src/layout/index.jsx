@@ -25,7 +25,7 @@ export default function MainLayout({ children }) {
         }
 
     }
-    console.log(isOffset, 'scroll')
+
 
 
 
@@ -36,8 +36,8 @@ export default function MainLayout({ children }) {
         <Suspense fallback={<h2>loading</h2>}>
             <div className="header"><Header isOpen={isOpen} setOpen={setOpen} /></div>
             <div className={`body ${isOpen ? 'is-shown' : ''}`}>
-                <div className={`aside ${isOffset ? 'is-shown' : ''}`}>{isOpen ? <Aside /> : null} </div>
-                <div className={`contentBody ${isOffset ? 'is-shown' : ''}`}>
+                <div className={`aside ${(isOffset && isOpen) ? 'is-shown' : ''}`}>{isOpen ? <Aside /> : null} </div>
+                <div className={`contentBody ${(isOffset && isOpen) ? 'is-shown' : ''}`}>
                     {children}
                 </div>
             </div>

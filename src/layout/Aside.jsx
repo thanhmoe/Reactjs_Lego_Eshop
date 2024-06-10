@@ -28,7 +28,7 @@ export default function Aside() {
 
 
 
-  return <div className='sider'>
+  return <div>
     <div className='groupItem'>
       <ul>
         {MenuItem.map((item, index) => (

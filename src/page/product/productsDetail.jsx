@@ -74,7 +74,7 @@ export default function productsDetail() {
                         </ul>
                     ))}
                 </div>
-                <div>
+                <div className="comment-component">
                     <input className='inputCmt' onChange={(e) => setValue(e.target.value)} placeholder="write comment here"></input>
                     <button onClick={onSubmit} className="btnCmt"> Submit</button>
                 </div>

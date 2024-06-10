@@ -1,6 +1,6 @@
 .contact-page {
-   display: flex;
-   
+    display: flex;
+
 
 }
 
@@ -24,8 +24,22 @@
 
 .forminput {
     width: 100%;
-    height: 30px;
+    height: 40px;
+    padding: 10px;
 
+}
+
+.forminput:focus {
+    outline: none;
+
+}
+
+.forminput.is-error {
+    border: 1px solid #f00;
+}
+
+.forminput .is-error:focus {
+    outline: none;
 }
 
 .btn-group {
@@ -42,12 +56,17 @@
     transition: background-color 0.3s;
 }
 
-.forminput-massage{
+.forminput-massage {
     resize: none;
     height: 50px;
     padding: 5px;
-    
+    outline: none;
 }
-.form-message{
+
+.forminput-massage.is-error {
+    border: 1px solid #f00;
+}
+
+.form-message {
     font-size: small;
 }
