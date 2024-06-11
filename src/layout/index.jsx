@@ -32,7 +32,6 @@ export default function MainLayout({ children }) {
     const [isOpen, setOpen] = useState(false)
 
     return <div className="mainLayout">
-
         <Suspense fallback={<h2>loading</h2>}>
             <div className="header"><Header isOpen={isOpen} setOpen={setOpen} /></div>
             <div className={`body ${isOpen ? 'is-shown' : ''}`}>

@@ -13,12 +13,12 @@ import './i18n.js';
 import './index.css';
 import MainLayout from './layout/index.jsx';
 import Products from './page/product/products.jsx';
-import Contact from './page/contact.jsx';
-import News from './page/news.jsx';
+import Contact from './page/contact/contact.jsx';
+import News from './page/news/news.jsx';
 import About from './page/about.jsx';
 import Login from './page/login.jsx';
 import ProductsDetail from './page/product/productsDetail.jsx';
-
+import NewsDetail from './page/news/newsDetail.jsx';
 
 export const cookies = new Cookies(null, { path: '/' })
 
@@ -73,6 +73,12 @@ const router = createBrowserRouter([
     path: "/products/:productId",
     element: <MainLayout>
       <ProductsDetail />
+    </MainLayout>,
+  },
+  {
+    path: "/news/:articleId",
+    element: <MainLayout>
+      <NewsDetail/>
     </MainLayout>,
   },
 

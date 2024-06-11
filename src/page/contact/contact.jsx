@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import './contact.css';
 import { message } from "antd";
-import Modal from "../modal/modal";
-import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../constants";
+import Modal from "../../modal/modal";
+import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../../constants";
 import { joinPaths } from "@remix-run/router";
 
 export default function contact() {
+
+    
     const [isValid, setIsValid] = useState(false);
     const [open, setOpen] = useState(false)
     // form data

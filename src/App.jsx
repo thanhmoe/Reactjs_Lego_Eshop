@@ -23,11 +23,12 @@ function App() {
     const token = cookies.get('token')
     if (!token) {
       navigate('/login')
-      notify('info', 'Please Login First!', 'top-center')
+      // notify('info', 'Please Login First!', 'top-center')
     }
   }, [])
 
   return (
+    
     <>
       <CCarousel />
       <p>{t('Welcome')}</p>

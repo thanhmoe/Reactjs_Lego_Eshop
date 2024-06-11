@@ -26,7 +26,7 @@ export default function Header({ isOpen, setOpen }) {
 
   const headerItem = [
     {
-      name: <a><HomeOutlined style={{ color: 'white' }} />{t('Home')}</a>,
+      name: <a><HomeOutlined style={{ color: 'white' }} /> {t('Home')}</a>,
       path: '/',
     },
     {
@@ -73,6 +73,9 @@ export default function Header({ isOpen, setOpen }) {
 
       ),
 
+    },
+    {
+      type:'divider'
     },
     {
       key: '2',

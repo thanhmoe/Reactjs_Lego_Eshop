@@ -182,12 +182,14 @@
     cursor: pointer;
 }
 
+
 .langMenuText {
     color: azure;
 }
 
 .countryFlag {
-    width: 20px;
+    width: 25px;
+    height: auto;
     margin-right: 10px;
 }
 

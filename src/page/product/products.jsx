@@ -32,15 +32,11 @@ export default function products() {
 
         <div className="productsList">
             <h2>Products</h2>
-            <div className="searchbar">
+            <div >
                 <Space>
-                    <Search
+                    <Search className="searchbar"
                         placeholder="input search text"
                         onSearch={onSearch} onChange={handleSearchChange}
-                        style={{
-                            width: 200,
-                        }}
-
                     />
                     <div>
                         <Select defaultValue="" style={{ width: 200 }} onChange={handleSortChange}>

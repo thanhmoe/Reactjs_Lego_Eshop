@@ -6,6 +6,10 @@
 }
 .searchbar{
     padding: 20px;
+    width: 200px;
+}
+.searchbar:focus{
+    outline: none;
 }
 .productInfo {
     display: flex;
