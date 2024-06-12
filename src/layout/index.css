@@ -23,7 +23,6 @@
 }
 
 .body {
-    /* display: flex; */
     min-height: 100vh;
 
 }
@@ -33,8 +32,10 @@
 }
 
 .contentBody {
-    flex: 1;
+    display: flex;
+    justify-content: center;
     padding: 20px;
+    width: 100%;
 }
 
 .contentBody.is-shown {

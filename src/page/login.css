@@ -23,6 +23,9 @@
 .formLogin>input {
     border: none;
 }
+label{
+    color: black;
+}
 
 .btn-group{
     display: flex;

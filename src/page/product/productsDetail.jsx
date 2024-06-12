@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import './productsDetail.css'
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import productsData from "../../assets/data/productsData.js";
 import { CommentOutlined } from '@ant-design/icons';
 import { selectProducts, selectLoadingState, fetchProduct } from "../../features/products/productsSlice.js";
 import { use } from "i18next";
@@ -11,25 +10,25 @@ import { use } from "i18next";
 export default function productsDetail() {
     const { productId } = useParams();
     const products = useSelector(selectProducts);
-    
+       
     const thisProduct = products.find(p => p.id === productId)
 
 console.log(thisProduct)
 
     const [value, setValue] = useState('')
     const [listComment, setListComment] = useState([
-        {
-            id: 1,
-            text: 'first comment here'
-        },
-        {
-            id: 2,
-            text: ' im a second'
-        },
-        {
-            id: 3,
-            text: ' im a third guys here'
-        },
+        // {
+        //     id: 1,
+        //     text: 'first comment here'
+        // },
+        // {
+        //     id: 2,
+        //     text: ' im a second'
+        // },
+        // {
+        //     id: 3,
+        //     text: ' im a third guys here'
+        // },
 
     ])
 
