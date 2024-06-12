@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import InfiniteScroll from "react-infinite-scroll-component";
-import  {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import LoadingModal from "../modal/loadingModal";
+
+
 const articlesList = () => {
+    const [isLoading, setIsLoading] = useState(true)
     const [items, setItems] = useState([]);
     const [visibleArticles, setVisibleArticles] = useState([])
 
@@ -18,18 +21,20 @@ const articlesList = () => {
                 setItems(response.data)
                 setVisibleArticles(response.data.slice(0, 10))
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(() => setIsLoading(false))
     }, [])
 
 
     const fetchMoreData = () => {
-
         if (visibleArticles.length >= items.length) {
             return
         }
+        setIsLoading(true)
         setTimeout(() => {
             const newVisibleArticles = items.slice(0, visibleArticles.length + 5);
             setVisibleArticles(newVisibleArticles);
+            setIsLoading(false)
         }, 500);
     }
 
@@ -48,10 +53,11 @@ const articlesList = () => {
         };
     }, [fetchMoreData]);
     return <>
+        {isLoading && <LoadingModal />}
         <div className="container-news">
             {visibleArticles.map(article => (
-                <div  className="articles" key={article.id}>
-                    <img onClick={()=>linkToDetail(article.id)} src={article.image} alt={article.title} />
+                <div className="articles" key={article.id}>
+                    <img onClick={() => linkToDetail(article.id)} src={article.image} alt={article.title} />
                     <h2>{article.title}</h2>
                     <p>View:{article.view}</p>
                     <p>{article.description}</p>

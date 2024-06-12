@@ -149,6 +149,9 @@
         cursor: pointer;
     }
 }
+.menu-avatar{
+    width: 200px;
+}
 
 .menu-item ul {
     list-style-type: none;

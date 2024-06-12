@@ -5,6 +5,8 @@ import {
   RouterProvider
 } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
+import store from './redux/store.js';
+import { Provider } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'universal-cookie';
 import App from './App.jsx';
@@ -19,6 +21,7 @@ import About from './page/about.jsx';
 import Login from './page/login.jsx';
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
+import LoadingModal from './modal/loadingModal.jsx';
 
 export const cookies = new Cookies(null, { path: '/' })
 
@@ -78,7 +81,7 @@ const router = createBrowserRouter([
   {
     path: "/news/:articleId",
     element: <MainLayout>
-      <NewsDetail/>
+      <NewsDetail />
     </MainLayout>,
   },
 
@@ -112,7 +115,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Suspense fallback={<h2>loading</h2>}>
+    element: <Suspense fallback={<LoadingModal />}>
       <Login />
     </Suspense>,
   },
@@ -121,7 +124,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ToastContainer />
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 )

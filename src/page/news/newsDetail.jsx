@@ -30,7 +30,7 @@ export default function newsDetail() {
             <p className="view">View: {article.view}</p>
             <p>{article.description}</p>
             <p>{article.content}</p>
-            {/* Add more article details as needed */}
+            
         </div>
 
     </>

@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './productsDetail.css'
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import productsData from "../../assets/data/productsData.js";
 import { CommentOutlined } from '@ant-design/icons';
+import { selectProducts, selectLoadingState, fetchProduct } from "../../features/products/productsSlice.js";
+import { use } from "i18next";
+
 
 export default function productsDetail() {
     const { productId } = useParams();
-    const thisProduct = productsData.find(p => p.id === productId)
-
+    const [items, setItems] = useState([])
+    const [thisProduct, setThisProducts] = useState([])
+    const dispatch = useDispatch()
+    const productsStatus = useSelector(selectLoadingState);
+    const products = useSelector(selectProducts);
+    useEffect(() => {
+        if (productsStatus === 'ide') {
+            dispatch(fetchProduct())
+        }
+        setItems(products)
+        const foundproducts = items.find(item => item.id === productId);
+        setThisProducts(foundproducts);
+    }, [productsStatus, dispatch])
 
     const [value, setValue] = useState('')
     const [listComment, setListComment] = useState([
@@ -46,18 +61,16 @@ export default function productsDetail() {
     return <>
 
 
-        
+
         <div className="productsDetail">
 
             <div className="leftInfo">
-                <img className="imageDetail" src={thisProduct.image} alt={thisProduct.name} />
+                <img className="imageDetail" src={thisProduct.image} />
             </div>
             <div className="detailInfo">
-                <h3 className="productName">{thisProduct.productName}</h3>
-                <p>{thisProduct.decsription}</p>
-                <p>Chip:{thisProduct.Chip}</p>
-                <p>Display:{thisProduct.Display}</p>
-                <h3>${thisProduct.price}</h3>
+                <h3 className="productName">{thisProduct.name_product}</h3>
+                <p>Description:{thisProduct.introduce}</p>
+
                 <button className="btnBuy">Add to cart</button>
             </div>
             <div className="comment">

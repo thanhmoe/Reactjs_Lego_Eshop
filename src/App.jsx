@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import './App.css'
 import { cookies, notify } from './main'
 import { useTranslation } from "react-i18next"
-import { Button } from "antd"
 import { CCarousel } from '@coreui/react'
 
 let user1 = {
@@ -30,7 +29,6 @@ function App() {
   return (
     
     <>
-      <CCarousel />
       <p>{t('Welcome')}</p>
     </>
   )

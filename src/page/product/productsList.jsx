@@ -44,7 +44,6 @@ const productList = ({ searchQuery, sortOption }) => {
         <div className="productList">
             {filteredProducts.map(products => (
                 <div key={products.id} className="productInfo">
-                    {/* <img onClick={() => navigate(`/products/${products.id}`)} className="imageProduct" src={products.image} /> */}
                     <img onClick={() => linkToDetail(products.id)} className="imageProduct" src={products.image} />
                     <h3>{products.productName}</h3>
                     <p>Description:{products.decsription}</p>

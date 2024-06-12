@@ -3,7 +3,7 @@ import Aside from "./Aside";
 import Footer from "./Footer";
 import Header from "./Header";
 import './index.css';
-
+import LoadingModal from "../modal/loadingModal";
 
 
 
@@ -32,7 +32,7 @@ export default function MainLayout({ children }) {
     const [isOpen, setOpen] = useState(false)
 
     return <div className="mainLayout">
-        <Suspense fallback={<h2>loading</h2>}>
+        <Suspense fallback={< LoadingModal />}>
             <div className="header"><Header isOpen={isOpen} setOpen={setOpen} /></div>
             <div className={`body ${isOpen ? 'is-shown' : ''}`}>
                 <div className={`aside ${(isOffset && isOpen) ? 'is-shown' : ''}`}>{isOpen ? <Aside /> : null} </div>
@@ -42,5 +42,5 @@ export default function MainLayout({ children }) {
             </div>
             <div className="footer"><Footer /></div>
         </Suspense>
-    </div>
+    </div >
 }

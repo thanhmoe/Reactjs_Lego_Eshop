@@ -57,7 +57,7 @@ export default function Header({ isOpen, setOpen }) {
       type: 'divider',
     },
     {
-      label: <a onClick={()=> signOut()}> {t('SignOut')}  </a>,
+      label: <a onClick={() => signOut()}> {t('SignOut')}  </a>,
       key: '2',
     },
   ];
@@ -75,7 +75,7 @@ export default function Header({ isOpen, setOpen }) {
 
     },
     {
-      type:'divider'
+      type: 'divider'
     },
     {
       key: '2',
@@ -124,7 +124,7 @@ export default function Header({ isOpen, setOpen }) {
       <div className="avatar">
         <Dropdown
           menu={{ items }}
-          trigger={['click']}>
+          trigger={['click']} >
           <a onClick={(e) => e.preventDefault()}>
             <Space>
               <img className="imgAvatar" src={avatar} alt="" />
