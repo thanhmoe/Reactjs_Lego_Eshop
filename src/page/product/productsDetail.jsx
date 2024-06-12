@@ -10,19 +10,11 @@ import { use } from "i18next";
 
 export default function productsDetail() {
     const { productId } = useParams();
-    const [items, setItems] = useState([])
-    const [thisProduct, setThisProducts] = useState([])
-    const dispatch = useDispatch()
-    const productsStatus = useSelector(selectLoadingState);
     const products = useSelector(selectProducts);
-    useEffect(() => {
-        if (productsStatus === 'ide') {
-            dispatch(fetchProduct())
-        }
-        setItems(products)
-        const foundproducts = items.find(item => item.id === productId);
-        setThisProducts(foundproducts);
-    }, [productsStatus, dispatch])
+    
+    const thisProduct = products.find(p => p.id === productId)
+
+console.log(thisProduct)
 
     const [value, setValue] = useState('')
     const [listComment, setListComment] = useState([
@@ -51,11 +43,9 @@ export default function productsDetail() {
             const nextComments = [...listComment, nextComment]
             setListComment(nextComments)
             setValue('')
-            console.log(listComment)
         }
 
     }
-
 
 
     return <>
@@ -63,14 +53,12 @@ export default function productsDetail() {
 
 
         <div className="productsDetail">
-
             <div className="leftInfo">
                 <img className="imageDetail" src={thisProduct.image} />
             </div>
             <div className="detailInfo">
                 <h3 className="productName">{thisProduct.name_product}</h3>
                 <p>Description:{thisProduct.introduce}</p>
-
                 <button className="btnBuy">Add to cart</button>
             </div>
             <div className="comment">
@@ -78,7 +66,6 @@ export default function productsDetail() {
                     Comment
                 </h3>
                 <div  >
-
                     {listComment.map(comment => (
                         <ul className="commented" key={comment.id}>
                             <li><CommentOutlined />

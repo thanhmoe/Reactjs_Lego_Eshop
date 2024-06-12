@@ -10,7 +10,6 @@ const ProductComponent = () => {
     const [visibleProducts, setVisibleProduct] = useState([])
 
     const linkToDetail = (id) => {
-        console.log(id)
         navigate(`/products/${id}`)
     }
     const dispatch = useDispatch()
@@ -53,13 +52,12 @@ const ProductComponent = () => {
     }, [fetchMoreData]);
 
 
-    console.log(visibleProducts)
     return <>
         {isLoading && <LoadingModal />}
         <div className="product-list">
             {visibleProducts.map(products => (
                 <div key={products.id} className="product-info">
-                    <img className="image-product" src={products.image} />
+                    <img onClick={()=>linkToDetail(products.id)}  className="image-product" src={products.image} />
                     <h3>{products.name_product}</h3>
                     <p>Description:{products.introduce}</p>
                     <button className="btn-buy">Add to cart</button>
