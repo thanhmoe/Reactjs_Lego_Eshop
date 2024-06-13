@@ -1,13 +1,10 @@
 import React from "react";
 import './modal.css'
 
-
-
 export default function modal({ isOpen, onClose, children }) {
     if (!isOpen) {
         return null
     }
-
 
     return <>
         <div onClick={onClose} className="modal"></div>
@@ -18,7 +15,5 @@ export default function modal({ isOpen, onClose, children }) {
                 {children}
             </div>
         </div>
-
-
     </>
 }

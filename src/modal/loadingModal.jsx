@@ -1,14 +1,7 @@
 import React from "react";
 import './loadingModal.css'
 
-
-
 export default function loadingModal() {
-    // if (!isOpen) {
-    //     return null
-    // }
-
-
     return <>
         <div className="modal-container" data-backdrop="static">
         </div>
@@ -20,7 +13,5 @@ export default function loadingModal() {
                 </div>
             </div>
         </div>
-
-
     </>
 }

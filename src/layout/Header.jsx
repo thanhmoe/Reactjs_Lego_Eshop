@@ -119,8 +119,6 @@ export default function Header({ isOpen, setOpen }) {
         </Dropdown>
       </div>
 
-
-
       <div className="avatar">
         <Dropdown
           menu={{ items }}

@@ -43,7 +43,7 @@ export default function contact() {
         }
     }
 
-
+    //form validation
     const handlevalidation = () => {
         if (!formData.inputName) {
             setIsValid(false)
@@ -124,11 +124,10 @@ export default function contact() {
             && VALIDEMAIL.test(formData.email) && REGNUMBER.test(formData.phone) && formData.inputName.length <= 32 && formData.message.length <= 500) {
             return true
         }
-        console.log(isValid);
         return isValid;
     };
 
-
+    //hande change on input
     const handleChange = (e) => {
         const { id, value } = e.target
         setFormData({
@@ -155,11 +154,8 @@ export default function contact() {
 
     };
 
-
-
     return <>
-        <div className="contact-page">
-            <div action="" className="formContact">
+            <div className="formContact">
                 <h3 className='decs'>Contact Us</h3>
                 <p className='decs'>You are welcome to fill in the form below
                 </p>
@@ -225,7 +221,6 @@ export default function contact() {
                     </div>
                 </div>
             </div>
-        </div>
 
         <Modal isOpen={open} onClose={handleClose}>
             <h3 className="modal-name">Your name is:{formData.inputName}</h3>

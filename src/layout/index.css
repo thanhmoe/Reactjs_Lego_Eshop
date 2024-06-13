@@ -35,19 +35,13 @@
     display: flex;
     justify-content: center;
     padding: 20px;
-    width: 100%;
+    flex: 1;
 }
 
 .contentBody.is-shown {
     margin-left: 20%;
     flex: 1;
     padding: 20px;
-}
-
-.sider {
-   
-    background-color: #393E46;
-    height: 100%;
 }
 
 .aside {

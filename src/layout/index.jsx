@@ -15,7 +15,6 @@ export default function MainLayout({ children }) {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-
     const handleScroll = () => {
         const scrollY = window.scrollY
         if (scrollY > 120) {
@@ -25,10 +24,6 @@ export default function MainLayout({ children }) {
         }
 
     }
-
-
-
-
     const [isOpen, setOpen] = useState(false)
 
     return <div className="mainLayout">

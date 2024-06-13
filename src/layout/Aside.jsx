@@ -3,10 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import i18next from "i18next";
 import { useTranslation } from "react-i18next"
 
-
-
-
-
 export default function Aside() {
   const navigate = useNavigate();
   const { t } = useTranslation(['common']);
@@ -25,8 +21,6 @@ export default function Aside() {
       path: '/news'
     }
   ]
-
-
 
   return <div>
     <div className='groupItem'>

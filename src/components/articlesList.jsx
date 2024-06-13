@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 import LoadingModal from "../modal/loadingModal";
 
 
-const articlesList = () => {
+const articlesList = ({ searchQuery, sortOption }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [items, setItems] = useState([]);
     const [visibleArticles, setVisibleArticles] = useState([])
 
     const navigate = useNavigate();
     const linkToDetail = (id) => {
-        console.log(id)
         navigate(`/news/${id}`)
     }
 
+    //fetch api
     useEffect(() => {
         axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/list")
             .then(response => {
@@ -24,7 +24,6 @@ const articlesList = () => {
             .catch(error => console.log(error))
             .finally(() => setIsLoading(false))
     }, [])
-
 
     const fetchMoreData = () => {
         if (visibleArticles.length >= items.length) {
@@ -52,10 +51,21 @@ const articlesList = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [fetchMoreData]);
+    // search and filter options
+    const filterAndSortArticles = (articles, query, sort) => {
+        let filteredArticles = articles.filter(article =>
+            article.title.toLowerCase().includes(query.toLowerCase())
+        )
+        switch (sort) {
+            default:
+                break;
+        }
+        return filteredArticles;
+    }
+    const filteredArticles = filterAndSortArticles(visibleArticles, searchQuery, sortOption)
     return <>
         {isLoading && <LoadingModal />}
-        <div className="container-news">
-            {visibleArticles.map(article => (
+            {filteredArticles.map(article => (
                 <div className="articles" key={article.id}>
                     <img onClick={() => linkToDetail(article.id)} src={article.image} alt={article.title} />
                     <h2>{article.title}</h2>
@@ -63,7 +73,6 @@ const articlesList = () => {
                     <p>{article.description}</p>
                 </div>
             ))}
-        </div>
     </>
 }
 export default articlesList;

@@ -5,34 +5,42 @@ import { useParams } from "react-router-dom";
 import { CommentOutlined } from '@ant-design/icons';
 import { selectProducts, selectLoadingState, fetchProduct } from "../../features/products/productsSlice.js";
 import { use } from "i18next";
-
+import ModalImage from "../../modal/modalImage.jsx";
+import LoadingModal from "../../modal/loadingModal.jsx";
+import { useLocation } from "react-router-dom";
 
 export default function productsDetail() {
-    const { productId } = useParams();
+    const [open, setOpen] = useState(false);
     const products = useSelector(selectProducts);
-       
-    const thisProduct = products.find(p => p.id === productId)
+    const dispatch = useDispatch();
+    //get product's ID
+    const { productId } = useParams();
+    const thisProduct = products.find(p => p.id === productId);
 
-console.log(thisProduct)
+    //check product data if visible or not
+    useEffect(() => {
+        if (products.length ===0) {
+            dispatch(fetchProduct())
+        };
+    }, []);
 
+    //comment state
     const [value, setValue] = useState('')
     const [listComment, setListComment] = useState([
-        // {
-        //     id: 1,
-        //     text: 'first comment here'
-        // },
-        // {
-        //     id: 2,
-        //     text: ' im a second'
-        // },
-        // {
-        //     id: 3,
-        //     text: ' im a third guys here'
-        // },
+        {
+            id: 1,
+            text: 'first comment here'
+        },
+        {
+            id: 2,
+            text: ' im a second'
+        },
+        {
+            id: 3,
+            text: ' im a third guys here'
+        },
 
     ])
-
-
     const onSubmit = () => {
         if (value) {
             let nextComment = {
@@ -43,41 +51,53 @@ console.log(thisProduct)
             setListComment(nextComments)
             setValue('')
         }
-
     }
 
-
+    //handle open modal
+    const handleOpen = () => {
+        setOpen(true)
+    }
+    const handleClose = () => {
+        setOpen(false)
+    }
+   
     return <>
-
-
-
-        <div className="productsDetail">
-            <div className="leftInfo">
-                <img className="imageDetail" src={thisProduct.image} />
-            </div>
-            <div className="detailInfo">
-                <h3 className="productName">{thisProduct.name_product}</h3>
-                <p>Description:{thisProduct.introduce}</p>
-                <button className="btnBuy">Add to cart</button>
-            </div>
-            <div className="comment">
-                <h3>
-                    Comment
-                </h3>
-                <div  >
-                    {listComment.map(comment => (
-                        <ul className="commented" key={comment.id}>
-                            <li><CommentOutlined />
-                                <p>{comment.text}</p>
-                            </li>
-                        </ul>
-                    ))}
+        {products.length === 0
+            ? <LoadingModal/>
+            :
+            <div>
+                <ModalImage isOpen={open} onClose={handleClose} >
+                    <img className="img-show" src={thisProduct.image} alt={thisProduct.name_product} />
+                </ModalImage>
+                <div className="productsDetail">
+                    <div className="leftInfo">
+                        <img onClick={handleOpen} className="imageDetail" src={thisProduct.image} alt={thisProduct.name_product} />
+                    </div>
+                    <div className="detailInfo">
+                        <h3 className="productName">{thisProduct.name_product}</h3>
+                        <p>Description:{thisProduct.introduce}</p>
+                        <button className="btn-buy">Add to cart</button>
+                    </div>
+                    <div className="comment">
+                        <h3>
+                            Comment
+                        </h3>
+                        <div  >
+                            {listComment.map(comment => (
+                                <ul className="commented" key={comment.id}>
+                                    <li><CommentOutlined />
+                                        <p>{comment.text}</p>
+                                    </li>
+                                </ul>
+                            ))}
+                        </div>
+                        <div className="comment-component">
+                            <input className='inputCmt' placeholder="write comment here"></input>
+                            <button className="btn-cmt"> Submit</button>
+                        </div>
+                    </div>
                 </div>
-                <div className="comment-component">
-                    <input className='inputCmt' onChange={(e) => setValue(e.target.value)} placeholder="write comment here"></input>
-                    <button onClick={onSubmit} className="btnCmt"> Submit</button>
-                </div>
             </div>
-        </div>
+        }
     </>
 }

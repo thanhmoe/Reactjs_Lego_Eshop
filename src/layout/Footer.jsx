@@ -5,7 +5,6 @@ export default function Footer() {
             <div className="coppyright">
                 <p>Coppy Right 2024@</p>
             </div>
-
         </div>
     </>
 }

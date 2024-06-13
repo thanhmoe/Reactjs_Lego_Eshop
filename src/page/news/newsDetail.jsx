@@ -8,12 +8,12 @@ export default function newsDetail() {
     const [items, setItems] = useState([])
     const [article, setArticle] = useState([])
 
-
+    //get api
     useEffect(() => {
         axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/list")
             .then(response => {
                 setItems(response.data);
-                const foundArticle = response.data.find(item => item.id === articleId);
+                const foundArticle = response.data.find(item => item.id === articleId);//get id
                 setArticle(foundArticle);
             })
             .catch(error => console.log(error));

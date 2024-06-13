@@ -1,4 +1,8 @@
-.product-list {
+.container-product {
+    width: 100%;
+}
+
+.products-list {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -6,6 +10,7 @@
     padding: 20px;
 
 }
+
 
 .searchbar {
     padding: 20px;
@@ -53,6 +58,12 @@
 }
 
 h3,
+.products-label {
+    color: black;
+    margin: 20px;
+    text-align: center;
+}
+
 p {
     margin: 5px 0;
 }

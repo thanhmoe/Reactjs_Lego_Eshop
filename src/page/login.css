@@ -20,8 +20,9 @@
     padding: 20px;
     background-color: white;
 }
-.formLogin>input {
-    border: none;
+.forminput {
+    background-color: white;
+    border: 1px solid;
 }
 label{
     color: black;

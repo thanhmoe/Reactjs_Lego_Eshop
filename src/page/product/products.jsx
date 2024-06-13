@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ProductList from "./productsList";
 import './products.css'
 import { Input, Space, Select } from 'antd';
 const { Search } = Input;
@@ -7,32 +6,30 @@ const { Option } = Select;
 import ProductComponent from "../../features/products/ProductComponent";
 
 export default function products() {
-    // const [searchQuery, setSearchQuery] = useState('')
-    // const [sortOption, setSortOption] = useState('')
+    //filter state
+    const [searchQuery, setSearchQuery] = useState('')
+    const [sortOption, setSortOption] = useState('')
 
-    // const handleSearchChange = (e) => {
-    //     const value = e.target.value
-    //     setTimeout(() => {
-    //         setSearchQuery(value)
-    //     }, 1500);
-    // }
+    //handle input filter, search change
+    const handleSearchChange = (e) => {
+        const value = e.target.value
+        setTimeout(() => {
+            setSearchQuery(value)
+        }, 1500);
+    }
 
-    // const onSearch = (value) => [
-    //     setSearchQuery(value)
-    // ]
+    const onSearch = (value) => [
+        setSearchQuery(value)
+    ]
 
-    // const handleSortChange = (value) => {
-    //     setSortOption(value)
-    // }
+    const handleSortChange = (value) => {
+        setSortOption(value)
+    }
 
     return <>
-
-
-            <ProductComponent />
-    
-        {/* <div className="productsList">
-            <h2>Products</h2>
-            <div >
+        <div className="container-product">
+            <div className="filter">
+                <h2 className="products-label">PRODUCTS</h2>
                 <Space>
                     <Search className="searchbar"
                         placeholder="input search text"
@@ -49,8 +46,9 @@ export default function products() {
                     </div>
                 </Space>
             </div>
-            <ProductList searchQuery={searchQuery} sortOption={sortOption} />
-        </div> */}
-
+            <div className="products-list">
+                <ProductComponent searchQuery={searchQuery} sortOption={sortOption} />
+            </div>
+        </div>
     </>
 }

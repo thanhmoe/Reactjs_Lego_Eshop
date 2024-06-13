@@ -17,7 +17,7 @@ import MainLayout from './layout/index.jsx';
 import Products from './page/product/products.jsx';
 import Contact from './page/contact/contact.jsx';
 import News from './page/news/news.jsx';
-import About from './page/about.jsx';
+import About from './page/about/about.jsx';
 import Login from './page/login.jsx';
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
@@ -25,7 +25,7 @@ import LoadingModal from './modal/loadingModal.jsx';
 
 export const cookies = new Cookies(null, { path: '/' })
 
-//custom notify
+//custom notification
 export const notify = (type, content, position) => {
   const config = {
     position: position,
@@ -58,6 +58,7 @@ export const notify = (type, content, position) => {
 
 }
 
+//routers
 const router = createBrowserRouter([
   {
     path: "/",

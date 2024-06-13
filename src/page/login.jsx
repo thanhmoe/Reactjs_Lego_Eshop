@@ -4,20 +4,13 @@ import backgroundImage from '../../public/assets/bg.jpg';
 import { cookies, notify } from '../main';
 import './login.css';
 
-
-
 const myAccount = {
     username: 'thanh',
     password: '123'
 }
 const fakeToken = 'ey123123123123'
 
-
-
 const Login = () => {
-
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
     const [interacted, setInteracted] = useState(false);
     const [user, setUser] = useState({
         username: '',
@@ -27,8 +20,6 @@ const Login = () => {
 
 
     const navigate = useNavigate();
-
-
 
     const submit = () => {
         if (isValid()) {
@@ -53,7 +44,6 @@ const Login = () => {
 
     const handleChange = (type, value) => {
         setInteracted(true)
-        console.log('e =>', type)
         setUser({
             ...user,
             [type]: value
@@ -87,34 +77,24 @@ const Login = () => {
                     placeholder='Your User Name'
                     type="text"
                     value={user.username}
-                    onChange={(e) => handleChange('username', e.target.value)}
-
-
-                />
+                    onChange={(e) => handleChange('username', e.target.value)} />
                 <input
                     className='forminput'
                     type="password"
                     placeholder='Your Password'
                     value={user.password}
-                    onChange={(e) => handleChange('password', e.target.value)}
-
-                />
+                    onChange={(e) => handleChange('password', e.target.value)} />
                 {(isActive && interacted) ? <span className='form-message'>Not valid</span> : null}
             </div>
             <input
                 type='checkbox'
                 checked={isCheck}
-                onChange={(e) => setIsCheck(e.target.checked)}
-            />
+                onChange={(e) => setIsCheck(e.target.checked)} />
             <label htmlFor="checkbox">Remember Me</label>
             <div className='btn-group'>
-
                 <button className='btnLogin' onClick={submit} disabled={isActive}>Login</button>
             </div>
-
         </div>
-
-
     </div>
 }
 
