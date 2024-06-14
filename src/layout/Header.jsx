@@ -1,6 +1,5 @@
 import React from "react"
 import { useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme } from "antd"
 import logoImage from '../../public/assets/logo.png';
 import avatar from '../../public/assets/avatar.png';
 import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined } from '@ant-design/icons';

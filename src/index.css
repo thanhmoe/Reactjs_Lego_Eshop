@@ -23,10 +23,9 @@ a:hover {
 }
 
 body {
-  background: white;
   display: flex;
   place-items: center;
-  
+  background: #f9f9f9;
 }
 
 h1 {

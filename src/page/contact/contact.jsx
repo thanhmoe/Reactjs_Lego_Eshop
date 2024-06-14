@@ -166,8 +166,8 @@ export default function contact() {
                         defaultValue=""
                         onChange={handleChange}>
                         <option value=""> Choose Your Position</option>
-                        {JOBSELECT.map(jobs => (
-                            <option value={jobs.jobName} key={jobs.id}>{jobs.jobName}</option>
+                        {JOBSELECT.map(job => (
+                            <option value={job.jobName} key={job.id}>{job.jobName}</option>
                         ))}
 
                     </select>

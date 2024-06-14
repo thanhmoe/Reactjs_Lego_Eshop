@@ -1,0 +1,112 @@
+/* Container styling */
+.about-us-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    animation: fadeIn 1s ease-in-out;
+    gap: 50px;
+}
+h1{
+    color: black;
+}
+/* Title styling */
+.about-us-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+    animation: slideInFromTop 0.5s ease-in-out;
+}
+
+/* Description styling */
+.about-us-description {
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    color: #555;
+    animation: slideInFromLeft 0.5s ease-in-out;
+}
+
+/* Team and Mentor section styling */
+.about-us-team,
+.about-us-mentors {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Individual team and mentor member styling */
+.team-member,
+.mentor-member {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    width: 250px;
+    transition: transform 0.3s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.team-member:hover,
+.mentor-member:hover {
+    transform: translateY(-10px);
+}
+
+.team-member img,
+.mentor-member img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.team-member h3,
+.mentor-member h3 {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.team-member p,
+.mentor-member p {
+    font-size: 1rem;
+    color: #777;
+    padding: 0 1rem;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

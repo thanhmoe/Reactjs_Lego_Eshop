@@ -32,10 +32,9 @@ function App() {
     <>
       <section>
         <h2 className="slide-in-left">{t('Welcome')}</h2>
-        <p class="slide-in-left short-paragraph">Hi, I'm a web developer with a passion for creating interactive and visually appealing websites. This is a sample homepage to demonstrate some basic web development techniques.</p>
+        <p className="slide-in-left short-paragraph">Hi, I'm a web developer with a passion for creating interactive and visually appealing websites. This is a sample homepage to demonstrate some basic web development techniques.</p>
       </section>
       <section>
-        <h2 class="slide-in-right">Featured Image</h2>
         <img src={homeimg} alt="A beautiful scenery" className="slide-in-right animated-image"></img>
       </section>
     </>

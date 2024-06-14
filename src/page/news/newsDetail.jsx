@@ -1,39 +1,37 @@
 import React, { useState, useEffect } from "react";
 import './news.css';
+import { useSelector, useDispatch } from "react-redux";
+import { selectArticles,selectLoadingState, fetchArticle } from "../../features/articles/articlesSlice.js";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import LoadingModal from "../../modal/loadingModal";
+
 
 export default function newsDetail() {
     const { articleId } = useParams();
-    const [items, setItems] = useState([])
-    const [article, setArticle] = useState([])
+    const articles = useSelector(selectArticles);
+    const dispatch = useDispatch();
 
-    //get api
+    const thisArticle = articles.find(a => a.id === articleId)
+
+    //check article data if visible or not
     useEffect(() => {
-        axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/list")
-            .then(response => {
-                setItems(response.data);
-                const foundArticle = response.data.find(item => item.id === articleId);//get id
-                setArticle(foundArticle);
-            })
-            .catch(error => console.log(error));
-    }, [articleId])
-
-    if (!article) {
-        return <div>Loading</div>
-    }
+        if (articles.length === 0) {
+            dispatch(fetchArticle())
+        };
+    }, []);
 
     return <>
-        <div className="news-detail">
-            <h1>{article.title}</h1>
-            <img src={article.image} alt={article.title} />
-            <p className="view">View: {article.view}</p>
-            <p>{article.description}</p>
-            <p>{article.content}</p>
-            
-        </div>
-
+        {articles.length === 0
+            ? <LoadingModal />
+            :
+            <div className="news-detail">
+                <h1>{thisArticle.title}</h1>
+                <img src={thisArticle.image} alt={thisArticle.title} />
+                <p className="view">View: {thisArticle.view}</p>
+                <p>{thisArticle.description}</p>
+                <p>{thisArticle.content}</p>
+            </div>
+        }
     </>
-
 
 }

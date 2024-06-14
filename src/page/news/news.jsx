@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import './news.css'
-import ArticlesList from "../../components/articlesList";
+import ArticleComponent from "../../features/articles/ArticleComponent";
 import { Input, Space, Select } from 'antd';
 const { Search } = Input;
 const { Option } = Select;
+import { FILTERNEWS } from "../../constants";
 export default function news() {
 
     // handle input filter and search
@@ -35,15 +36,16 @@ export default function news() {
                     />
                     <div>
                         <Select defaultValue="" style={{ width: 200 }} onChange={handleSortChange}>
-                            <Option value="">Sorting</Option>
-                            <Option value="dateASC">Date A-Z</Option>
-                            <Option value="dateDesc">Date Z-A</Option>
+                            <Option value="">Sort</Option>
+                            {FILTERNEWS.map(news => (
+                                <Option key={news.id} value={news.type}>{news.name}</Option>
+                            ))}
                         </Select>
                     </div>
                 </Space>
             </div>
             <div className="news" >
-                <ArticlesList searchQuery={searchQuery} sortOption={sortOption} />
+                <ArticleComponent searchQuery={searchQuery} sortOption={sortOption} />
             </div>
         </div>
     </>

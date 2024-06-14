@@ -1,17 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { fetchProducts } from "../../axios/api";
 
 export const fetchProduct = createAsyncThunk(
     'productList/fetchProduct',
     async () => {
-        try {
-            const response = await axios.get(
-                "https://6667b7edf53957909ff50b75.mockapi.io/api/v1/products"
-            );
-            return response.data;
-        } catch (error) {
-            console.error(error);
-        }
+        const data = await fetchProducts();
+        return data;
     });
 
 
@@ -47,6 +41,5 @@ const productsSlice = createSlice({
 export const selectProducts = state => state.productList.items;
 export const selectLoadingState = state => state.productList.status;
 export const selectErrorState = state => state.productList.hasError;
-
 
 export default productsSlice.reducer;

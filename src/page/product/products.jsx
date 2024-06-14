@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './products.css'
 import { Input, Space, Select } from 'antd';
+import { FILTERPRODUCTS } from "../../constants";
 const { Search } = Input;
 const { Option } = Select;
 import ProductComponent from "../../features/products/ProductComponent";
@@ -15,7 +16,7 @@ export default function products() {
         const value = e.target.value
         setTimeout(() => {
             setSearchQuery(value)
-        }, 1500);
+        }, 1000);
     }
 
     const onSearch = (value) => [
@@ -37,11 +38,10 @@ export default function products() {
                     />
                     <div>
                         <Select defaultValue="" style={{ width: 200 }} onChange={handleSortChange}>
-                            <Option value="">Sorting</Option>
-                            <Option value="nameAsc">Name A-Z</Option>
-                            <Option value="nameDesc">Name Z-A</Option>
-                            <Option value="priceAsc">Price Low-High</Option>
-                            <Option value="priceDesc">Price High-Low</Option>
+                            <Option value="">Sort</Option>
+                            {FILTERPRODUCTS.map(filer => (
+                                <Option key={filer.id} value={filer.type}>{filer.name}</Option>
+                            ))}
                         </Select>
                     </div>
                 </Space>

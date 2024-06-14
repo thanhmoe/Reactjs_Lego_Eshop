@@ -65,12 +65,12 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
             case 'nameDesc':
                 filteredProducts.sort((a, b) => b.name_product.localeCompare(a.name_product));
                 break;
-            // case 'priceAsc':
-            //     filteredProducts.sort((a, b) => a.price - (b.price));
-            //     break;
-            // case 'priceDesc':
-            //     filteredProducts.sort((a, b) => b.price - (a.price));
-            //     break;
+            case 'priceAsc':
+                filteredProducts.sort((a, b) => a.price - (b.price));
+                break;
+            case 'priceDesc':
+                filteredProducts.sort((a, b) => b.price - (a.price));
+                break;
             default:
                 break;
         }
@@ -78,16 +78,21 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     }
     const filteredProducts = filterAndSortproduct(visibleProducts, searchQuery, sortOption)
 
-    return <>
-        {isLoading && <LoadingModal />}
-        {filteredProducts.map(products => (
-            <div key={products.id} className="product-info">
-                <img onClick={() => linkToDetail(products.id)} className="image-product" src={products.image} />
-                <h3>{products.name_product}</h3>
-                <p>Description:{products.introduce}</p>
+    const Product = (prop) => {
+        const { product } = prop
+        return (
+            <div key={product.id} className="product-info" onClick={() => linkToDetail(product.id)}>
+                <img className="image-product" src={product.image} />
+                <h3>{product.name_product}</h3>
+                <p>Description:{product.introduce}</p>
                 <button className="btn-buy">Add to cart</button>
             </div>
-        ))}
+        )
+    }
+
+    return <>
+        {isLoading && <LoadingModal />}
+        {filteredProducts.map(product => <Product key={product.id} product={product} />)}
     </>
 }
 export default ProductComponent;

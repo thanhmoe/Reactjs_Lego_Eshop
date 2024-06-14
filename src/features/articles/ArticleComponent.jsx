@@ -1,29 +1,31 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { selectArticles, selectLoadingState, fetchArticle } from "./articlesSlice";
 import { useNavigate } from "react-router-dom";
-import LoadingModal from "../modal/loadingModal";
+import LoadingModal from "../../modal/loadingModal";
 
 
-const articlesList = ({ searchQuery, sortOption }) => {
+const ArticleComponent = ({ searchQuery, sortOption }) => {
     const [isLoading, setIsLoading] = useState(true)
-    const [items, setItems] = useState([]);
     const [visibleArticles, setVisibleArticles] = useState([])
-
+    const dispatch = useDispatch()
+    const articlesStatus = useSelector(selectLoadingState);
+    const articles = useSelector(selectArticles);
     const navigate = useNavigate();
+
+
     const linkToDetail = (id) => {
         navigate(`/news/${id}`)
     }
 
-    //fetch api
+    //fetch data
     useEffect(() => {
-        axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/list")
-            .then(response => {
-                setItems(response.data)
-                setVisibleArticles(response.data.slice(0, 10))
-            })
-            .catch(error => console.log(error))
-            .finally(() => setIsLoading(false))
-    }, [])
+        if (articlesStatus === 'ide') {
+            dispatch(fetchArticle())
+        }
+        setVisibleArticles(articles.slice(0, 20))
+        setIsLoading(false)
+    }, [articlesStatus, dispatch]);
 
     const fetchMoreData = () => {
         if (visibleArticles.length >= items.length) {
@@ -51,7 +53,7 @@ const articlesList = ({ searchQuery, sortOption }) => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [fetchMoreData]);
-    
+
     // search and filter options
     const filterAndSortArticles = (articles, query, sort) => {
         let filteredArticles = articles.filter(article =>
@@ -82,4 +84,4 @@ const articlesList = ({ searchQuery, sortOption }) => {
         ))}
     </>
 }
-export default articlesList;
+export default ArticleComponent;
