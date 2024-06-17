@@ -71,6 +71,10 @@ export const MENUITEMS = [
     {
         name: 'News',
         path: '/news'
+    },
+    {
+        name: 'account',
+        path: '/account'
     }
 ]
 
