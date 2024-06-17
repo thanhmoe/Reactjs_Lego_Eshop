@@ -73,3 +73,18 @@ export const MENUITEMS = [
         path: '/news'
     }
 ]
+
+export const SELECTGENDER = [
+    {
+        id: 1,
+        gender: 'Males'
+    },
+    {
+        id: 2,
+        gender: 'Female'
+    },
+    {
+        id: 3,
+        gender: 'other'
+    }
+]

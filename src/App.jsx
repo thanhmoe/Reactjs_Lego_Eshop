@@ -1,4 +1,3 @@
-import i18next from "i18next"
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './App.css'
@@ -14,8 +13,6 @@ let user1 = {
 }
 
 function App() {
-
-
   const navigate = useNavigate();
   const { t } = useTranslation(['common']);
   //kiem tra xem da co token dang nhap chua
@@ -28,7 +25,6 @@ function App() {
   }, [])
 
   return (
-
     <>
       <section>
         <h2 className="slide-in-left">{t('Welcome')}</h2>

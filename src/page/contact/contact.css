@@ -11,11 +11,10 @@
     background-color: white;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     width: 500px;
-    height: 700px;
+    height: fit-content;
     justify-content: center;
     transform: scale(0.8);
     animation: fadeInScale 0.5s forwards;
-
 }
 
 @keyframes fadeInScale {
@@ -35,8 +34,10 @@
     height: 40px;
     padding: 10px;
     color: black;
+    border: 1px solid rgb(175, 175, 175);
     background-color: white;
-
+    gap: 20px;
+    border-radius: 5px;
 }
 
 
@@ -53,21 +54,25 @@
     outline: none;
 }
 
-.btn-group {
+.btn-group-contact {
     gap: 20px;
     padding: 10px 15px;
+    display: flex;
+    justify-content: center;
 }
 
-.btnSubmit,
-.btnClear {
+.btnSubmit {
     background-color: #00ADB5;
     border: none;
-    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.forminput-massage {
+.btnClear {}
+
+.forminput-message {
+    width: 100%;
+    border-radius: 5px;
     resize: none;
     height: 50px;
     padding: 5px;

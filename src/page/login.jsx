@@ -71,28 +71,34 @@ const Login = () => {
         <div className='formLogin'>
             <h3 className='decs'>LOGIN TO X</h3>
             <p className='decs'>Become a W3Schooler</p>
-            <div className='form-group'>
+            <div className='form-group-login'>
                 <input
-                    className='forminput'
+                    className='forminput-login'
                     placeholder='Your User Name'
                     type="text"
                     value={user.username}
                     onChange={(e) => handleChange('username', e.target.value)} />
                 <input
-                    className='forminput'
+                    className='forminput-login'
                     type="password"
                     placeholder='Your Password'
                     value={user.password}
                     onChange={(e) => handleChange('password', e.target.value)} />
                 {(isActive && interacted) ? <span className='form-message'>Not valid</span> : null}
-            </div>
-            <input
-                type='checkbox'
-                checked={isCheck}
-                onChange={(e) => setIsCheck(e.target.checked)} />
-            <label htmlFor="checkbox">Remember Me</label>
-            <div className='btn-group'>
-                <button className='btnLogin' onClick={submit} disabled={isActive}>Login</button>
+                <div>
+                    <input
+                        type='checkbox'
+                        checked={isCheck}
+                        onChange={(e) => setIsCheck(e.target.checked)} />
+                    <label htmlFor="checkbox">Remember Me</label>
+                </div>
+                <div className='btn-group-login'>
+                    <button className='btnLogin' onClick={submit} disabled={isActive}>Login</button>
+                    <button className='btn-forgot'>Forgot Password?</button>
+                </div>
+                <div className='login-text'>
+                    <p>Don't have an account? <a onClick={() => navigate('/signup')}>Signup</a></p>
+                </div>
             </div>
         </div>
     </div>

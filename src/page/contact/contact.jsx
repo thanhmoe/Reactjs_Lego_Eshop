@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import './contact.css';
-import { message } from "antd";
 import Modal from "../../modal/modal";
 import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../../constants";
-import { joinPaths } from "@remix-run/router";
 
 export default function contact() {
-
-    
     const [isValid, setIsValid] = useState(false);
     const [open, setOpen] = useState(false)
     // form data
@@ -53,7 +49,6 @@ export default function contact() {
                     inputName: 'Name cannot be empty',
                 }
             });
-
         } else if (formData.inputName.length > 32) {
             setIsValid(false)
             setErrorMessage((prevErrors) => {
@@ -62,10 +57,8 @@ export default function contact() {
                     inputName: 'Limit input name is 32',
                 }
             });
-
         }
         if (!formData.email) {
-
             setIsValid(false)
             setErrorMessage((prevErrors) => {
                 return {
@@ -73,7 +66,6 @@ export default function contact() {
                     email: 'Email cannot be empty',
                 }
             });
-
         } else if (!VALIDEMAIL.test(formData.email)) {
             setIsValid(false)
             setErrorMessage((prevErrors) => {
@@ -83,7 +75,6 @@ export default function contact() {
                 }
             });
         }
-
         if (!formData.phone) {
             setIsValid(false)
             setErrorMessage((prevErrors) => {
@@ -92,7 +83,6 @@ export default function contact() {
                     phone: 'Phone number cannot be empty',
                 }
             });
-
         } else if (!REGNUMBER.test(formData.phone)) {
             setIsValid(false)
             setErrorMessage((prevErrors) => {
@@ -118,7 +108,6 @@ export default function contact() {
                     message: 'Limit input message is 500',
                 }
             });
-
         }
         if (formData.inputName !== '' && formData.phone !== '' && formData.message !== '' && formData.email !== ''
             && VALIDEMAIL.test(formData.email) && REGNUMBER.test(formData.phone) && formData.inputName.length <= 32 && formData.message.length <= 500) {
@@ -138,8 +127,6 @@ export default function contact() {
             ...errorMessage,
             [id]: ''
         })
-
-
     };
 
     //handle clear button
@@ -151,27 +138,25 @@ export default function contact() {
             phone: '',
             message: ''
         })
-
     };
 
     return <>
-            <div className="formContact">
-                <h3 className='decs'>Contact Us</h3>
-                <p className='decs'>You are welcome to fill in the form below
-                </p>
-                <div className='form-group'>
-                    <label htmlFor="jobselect">Your's current position</label>
-                    <select id="jobselect"
-                        className="forminput"
-                        defaultValue=""
-                        onChange={handleChange}>
-                        <option value=""> Choose Your Position</option>
-                        {JOBSELECT.map(job => (
-                            <option value={job.jobName} key={job.id}>{job.jobName}</option>
-                        ))}
-
-                    </select>
-
+        <div className="formContact">
+            <h3 className='decs'>Contact Us</h3>
+            <p className='decs'>You are welcome to fill in the form below
+            </p>
+            <div className='form-group'>
+                <label htmlFor="jobselect">Your's current position</label>
+                <select id="jobselect"
+                    className="forminput"
+                    defaultValue=""
+                    onChange={handleChange}>
+                    <option value=""> Choose Your Position</option>
+                    {JOBSELECT.map(job => (
+                        <option value={job.jobName} key={job.id}>{job.jobName}</option>
+                    ))}
+                </select>
+                <div>
                     <label htmlFor="name"> Your name</label>
                     <input
                         id="inputName"
@@ -180,11 +165,11 @@ export default function contact() {
                         type="text"
                         value={formData.inputName}
                         onChange={handleChange}
-
                     />
                     <span className='form-message'>{errorMessage.inputName}</span>
+                </div>
+                <div>
                     <label htmlFor="email"> Email</label>
-
                     <input
                         id="email"
                         className={`forminput ${errorMessage.email ? 'is-error' : ''}`}
@@ -192,9 +177,10 @@ export default function contact() {
                         placeholder='Your Email'
                         value={formData.email}
                         onChange={handleChange}
-
                     />
                     <span className='form-message'>{errorMessage.email}</span>
+                </div>
+                <div>
                     <label htmlFor="phone"> Phone</label>
                     <input
                         id="phone"
@@ -203,25 +189,28 @@ export default function contact() {
                         placeholder='Your Phone Number'
                         value={formData.phone}
                         onChange={handleChange}
-
                     />
                     <span className='form-message'>{errorMessage.phone}</span>
+                </div>
+                <div>
                     <label htmlFor="message">Write Message Here</label>
-                    <textarea placeholder='Enter Messsage'
-                        type="textarea"
-                        className={`forminput-massage ${errorMessage.message ? 'is-error' : ''}`}
-                        id="message"
-                        value={formData.message}
-                        onChange={handleChange}>
-                    </textarea>
-                    <span className='form-message'>{errorMessage.message}</span>
-                    <div className='btn-group'>
-                        <button className='btnSubmit' onClick={handleSubmit}>Confirm</button>
-                        <button className='btnClear' onClick={onClear}>Clear</button>
+                    <div>
+                        <textarea placeholder='Enter Messsage'
+                            type="textarea"
+                            className={`forminput-message ${errorMessage.message ? 'is-error' : ''}`}
+                            id="message"
+                            value={formData.message}
+                            onChange={handleChange}>
+                        </textarea>
                     </div>
+                    <span className='form-message'>{errorMessage.message}</span>
+                </div>
+                <div className='btn-group-contact'>
+                    <button className='btnSubmit' onClick={handleSubmit}>Confirm</button>
+                    <button className='btnClear' onClick={onClear}>Clear</button>
                 </div>
             </div>
-
+        </div>
         <Modal isOpen={open} onClose={handleClose}>
             <h3 className="modal-name">Your name is:{formData.inputName}</h3>
             <p>Position:{formData.jobselect}</p>
@@ -229,7 +218,5 @@ export default function contact() {
             <p>Phone:{formData.phone}</p>
             <p>Message:{formData.message}</p>
         </Modal>
-
-
     </>
 }

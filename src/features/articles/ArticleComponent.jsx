@@ -28,12 +28,12 @@ const ArticleComponent = ({ searchQuery, sortOption }) => {
     }, [articlesStatus, dispatch]);
 
     const fetchMoreData = () => {
-        if (visibleArticles.length >= items.length) {
+        if (visibleArticles.length >= articles.length) {
             return
         }
         setIsLoading(true)
         setTimeout(() => {
-            const newVisibleArticles = items.slice(0, visibleArticles.length + 5);
+            const newVisibleArticles = articles.slice(0, visibleArticles.length + 5);
             setVisibleArticles(newVisibleArticles);
             setIsLoading(false)
         }, 500);

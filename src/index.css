@@ -15,11 +15,12 @@
 
 a {
   font-weight: 500;
-  /* color: black; */
+  color: black;
   text-decoration: inherit;
 }
 a:hover {
   color: rgb(157, 160, 160);
+  cursor: pointer;
 }
 
 body {
@@ -35,12 +36,13 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid rgb(175, 175, 175);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  color: black;
+  background-color: #ffffff;
   cursor: pointer;
   transition: border-color 0.25s;
 }

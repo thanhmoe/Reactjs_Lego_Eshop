@@ -19,6 +19,7 @@ import Contact from './page/contact/contact.jsx';
 import News from './page/news/news.jsx';
 import About from './page/about/about.jsx';
 import Login from './page/login.jsx';
+import Signup from './page/register/signup.jsx';
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
 import LoadingModal from './modal/loadingModal.jsx';
@@ -50,12 +51,9 @@ export const notify = (type, content, position) => {
     case 'info':
       toast.info(content, config);
       break;
-
     default:
       break;
   }
-
-
 }
 
 //routers
@@ -118,6 +116,12 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Suspense fallback={<LoadingModal />}>
       <Login />
+    </Suspense>,
+  },
+  {
+    path: "/signup",
+    element: <Suspense fallback={<LoadingModal />}>
+      <Signup />
     </Suspense>,
   },
 ]);

@@ -1,0 +1,124 @@
+.container-signup {
+    background-color: #282a35;
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.form-signup {
+    position: absolute;
+    width: 400px;
+    background-color: white;
+    height: fit-content;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    border-radius: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media screen and (max-width: 942px) {
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    @media screen and (max-width: 768px) {
+        border-radius: 0;
+    }
+}
+
+.form-group-signup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.forminput-signup {
+    color: black;
+    height: 40px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid rgb(175, 175, 175);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.forminput-signup:focus {
+    outline: none;
+}
+
+.forminput-other {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.gender-div {
+    width: 40%;
+}
+
+.birthday-div {
+    width: 60%;
+}
+
+.forminput-gender {
+    width: 100%;
+    background: white;
+    color: black;
+    height: 40px;
+    border-radius: 5px;
+
+}
+
+.birthday {
+    width: 100%;
+    border-radius: 5px;
+    height: 40px;
+    background: white;
+    color-scheme: light;
+    border: 1px solid rgb(175, 175, 175);
+}
+
+.btn-group-signup {
+    text-align: center;
+}
+
+.btn-signup {
+    background-color: #04aa6d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-signup:hover {
+    background-color: #037a54;
+}
+
+.signup-text a {
+    color: #04aa6d;
+    cursor: pointer;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-size: 0.875rem;
+    text-align: left;
+    margin-left: 0;
+}
+
+.signup-text {
+    text-align: center;
+}
