@@ -1,3 +1,4 @@
+/* Existing styles */
 .modal-image {
     position: fixed;
     top: 0;
@@ -11,19 +12,11 @@
     position: fixed;
     min-width: 600px;
     min-height: 600px;
-    top: 0;
-    left: 0;
-    transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadeIn-modal 0.3s ease-in-out;
 }
-
-/* .content-image {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    top: 0;
-    left: 0;
-    transform: translate(calc(50vw - 50%), calc(50vh - 50%));
-} */
 
 .btn-close {
     position: fixed;
@@ -36,6 +29,18 @@
     padding: 20px;
 }
 
-.btn-close:hover{
+.btn-close:hover {
     cursor: pointer;
+}
+
+@keyframes fadeIn-modal {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }

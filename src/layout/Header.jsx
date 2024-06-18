@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from 'react';
 import logoImage from '../../public/assets/logo.png';
 import avatar from '../../public/assets/avatar.png';
@@ -9,20 +9,20 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next"
 import { cookies } from "../main";
 
-
-
-
-
-
 export default function Header({ isOpen, setOpen }) {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
   function signOut() {
-    const token = cookies.remove('token')
-    navigate('/login')
-
+    localStorage.removeItem('user_token');
   }
+  const token = localStorage.getItem('user_token')
 
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate('/login')
+  //     // notify('info', 'Please Login First!', 'top-center')
+  //   }
+  // }, [token])
   const headerItem = [
     {
       name: <a><HomeOutlined style={{ color: 'white' }} /> {t('Home')}</a>,

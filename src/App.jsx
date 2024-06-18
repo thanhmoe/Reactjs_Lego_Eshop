@@ -6,23 +6,18 @@ import { useTranslation } from "react-i18next"
 import { CCarousel } from '@coreui/react'
 import homeimg from '/public/assets/home.png'
 
-let user1 = {
-  username: 'thanhhhh',
-  password: '123',
-  confirm: '123'
-}
 
 function App() {
   const navigate = useNavigate();
   const { t } = useTranslation(['common']);
-  //kiem tra xem da co token dang nhap chua
-  useEffect(() => {
-    const token = cookies.get('token')
-    if (!token) {
-      navigate('/login')
-      // notify('info', 'Please Login First!', 'top-center')
-    }
-  }, [])
+  const token = localStorage.getItem('user_token')
+
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate('/login')
+  //     // notify('info', 'Please Login First!', 'top-center')
+  //   }
+  // }, [token])
 
   return (
     <>

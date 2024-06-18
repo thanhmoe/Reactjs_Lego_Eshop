@@ -4,10 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CommentOutlined } from '@ant-design/icons';
 import { selectProducts, selectLoadingState, fetchProduct } from "../../features/products/productsSlice.js";
-import { use } from "i18next";
 import ModalImage from "../../modal/modalImage.jsx";
 import LoadingModal from "../../modal/loadingModal.jsx";
-import { useLocation } from "react-router-dom";
 
 export default function productsDetail() {
     const [open, setOpen] = useState(false);
@@ -19,7 +17,7 @@ export default function productsDetail() {
 
     //check product data if visible or not
     useEffect(() => {
-        if (products.length ===0) {
+        if (products.length === 0) {
             dispatch(fetchProduct())
         };
     }, []);
@@ -54,16 +52,12 @@ export default function productsDetail() {
     }
 
     //handle open modal
-    const handleOpen = () => {
-        setOpen(true)
-    }
-    const handleClose = () => {
-        setOpen(false)
-    }
-   
+    const handleOpen = () => { setOpen(true) }
+    const handleClose = () => { setOpen(false) }
+
     return <>
         {products.length === 0
-            ? <LoadingModal/>
+            ? <LoadingModal />
             :
             <div>
                 <ModalImage isOpen={open} onClose={handleClose} >

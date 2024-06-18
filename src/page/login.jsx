@@ -1,107 +1,115 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import backgroundImage from '../../public/assets/bg.jpg';
-import { cookies, notify } from '../main';
+import { notify } from '../main';
 import './login.css';
+import { userLoginFetch, selectErrorState, selectLoadingState } from '../features/account/loginSlice';
 
-const myAccount = {
-    username: 'thanh',
-    password: '123'
-}
-const fakeToken = 'ey123123123123'
 
 const Login = () => {
-    const [interacted, setInteracted] = useState(false);
     const [user, setUser] = useState({
-        username: '',
+        email: '',
         password: ''
     });
     const [isCheck, setIsCheck] = useState(false);
-
+    const [errors, setErrors] = useState({
+        email: '',
+        password: ''
+    });
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const status = useSelector(selectLoadingState);
+    const error = useSelector(selectErrorState);
 
-    const submit = () => {
-        if (isValid()) {
-            cookies.set('token', fakeToken)
-            navigate('/')
-            notify('success', 'Logged In!', 'top-right')
-            if (isCheck) {
-                cookies.set('user', myAccount)
-            }
-        }
-    }
 
-    //check valid login
-    const isValid = () => {
-        let isValid = true
-        if (user.username !== myAccount.username || user.password !== myAccount.password) {
-            alert('Fail to login!')
-            isValid = false
+    const validate = () => {
+        let tempErrors = { email: '', password: '' };
+        let isValid = true;
+
+        if (!user.email) {
+            tempErrors.email = 'Email is required';
+            isValid = false;
         }
-        return isValid
-    }
+
+        if (!user.password) {
+            tempErrors.password = 'Password is required';
+            isValid = false;
+        }
+
+        setErrors(tempErrors);
+        return isValid;
+    };
 
     const handleChange = (type, value) => {
-        setInteracted(true)
         setUser({
             ...user,
             [type]: value
-        })
-    }
+        });
+        setErrors({
+            ...errors,
+            [type]: ''
+        });
+    };
 
-    //lay du lieu dang nhap tu cookies
-    useEffect(() => {
-        const savedUser = cookies.get('user')
-
-        if (savedUser) {
-            setUser({
-                username: savedUser.username,
-                password: savedUser.password,
-            })
-            setIsCheck(true)
+    const submit = async (e) => {
+        e.preventDefault();
+        if (validate()) {
+            dispatch(userLoginFetch(user))
         }
-
-    }, [])
-
-    const isActive = user.username === '' || user.password === '';
-    //login form
-    return <div className='container'>
-        <img className='backgroundImage' src={backgroundImage} alt="" />
-        <div className='formLogin'>
-            <h3 className='decs'>LOGIN TO X</h3>
-            <p className='decs'>Become a W3Schooler</p>
-            <div className='form-group-login'>
-                <input
-                    className='forminput-login'
-                    placeholder='Your User Name'
-                    type="text"
-                    value={user.username}
-                    onChange={(e) => handleChange('username', e.target.value)} />
-                <input
-                    className='forminput-login'
-                    type="password"
-                    placeholder='Your Password'
-                    value={user.password}
-                    onChange={(e) => handleChange('password', e.target.value)} />
-                {(isActive && interacted) ? <span className='form-message'>Not valid</span> : null}
-                <div>
+    };
+    useEffect(() => {
+        if (status === 'succeeded') {
+            navigate('/');
+        } else {
+            notify('Login failed', 'error');
+        }
+    }, [status]);
+    return (
+        <div className='container'>
+            <img className='backgroundImage' src={backgroundImage} alt="" />
+            <div className='formLogin'>
+                <h3 className='decs'>LOGIN TO X</h3>
+                <p className='decs'>Become a W3Schooler</p>
+                <div className='form-group-login'>
                     <input
-                        type='checkbox'
-                        checked={isCheck}
-                        onChange={(e) => setIsCheck(e.target.checked)} />
-                    <label htmlFor="checkbox">Remember Me</label>
-                </div>
-                <div className='btn-group-login'>
-                    <button className='btnLogin' onClick={submit} disabled={isActive}>Login</button>
-                    <button className='btn-forgot'>Forgot Password?</button>
-                </div>
-                <div className='login-text'>
-                    <p>Don't have an account? <a onClick={() => navigate('/signup')}>Signup</a></p>
+                        className='forminput-login'
+                        placeholder='Your Email'
+                        type="text"
+                        value={user.email}
+                        onChange={(e) => handleChange('email', e.target.value)}
+                    />
+                    {errors.email && <span className='form-message'>{errors.email}</span>}
+                    <input
+                        className='forminput-login'
+                        type="password"
+                        placeholder='Your Password'
+                        value={user.password}
+                        onChange={(e) => handleChange('password', e.target.value)}
+                    />
+                    {errors.password && <span className='form-message'>{errors.password}</span>}
+                    <div>
+                        <input
+                            type='checkbox'
+                            checked={isCheck}
+                            onChange={(e) => setIsCheck(e.target.checked)}
+                        />
+                        <label htmlFor="checkbox"> Remember Me</label>
+                    </div>
+                    <div className='btn-group-login'>
+                        <button className='btnLogin' onClick={submit}>Login
+                        </button>
+                        <button className='btn-forgot'>Forgot Password?</button>
+                    </div>
+                    <div className='form-message'></div>
+                    <div className='login-text'>
+                        <p>Don't have an account? <a onClick={() => navigate('/signup')}>Signup</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    );
 }
 
 export default Login;

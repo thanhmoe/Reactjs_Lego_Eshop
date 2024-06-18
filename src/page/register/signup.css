@@ -74,7 +74,6 @@
     color: black;
     height: 40px;
     border-radius: 5px;
-
 }
 
 .birthday {
@@ -84,6 +83,7 @@
     background: white;
     color-scheme: light;
     border: 1px solid rgb(175, 175, 175);
+    padding: 10px;
 }
 
 .btn-group-signup {
