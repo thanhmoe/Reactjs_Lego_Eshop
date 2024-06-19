@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './news.css'
-import ArticleComponent from "../../features/articles/ArticleComponent";
+import ArticleComponent from "../../components/ArticleComponent";
 import { Input, Space, Select } from 'antd';
 const { Search } = Input;
 const { Option } = Select;

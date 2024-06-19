@@ -3,7 +3,7 @@ import './productsDetail.css'
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CommentOutlined } from '@ant-design/icons';
-import { selectProducts, selectLoadingState, fetchProduct } from "../../features/products/productsSlice.js";
+import { selectProducts,selectLoadingState } from "../../redux/slice/products/productsSlice.js";
 import ModalImage from "../../modal/modalImage.jsx";
 import LoadingModal from "../../modal/loadingModal.jsx";
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectProducts, selectLoadingState, fetchProduct, selectErrorState } from "./productsSlice";
+import { selectProducts, selectLoadingState,fetchProduct } from "../redux/slice/products/productsSlice";
 import { useNavigate } from "react-router-dom";
-import LoadingModal from "../../modal/loadingModal";
+import LoadingModal from "../modal/loadingModal";
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();

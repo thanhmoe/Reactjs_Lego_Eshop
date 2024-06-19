@@ -4,7 +4,7 @@ import { Input, Space, Select } from 'antd';
 import { FILTERPRODUCTS } from "../../constants";
 const { Search } = Input;
 const { Option } = Select;
-import ProductComponent from "../../features/products/ProductComponent";
+import ProductComponent from "../../components/ProductComponent";
 
 export default function products() {
     //filter state

@@ -3,21 +3,19 @@ import { useNavigate } from 'react-router-dom'
 import './App.css'
 import { cookies, notify } from './main'
 import { useTranslation } from "react-i18next"
-import { CCarousel } from '@coreui/react'
 import homeimg from '/public/assets/home.png'
 
 
 function App() {
   const navigate = useNavigate();
   const { t } = useTranslation(['common']);
-  const token = localStorage.getItem('user_token')
+  const token = localStorage.getItem('auth_token')
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     navigate('/login')
-  //     // notify('info', 'Please Login First!', 'top-center')
-  //   }
-  // }, [token])
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+    }
+  }, [token])
 
   return (
     <>

@@ -75,6 +75,9 @@
     height: 40px;
     border-radius: 5px;
 }
+.forminput-gender:focus{
+    outline: none;
+}
 
 .birthday {
     width: 100%;
@@ -84,6 +87,9 @@
     color-scheme: light;
     border: 1px solid rgb(175, 175, 175);
     padding: 10px;
+}
+.birthday:focus{
+    outline: none;
 }
 
 .btn-group-signup {

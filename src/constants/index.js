@@ -81,7 +81,7 @@ export const MENUITEMS = [
 export const SELECTGENDER = [
     {
         id: 1,
-        gender: 'Males'
+        gender: 'Male'
     },
     {
         id: 2,
@@ -89,6 +89,6 @@ export const SELECTGENDER = [
     },
     {
         id: 3,
-        gender: 'other'
+        gender: 'Other'
     }
 ]

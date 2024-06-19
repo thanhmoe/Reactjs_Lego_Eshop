@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/customers";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const instance = axios.create({
     baseURL: baseURL
@@ -13,5 +13,15 @@ export const fetchCustomers = async (user) => {
     } catch (error) {
         console.error(error);
         throw error;
+    }
+};
+
+export const registerUser = async (newUser) => {
+    try {
+        const response = await instance.post("/register", newUser);
+        console.log('res =>', response)
+        return response.data;
+    } catch (error) {
+        return error;
     }
 };

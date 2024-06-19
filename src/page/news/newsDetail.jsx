@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './news.css';
 import { useSelector, useDispatch } from "react-redux";
-import { selectArticles,selectLoadingState, fetchArticle } from "../../features/articles/articlesSlice.js";
+import { selectArticles,selectLoadingState,selectErrorState } from "../../redux/slice/articles/articlesSlice";
 import { useParams } from "react-router-dom";
 import LoadingModal from "../../modal/loadingModal";
 

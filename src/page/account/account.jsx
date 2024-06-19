@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Customers from "../../features/account/AccountComponent";
+import Customers from "../../slice/account/AccountComponent";
 
 export default function account() {
     

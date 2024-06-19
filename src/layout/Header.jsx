@@ -1,5 +1,4 @@
-import React, { useEffect } from "react"
-import { useState } from 'react';
+import React, { useEffect, useState } from "react"
 import logoImage from '../../public/assets/logo.png';
 import avatar from '../../public/assets/avatar.png';
 import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined } from '@ant-design/icons';
@@ -7,15 +6,22 @@ import { Dropdown, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next"
-import { cookies } from "../main";
+import { cookies, notify } from "../main";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../redux/slice/account/userSlice";
+
 
 export default function Header({ isOpen, setOpen }) {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
-  function signOut() {
-    localStorage.removeItem('user_token');
+  const dispatch = useDispatch();
+
+  function handleSignOut() {
+    dispatch(logoutUser());
+    navigate('/login');
+    notify('info',`You've been log out!`)
   }
-  const token = localStorage.getItem('user_token')
+
 
   // useEffect(() => {
   //   if (!token) {
@@ -56,7 +62,7 @@ export default function Header({ isOpen, setOpen }) {
       type: 'divider',
     },
     {
-      label: <a onClick={() => signOut()}> {t('SignOut')}  </a>,
+      label: <a onClick={() => handleSignOut()}> {t('SignOut')}  </a>,
       key: '2',
     },
   ];

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, {useEffect, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
@@ -18,12 +18,13 @@ import Products from './page/product/products.jsx';
 import Contact from './page/contact/contact.jsx';
 import News from './page/news/news.jsx';
 import About from './page/about/about.jsx';
-import Account from './page/account/account.jsx';
 import Login from './page/login.jsx';
 import Signup from './page/register/signup.jsx';
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
 import LoadingModal from './modal/loadingModal.jsx';
+
+
 
 export const cookies = new Cookies(null, { path: '/' })
 
@@ -111,12 +112,6 @@ const router = createBrowserRouter([
     path: "/about",
     element: <MainLayout>
       <About />
-    </MainLayout>,
-  },
-  {
-    path: "/account",
-    element: <MainLayout>
-      <Account />
     </MainLayout>,
   },
   {
