@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
 import './login.css';
-import { userLoginFetch, selectLoginState,selectLoginErrorState } from '../redux/slice/account/userSlice';
-
+import { userLoginFetch, selectLoginErrorState, selectLoginState } from '../redux/slice/account/userSlice';
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -15,27 +14,38 @@ const Login = () => {
     const [isCheck, setIsCheck] = useState(false);
     const [errors, setErrors] = useState({
         email: '',
-        password: ''
+        password: '',
+        general: ''
     });
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation()
-    const status = useSelector(selectLoadingState);
-    const error = useSelector(selectErrorState);
+    const status = useSelector(selectLoginState);
+    const error = useSelector(selectLoginErrorState);
 
-
+    useEffect(() => {
+        if (location.state && location.state.email) {
+            setUser((prevUser) => ({
+                ...prevUser,
+                email: location.state.email
+            }));
+        }
+    }, [location.state]);
     const validate = () => {
-        let tempErrors = { email: '', password: '' };
+        let tempErrors = { email: '', password: '', general: '' };
         let isValid = true;
+
         if (!user.email) {
             tempErrors.email = 'Email is required';
             isValid = false;
         }
+
         if (!user.password) {
             tempErrors.password = 'Password is required';
             isValid = false;
         }
+
         setErrors(tempErrors);
         return isValid;
     };
@@ -51,11 +61,11 @@ const Login = () => {
         });
     };
 
-    const submit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            dispatch(userLoginFetch(user)).then((res => {
-                if (res.payload.status) {
+            dispatch(userLoginFetch(user)).then((action => {
+                if (userLoginFetch.fulfilled.match(action)) {
                     navigate('/')
                 }
                 else {
@@ -91,6 +101,7 @@ const Login = () => {
                         onChange={(e) => handleChange('password', e.target.value)}
                     />
                     {errors.password && <span className='form-message'>{errors.password}</span>}
+                    {errors.general && <span className='form-message'>{errors.general}</span>}
                     <div>
                         <input
                             type='checkbox'
@@ -100,13 +111,12 @@ const Login = () => {
                         <label htmlFor="checkbox"> Remember Me</label>
                     </div>
                     <div className='btn-group-login'>
-                        <button className='btnLogin' onClick={submit}>Login
+                        <button className='btnLogin' onClick={handleSubmit}>Login
                         </button>
                         <button className='btn-forgot'>Forgot Password?</button>
                     </div>
-                    <div className='form-message'></div>
                     <div className='login-text'>
-                        <p>Don't have an account? <a onClick={() => navigate('/signup')}>Signup</a></p>
+                        <p>Don't have an account? <a onClick={() => navigate('/signup')}>Sign Up</a></p>
                     </div>
                 </div>
             </div>

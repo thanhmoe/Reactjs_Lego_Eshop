@@ -17,6 +17,7 @@ export const fetchCustomers = async (user) => {
 export const registerUser = async (newUser) => {
     try {
         const response = await instance.post("/register", newUser);
+        console.log('res =>', response)
         return response.data;
     } catch (error) {
         return error;

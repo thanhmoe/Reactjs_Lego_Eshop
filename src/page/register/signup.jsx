@@ -44,9 +44,8 @@ const Signup = () => {
         if (!validateConfirmPassword(formData.password, formData.confirm_password)) newErrors.confirm_password = 'Passwords do not match';
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
-            console.log('first stage');
             dispatch(userRegisterFetch(formData)).then((res) => {
-                if (res.payload.status) {
+                if(res.payload.status) {
                     navigate('/login', { state: { email: formData.email } })
                 }
                 notify('error', res.payload.message)
