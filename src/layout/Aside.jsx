@@ -6,7 +6,6 @@ import { MENUITEMS } from '../constants';
 export default function Aside() {
   const navigate = useNavigate();
   const { t } = useTranslation(['common']);
-
   return <div>
     <div className='groupItem'>
       <ul>

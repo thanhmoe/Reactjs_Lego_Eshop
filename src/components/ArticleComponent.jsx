@@ -12,7 +12,6 @@ const ArticleComponent = ({ searchQuery, sortOption }) => {
     const articles = useSelector(selectArticles);
     const navigate = useNavigate();
 
-
     const linkToDetail = (id) => {
         navigate(`/news/${id}`)
     }
@@ -46,7 +45,6 @@ const ArticleComponent = ({ searchQuery, sortOption }) => {
                 fetchMoreData();
             }
         };
-
         window.addEventListener("scroll", handleScroll);
         return () => {
             window.removeEventListener("scroll", handleScroll);

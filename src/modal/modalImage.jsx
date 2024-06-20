@@ -13,7 +13,5 @@ export default function modalImage({ isOpen, onClose, children }) {
                 {children}
             </div>
         </div>
-
-
     </>
 }

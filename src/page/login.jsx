@@ -21,8 +21,6 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation()
-    const status = useSelector(selectLoginState);
-    const error = useSelector(selectLoginErrorState);
 
     useEffect(() => {
         if (location.state && location.state.email) {
@@ -35,17 +33,14 @@ const Login = () => {
     const validate = () => {
         let tempErrors = { email: '', password: '', general: '' };
         let isValid = true;
-
         if (!user.email) {
             tempErrors.email = 'Email is required';
             isValid = false;
         }
-
         if (!user.password) {
             tempErrors.password = 'Password is required';
             isValid = false;
         }
-
         setErrors(tempErrors);
         return isValid;
     };

@@ -5,10 +5,7 @@ import Header from "./Header";
 import './index.css';
 import LoadingModal from "../modal/loadingModal";
 
-
-
 export default function MainLayout({ children }) {
-
     const [isOffset, setIsOffset] = useState(false)
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
@@ -22,7 +19,6 @@ export default function MainLayout({ children }) {
         } else {
             setIsOffset(false)
         }
-
     }
     const [isOpen, setOpen] = useState(false)
 

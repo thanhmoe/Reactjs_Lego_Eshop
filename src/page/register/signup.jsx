@@ -10,7 +10,6 @@ const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const status = useSelector(selectRegisterState);
-    const errorSignUp = useSelector(selectRegisterErrorState);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -22,7 +21,6 @@ const Signup = () => {
     });
 
     const [errors, setErrors] = useState({});
-
     const validateEmail = (email) => VALIDEMAIL.test(email);
     const validatePhoneNumber = (phone_number) => REGNUMBER.test(phone_number);
     const validatePassword = (password) => password.length >= 8;

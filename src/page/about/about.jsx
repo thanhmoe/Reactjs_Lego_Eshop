@@ -5,7 +5,6 @@ import minh from '/public/assets/minh.jpeg';
 import kienimg from '/public/assets/kien.png';
 
 export default function about() {
-
     return <>
         <div className="about-us-container">
             <h1 className="about-us-title">About Us</h1>
@@ -44,6 +43,5 @@ export default function about() {
                 </div>
             </div>
         </div>
-
     </>
 }
