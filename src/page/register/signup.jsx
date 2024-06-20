@@ -51,7 +51,7 @@ const Signup = () => {
                 if(res.payload.status) {
                     navigate('/login', { state: { email: formData.email } })
                 }
-                notify('error', res.payload.message)
+                notify('error', 'Email or Phone have been use!')
             });
         }
     };

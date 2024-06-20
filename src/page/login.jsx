@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
@@ -64,8 +64,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            dispatch(userLoginFetch(user)).then((action => {
-                if (userLoginFetch.fulfilled.match(action)) {
+            dispatch(userLoginFetch(user)).then((res => {
+                if (res.payload.status) {
                     navigate('/')
                 }
                 else {
