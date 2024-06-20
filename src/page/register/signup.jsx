@@ -2,14 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
 import { SELECTGENDER, VALIDEMAIL, REGNUMBER } from '../../constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { userRegisterFetch, selectRegisterErrorState, selectRegisterState } from '../../redux/slice/account/userSlice';
+import { registerUser } from '../../axios/apilocal';
 import { notify } from '../../main';
 
 const Signup = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const status = useSelector(selectRegisterState);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -34,7 +31,8 @@ const Signup = () => {
         }));
     };
 
-    const handleSignUp = async () => {
+    const handleSignUp = async (e) => {
+        e.preventDefault();
         const newErrors = {};
         if (!validateEmail(formData.email)) newErrors.email = 'Invalid email address';
         if (!validatePhoneNumber(formData.phone_number)) newErrors.phone_number = 'Invalid phone number';
@@ -44,12 +42,13 @@ const Signup = () => {
         if (!validateConfirmPassword(formData.password, formData.confirm_password)) newErrors.confirm_password = 'Passwords do not match';
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
-            dispatch(userRegisterFetch(formData)).then((res) => {
-                if(res.payload.status) {
-                    navigate('/login', { state: { email: formData.email } })
-                }
-                notify('error', res.payload.message)
-            });
+            const response = await registerUser(formData);
+            if (response.success) {
+                navigate('/login', { state: { email: formData.email } });
+                notify('success', response.message);
+            } else {
+                notify('error', response.message);
+            }
         }
     };
 

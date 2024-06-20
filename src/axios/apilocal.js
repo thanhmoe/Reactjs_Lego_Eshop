@@ -10,7 +10,7 @@ export const fetchCustomers = async (user) => {
         const response = await instance.post("/login", user);
         return response.data;
     } catch (error) {
-        return error;
+        return error.response.data;
     }
 };
 
@@ -20,6 +20,6 @@ export const registerUser = async (newUser) => {
         console.log('res =>', response)
         return response.data;
     } catch (error) {
-        return error;
+        return error.response.data;
     }
 };

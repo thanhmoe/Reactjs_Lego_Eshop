@@ -27,7 +27,7 @@ export default function Header({ isOpen, setOpen }) {
   useEffect(() => {
     if (!token) {
       navigate('/login')
-      notify('info', 'Please Login First!', 'top-center')
+      // notify('info', 'Please Login First!')
     }
   }, [token])
 

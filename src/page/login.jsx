@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
 import './login.css';
-import { userLoginFetch, selectLoginErrorState, selectLoginState } from '../redux/slice/account/userSlice';
+import { fetchCustomers } from '../axios/apilocal';
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -19,11 +18,7 @@ const Login = () => {
     });
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const location = useLocation()
-    const status = useSelector(selectLoginState);
-    const error = useSelector(selectLoginErrorState);
-
     useEffect(() => {
         if (location.state && location.state.email) {
             setUser((prevUser) => ({
@@ -35,21 +30,17 @@ const Login = () => {
     const validate = () => {
         let tempErrors = { email: '', password: '', general: '' };
         let isValid = true;
-
         if (!user.email) {
             tempErrors.email = 'Email is required';
             isValid = false;
         }
-
         if (!user.password) {
             tempErrors.password = 'Password is required';
             isValid = false;
         }
-
         setErrors(tempErrors);
         return isValid;
     };
-
     const handleChange = (type, value) => {
         setUser({
             ...user,
@@ -64,17 +55,17 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            dispatch(userLoginFetch(user)).then((action => {
-                if (userLoginFetch.fulfilled.match(action)) {
-                    navigate('/')
-                }
-                else {
-                    setErrors({
-                        ...errors,
-                        general: 'Incorrect email or password'
-                    })
-                }
-            }));
+            const response = await fetchCustomers(user);
+            if (response.success) {
+                localStorage.setItem("auth_token", response.data.auth_token);
+                navigate('/');
+                return response.data;
+            } else {
+                setErrors({
+                    ...errors,
+                    general: 'Incorrect email or password'
+                });
+            }
         }
     };
 

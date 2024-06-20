@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchCustomers, registerUser } from '../../../axios/apilocal';
+
 export const userLoginFetch = createAsyncThunk(
     'user/login',
     async (user, thunkAPI) => {
@@ -22,7 +23,7 @@ export const userRegisterFetch = createAsyncThunk(
     async (newUser, thunkAPI) => {
         try {
             const res = await registerUser(newUser);
-            console.log(res)
+            console.log(res,'userslice999')
             return res.response.data
         } catch (error) {
             return thunkAPI.rejectWithValue('Network error');
