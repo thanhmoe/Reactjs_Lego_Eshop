@@ -46,10 +46,10 @@ const Signup = () => {
         if (Object.keys(newErrors).length === 0) {
             console.log('first stage');
             dispatch(userRegisterFetch(formData)).then((res) => {
-                if(res.payload.status) {
+                if (res.payload.status) {
                     navigate('/login', { state: { email: formData.email } })
                 }
-                notify('error', 'Email or Phone have been use!')
+                notify('error', res.payload.message)
             });
         }
     };
