@@ -10,25 +10,27 @@ import { cookies, notify } from "../main";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/slice/account/userSlice";
 
-
 export default function Header({ isOpen, setOpen }) {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = localStorage.getItem('auth_token')
 
+//handle sign out
   function handleSignOut() {
     dispatch(logoutUser());
     navigate('/login');
     notify('info',`You've been log out!`)
   }
 
+  //check token login
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+      notify('info', 'Please Login First!', 'top-center')
+    }
+  }, [token])
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     navigate('/login')
-  //     // notify('info', 'Please Login First!', 'top-center')
-  //   }
-  // }, [token])
   const headerItem = [
     {
       name: <a><HomeOutlined style={{ color: 'white' }} /> {t('Home')}</a>,

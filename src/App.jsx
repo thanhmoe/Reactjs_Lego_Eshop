@@ -11,11 +11,6 @@ function App() {
   const { t } = useTranslation(['common']);
   const token = localStorage.getItem('auth_token')
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/login')
-    }
-  }, [token])
 
   return (
     <>

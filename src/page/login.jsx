@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
@@ -21,6 +21,8 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation()
+    const status = useSelector(selectLoginState);
+    const error = useSelector(selectLoginErrorState);
 
     useEffect(() => {
         if (location.state && location.state.email) {
@@ -33,14 +35,17 @@ const Login = () => {
     const validate = () => {
         let tempErrors = { email: '', password: '', general: '' };
         let isValid = true;
+
         if (!user.email) {
             tempErrors.email = 'Email is required';
             isValid = false;
         }
+
         if (!user.password) {
             tempErrors.password = 'Password is required';
             isValid = false;
         }
+
         setErrors(tempErrors);
         return isValid;
     };
@@ -59,8 +64,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            dispatch(userLoginFetch(user)).then((res => {
-                if (res.payload.status) {
+            dispatch(userLoginFetch(user)).then((action => {
+                if (userLoginFetch.fulfilled.match(action)) {
                     navigate('/')
                 }
                 else {

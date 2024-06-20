@@ -10,15 +10,13 @@ export const fetchCustomers = async (user) => {
         const response = await instance.post("/login", user);
         return response.data;
     } catch (error) {
-        console.error(error);
-        throw error;
+        return error;
     }
 };
 
 export const registerUser = async (newUser) => {
     try {
         const response = await instance.post("/register", newUser);
-        console.log('res =>', response)
         return response.data;
     } catch (error) {
         return error;
