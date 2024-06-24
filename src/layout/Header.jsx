@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
-import logoImage from '../../public/assets/logo.png';
-import avatar from '../../public/assets/avatar.png';
-import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import logo from '../assets/nintendo.svg'
+import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
@@ -16,11 +15,11 @@ export default function Header({ isOpen, setOpen }) {
   const dispatch = useDispatch();
   const token = localStorage.getItem('auth_token')
 
-//handle sign out
+  //handle sign out
   function handleSignOut() {
     dispatch(logoutUser());
     navigate('/login');
-    notify('info',`You've been log out!`)
+    notify('info', `You've been log out!`)
   }
 
   //check token login
@@ -33,23 +32,23 @@ export default function Header({ isOpen, setOpen }) {
 
   const headerItem = [
     {
-      name: <a><HomeOutlined style={{ color: 'white' }} /> {t('Home')}</a>,
+      name: <a><HomeOutlined /> {t('Home')}</a>,
       path: '/',
     },
     {
-      name: <a> <ProductOutlined style={{ color: 'white' }} /> {t('Products')}</a>,
+      name: <a> <ProductOutlined /> {t('Products')}</a>,
       path: '/products',
     },
     {
-      name: <a> <PhoneOutlined style={{ color: 'white' }} /> {t('Contact')}</a>,
+      name: <a> <PhoneOutlined /> {t('Contact')}</a>,
       path: '/contact'
     },
     {
-      name: <a> <ReadOutlined style={{ color: 'white' }} /> {t('News')}</a>,
+      name: <a> <ReadOutlined /> {t('News')}</a>,
       path: '/news'
     },
     {
-      name: <a> <QuestionCircleOutlined style={{ color: 'white' }} /> {t('About Us')}</a>,
+      name: <a> <QuestionCircleOutlined /> {t('About Us')}</a>,
       path: '/about',
     },
   ]
@@ -97,11 +96,12 @@ export default function Header({ isOpen, setOpen }) {
   ];
   return <>
 
-
-    <div className="header">
+    <header>
       <div className="brand">
-        <img onClick={() => setOpen(!isOpen)} className="imgLogo" src={logoImage} alt="" />
-        <h2 className="nameBrand" onClick={() => navigate('/')}> New Decade</h2>
+        {/* <img onClick={() => setOpen(!isOpen)} className="imgLogo" src={logo} alt="" /> */}
+        <a href={logo}/>
+          
+        {/* <h2 className="nameBrand" onClick={() => navigate('/')}> New Decade</h2> */}
       </div>
       <div className="menu-item">
         <ul>
@@ -116,28 +116,26 @@ export default function Header({ isOpen, setOpen }) {
         <Dropdown
           menu={{ items: itemsMenuLang }}
           trigger={['hover']}
+          onClick={(e) => e.preventDefault()}
         >
-          <a className="langMenuText" onClick={(e) => e.preventDefault()}>
-            <Space>
-              {t('Language')}
-              <DownOutlined />
-            </Space>
-          </a>
+          <Space>
+            {t('Language')}
+            <DownOutlined />
+          </Space>
         </Dropdown>
       </div>
 
       <div className="avatar">
         <Dropdown
           menu={{ items }}
-          trigger={['click']} >
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <img className="imgAvatar" src={avatar} alt="" />
-            </Space>
-          </a>
+          trigger={['click']}
+          onClick={(e) => e.preventDefault()} >
+          <Space>
+            <UserOutlined />
+          </Space>
         </Dropdown>
       </div>
-    </div>
+    </header>
 
   </>
 }

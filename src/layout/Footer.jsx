@@ -1,10 +1,11 @@
-export default function Footer() {
+import React from "react";
 
-    return <>
-        <div>
-            <div className="coppyright">
-                <p>Coppy Right 2024@</p>
-            </div>
-        </div>
-    </>
-}
+const Footer = () => {
+    return (
+        <footer>
+            <p>@2024</p>
+        </footer>
+    );
+};
+
+export default Footer;

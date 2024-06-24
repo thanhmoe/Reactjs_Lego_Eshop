@@ -31,7 +31,7 @@ export default function MainLayout({ children }) {
                     {children}
                 </div>
             </div>
-            <div className="footer"><Footer /></div>
+            <Footer />
         </Suspense>
     </div >
 }
