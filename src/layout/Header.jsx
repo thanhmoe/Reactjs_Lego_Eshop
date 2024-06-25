@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import Logo from '../assets/nintendo.svg';
-import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined, UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import Logo from '../assets/icons/nintendo.svg';
+import CartIcon from '../assets/icons/cart.svg?react';
+import UserIcon from '../assets/icons/user.svg?react';
+import { DownOutlined, HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled, UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
@@ -29,11 +31,11 @@ export default function Header({ isOpen, setOpen }) {
   }, [token]);
 
   const headerItems = [
-    { name: <><HomeOutlined /> {t('Home')}</>, path: '/' },
-    { name: <><ProductOutlined /> {t('Products')}</>, path: '/products' },
-    { name: <><PhoneOutlined /> {t('Contact')}</>, path: '/contact' },
-    { name: <><ReadOutlined /> {t('News')}</>, path: '/news' },
-    { name: <><QuestionCircleOutlined /> {t('About Us')}</>, path: '/about' },
+    { name: <><HomeFilled /> {t('Home')}</>, path: '/' },
+    { name: <><ProductFilled /> {t('Products')}</>, path: '/products' },
+    { name: <><PhoneFilled /> {t('Contact')}</>, path: '/contact' },
+    { name: <><ReadFilled /> {t('News')}</>, path: '/news' },
+    { name: <><QuestionCircleFilled /> {t('About Us')}</>, path: '/about' },
   ];
 
   const userMenuItems = [
@@ -68,7 +70,7 @@ export default function Header({ isOpen, setOpen }) {
     <header className="header">
       <div className="brand">
         <div className="logo-brand">
-          <img onClick={() => setOpen(!isOpen)} className="imgLogo" src={Logo} alt="logo" />
+          <img onClick={() => setOpen(!isOpen)} className="img-logo" src={Logo} alt="logo" />
         </div>
       </div>
       <div className="menu-item">
@@ -81,12 +83,12 @@ export default function Header({ isOpen, setOpen }) {
         </ul>
       </div>
       <div className="user-menu">
-        <a><ShoppingCartOutlined /> Cart</a>
+        <a><CartIcon /> {t('Cart')}</a>
         <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
-          <Space> <a><UserOutlined />User </a></Space>
+          <a><UserIcon /> {t('Account')}</a>
         </Dropdown>
         <Dropdown menu={{ items: languageMenuItems }} trigger={['hover']}>
-          <Space> <a>{t('Language')}</a> <DownOutlined /></Space>
+          <a>{t('Language')} <DownOutlined /></a>
         </Dropdown>
       </div>
     </header>

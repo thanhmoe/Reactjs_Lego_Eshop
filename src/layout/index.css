@@ -7,7 +7,6 @@
 body {
     /* font-family: museo-sans, -apple-system, BlinkMacSystemFont, sans-serif; */
     background-color: #f5f5f5;
-    color: #333;
 }
 
 .mainLayout {
@@ -26,6 +25,7 @@ header {
     background-color: rgb(255, 255, 255);
     position: relative;
     z-index: 1;
+    color: rgb(72, 72, 72);
 }
 
 header a {
@@ -47,8 +47,12 @@ header a {
     display: flex;
 }
 
+.brand:hover {
+    cursor: pointer;
+}
+
 .logo-brand {
-    width: 105px;
+    width: 120px;
     height: 60px;
     background-color: rgb(230, 0, 18);
     display: flex;
@@ -58,7 +62,7 @@ header a {
 }
 
 .img-logo {
-    color: white;
+    height: 25px;
 }
 
 .nameBrand {
