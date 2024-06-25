@@ -1,74 +1,48 @@
-import React, { useEffect, useState } from "react"
-import logo from '../assets/nintendo.svg'
-import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
+import React, { useEffect } from "react";
+import Logo from '../assets/nintendo.svg';
+import { DownOutlined, HomeOutlined, ProductOutlined, ReadOutlined, PhoneOutlined, QuestionCircleOutlined, UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
-import { useTranslation } from "react-i18next"
-import { cookies, notify } from "../main";
+import { useTranslation } from "react-i18next";
+import { notify } from "../main";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/slice/account/userSlice";
+import "./index.css";
 
 export default function Header({ isOpen, setOpen }) {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = localStorage.getItem('auth_token')
+  const token = localStorage.getItem('auth_token');
 
-  //handle sign out
   function handleSignOut() {
     dispatch(logoutUser());
     navigate('/login');
-    notify('info', `You've been log out!`)
+    notify('info', `You've been logged out!`);
   }
 
-  //check token login
   useEffect(() => {
     if (!token) {
-      navigate('/login')
-      // notify('info', 'Please Login First!')
+      navigate('/login');
     }
-  }, [token])
+  }, [token]);
 
-  const headerItem = [
-    {
-      name: <a><HomeOutlined /> {t('Home')}</a>,
-      path: '/',
-    },
-    {
-      name: <a> <ProductOutlined /> {t('Products')}</a>,
-      path: '/products',
-    },
-    {
-      name: <a> <PhoneOutlined /> {t('Contact')}</a>,
-      path: '/contact'
-    },
-    {
-      name: <a> <ReadOutlined /> {t('News')}</a>,
-      path: '/news'
-    },
-    {
-      name: <a> <QuestionCircleOutlined /> {t('About Us')}</a>,
-      path: '/about',
-    },
-  ]
-
-
-  const items = [
-    {
-      key: '1',
-      label: t('Setting'),
-    },
-    {
-      type: 'divider',
-    },
-    {
-      label: <a onClick={() => handleSignOut()}> {t('SignOut')}  </a>,
-      key: '2',
-    },
+  const headerItems = [
+    { name: <><HomeOutlined /> {t('Home')}</>, path: '/' },
+    { name: <><ProductOutlined /> {t('Products')}</>, path: '/products' },
+    { name: <><PhoneOutlined /> {t('Contact')}</>, path: '/contact' },
+    { name: <><ReadOutlined /> {t('News')}</>, path: '/news' },
+    { name: <><QuestionCircleOutlined /> {t('About Us')}</>, path: '/about' },
   ];
 
-  const itemsMenuLang = [
+  const userMenuItems = [
+    { key: '1', label: t('Setting') },
+    { type: 'divider' },
+    { label: <a onClick={handleSignOut}>{t('SignOut')}</a>, key: '2' },
+  ];
+
+  const languageMenuItems = [
     {
       key: '1',
       label: (
@@ -76,13 +50,9 @@ export default function Header({ isOpen, setOpen }) {
           <img className="countryFlag" src="/assets/usa.png" alt="usa" />
           <span>{t('English')}</span>
         </div>
-
       ),
-
     },
-    {
-      type: 'divider'
-    },
+    { type: 'divider' },
     {
       key: '2',
       label: (
@@ -90,52 +60,35 @@ export default function Header({ isOpen, setOpen }) {
           <img className="countryFlag" src="/assets/vietnam.png" alt="vietnam" />
           <span>{t('Vietnamese')}</span>
         </div>
-
       ),
-    }
+    },
   ];
-  return <>
 
-    <header>
+  return (
+    <header className="header">
       <div className="brand">
-        {/* <img onClick={() => setOpen(!isOpen)} className="imgLogo" src={logo} alt="" /> */}
-        <a href={logo}/>
-          
-        {/* <h2 className="nameBrand" onClick={() => navigate('/')}> New Decade</h2> */}
+        <div className="logo-brand">
+          <img onClick={() => setOpen(!isOpen)} className="imgLogo" src={Logo} alt="logo" />
+        </div>
       </div>
       <div className="menu-item">
         <ul>
-          {headerItem.map((item, index) => (
+          {headerItems.map((item, index) => (
             <li key={index} onClick={() => navigate(item.path)}>
-              {item.name}
+              <a>{item.name}</a>
             </li>
           ))}
         </ul>
       </div>
-      <div className="langMenu">
-        <Dropdown
-          menu={{ items: itemsMenuLang }}
-          trigger={['hover']}
-          onClick={(e) => e.preventDefault()}
-        >
-          <Space>
-            {t('Language')}
-            <DownOutlined />
-          </Space>
+      <div className="user-menu">
+        <a><ShoppingCartOutlined /> Cart</a>
+        <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
+          <Space> <a><UserOutlined />User </a></Space>
         </Dropdown>
-      </div>
-
-      <div className="avatar">
-        <Dropdown
-          menu={{ items }}
-          trigger={['click']}
-          onClick={(e) => e.preventDefault()} >
-          <Space>
-            <UserOutlined />
-          </Space>
+        <Dropdown menu={{ items: languageMenuItems }} trigger={['hover']}>
+          <Space> <a>{t('Language')}</a> <DownOutlined /></Space>
         </Dropdown>
       </div>
     </header>
-
-  </>
+  );
 }

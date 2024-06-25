@@ -107,7 +107,7 @@ const Login = () => {
                         <button className='btn-forgot'>Forgot Password?</button>
                     </div>
                     <div className='login-text'>
-                        <p>Don't have an account? <a onClick={() => navigate('/signup')}>Sign Up</a></p>
+                        <p>Don't have an account? <a className='signup-text' onClick={() => navigate('/signup')}>Sign Up</a></p>
                     </div>
                 </div>
             </div>
