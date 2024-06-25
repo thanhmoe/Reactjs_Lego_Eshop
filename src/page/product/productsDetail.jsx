@@ -3,9 +3,9 @@ import './productsDetail.css'
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CommentOutlined } from '@ant-design/icons';
-import { selectProducts,selectLoadingState } from "../../redux/slice/products/productsSlice.js";
-import ModalImage from "../../modal/modalImage.jsx";
+import { selectProducts, selectLoadingState } from "../../redux/slice/products/productsSlice.js";
 import LoadingModal from "../../modal/loadingModal.jsx";
+import { Image } from "antd";
 
 export default function productsDetail() {
     const [open, setOpen] = useState(false);
@@ -60,12 +60,9 @@ export default function productsDetail() {
             ? <LoadingModal />
             :
             <div>
-                <ModalImage isOpen={open} onClose={handleClose} >
-                    <img className="img-show" src={thisProduct.image} alt={thisProduct.name_product} />
-                </ModalImage>
                 <div className="productsDetail">
                     <div className="leftInfo">
-                        <img onClick={handleOpen} className="imageDetail" src={thisProduct.image} alt={thisProduct.name_product} />
+                        <Image src={thisProduct.image} />
                     </div>
                     <div className="detailInfo">
                         <h3 className="productName">{thisProduct.name_product}</h3>
