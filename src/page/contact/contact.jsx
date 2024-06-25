@@ -146,16 +146,18 @@ export default function contact() {
             <p className='decs'>You are welcome to fill in the form below
             </p>
             <div className='form-group'>
-                <label htmlFor="jobselect">Your's current position</label>
-                <select id="jobselect"
-                    className="forminput"
-                    defaultValue=""
-                    onChange={handleChange}>
-                    <option value=""> Choose Your Position</option>
-                    {JOBSELECT.map(job => (
-                        <option value={job.jobName} key={job.id}>{job.jobName}</option>
-                    ))}
-                </select>
+                <div>
+                    <label htmlFor="jobselect">Your's current position</label>
+                    <select id="jobselect"
+                        className="forminput"
+                        defaultValue=""
+                        onChange={handleChange}>
+                        <option value=""> Choose Your Position</option>
+                        {JOBSELECT.map(job => (
+                            <option value={job.jobName} key={job.id}>{job.jobName}</option>
+                        ))}
+                    </select>
+                </div>
                 <div>
                     <label htmlFor="name"> Your name</label>
                     <input
