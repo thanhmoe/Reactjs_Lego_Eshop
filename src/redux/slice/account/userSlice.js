@@ -23,7 +23,6 @@ export const userRegisterFetch = createAsyncThunk(
     async (newUser, thunkAPI) => {
         try {
             const res = await registerUser(newUser);
-            console.log(res,'userslice999')
             return res.response.data
         } catch (error) {
             return thunkAPI.rejectWithValue('Network error');

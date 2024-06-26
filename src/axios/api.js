@@ -11,7 +11,7 @@ instance.interceptors.request.use(
     async (config) => {
         const token = getToken();
         if (token) {
-            config.headers['auth_token'] = token; // Không cần 'Bearer '
+            config.headers['auth_token'] = token;
         }
         return config;
     },
@@ -41,7 +41,6 @@ export const registerUser = async (newUser) => {
 export const fetchProducts = async () => {
     try {
         const response = await instance.get("/products");
-        console.log(response.data,'191919919');
         return response.data;
     } catch (error) {
         return error.response.data;
@@ -53,6 +52,6 @@ export const fetchArticles = async () => {
         const response = await axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/list");
         return response.data;
     } catch (error) {
-        console.error(error);
+        return error(error);
     }
 };

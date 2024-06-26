@@ -44,18 +44,19 @@
 }
 
 .btn-buy {
-    background-color: #00ADB5;
+    background-color: rgb(230, 0, 18);
     color: #FFFFFF;
     border: none;
     border-radius: 20px;
     padding: 10px 15px;
     align-self: center;
     cursor: pointer;
+    font-weight: 700;
     transition: background-color 0.3s;
 }
 
 .btn-buy:hover {
-    background-color: #009DA1;
+    background-color: rgb(141, 0, 12);
 }
 
 .product-name {

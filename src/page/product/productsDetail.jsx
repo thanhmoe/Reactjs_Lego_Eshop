@@ -13,19 +13,26 @@ export default function ProductsDetail() {
     const dispatch = useDispatch();
     const { productId } = useParams();
     const [thisProduct, setThisProduct] = useState(null);
+    const [loading, setLoading] = useState(true); // Local loading state
 
     useEffect(() => {
-        if (products.length === 0) {
-            dispatch(fetchProduct());
-        }
-        const product = products.find(p => p.id === productId);
-        setThisProduct(product);
-    }, [products, productId, dispatch]);
+        const fetchData = async () => {
+            if (products.length === 0) {
+                dispatch(fetchProduct());
+            }
+            const foundProduct = products.find(p => p.id === productId);
+            setThisProduct(foundProduct);
+            setLoading(false);
+        };
+        fetchData();
+    }, [productId]);
 
+    console.log(products, 'out hehehehe');
+    console.log(thisProduct, 'this product after hhehehe');
 
     return (
         <>
-            {products.length === 0 || !thisProduct ? (
+            {loading || !thisProduct ? (
                 <LoadingModal />
             ) : (
                 <div className="product-detail-container">
