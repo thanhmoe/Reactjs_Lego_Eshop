@@ -58,7 +58,9 @@
     background-color: #009DA1;
 }
 
-h3,
+.product-name{
+    color: black;
+}
 .products-label {
     color: black;
     margin: 20px;

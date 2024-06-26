@@ -7,7 +7,7 @@ const instance = axios.create({
 
 export const fetchCustomers = async (user) => {
     try {
-        const response = await instance.post("/login", user);
+        const response = await instance.post("/customers/login", user);
         return response.data;
     } catch (error) {
         return error.response.data;
@@ -16,8 +16,16 @@ export const fetchCustomers = async (user) => {
 
 export const registerUser = async (newUser) => {
     try {
-        const response = await instance.post("/register", newUser);
-        console.log('res =>', response)
+        const response = await instance.post("/customers/register", newUser);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const fetchProducts = async () => {
+    try {
+        const response = await instance.get("/products");
         return response.data;
     } catch (error) {
         return error.response.data;

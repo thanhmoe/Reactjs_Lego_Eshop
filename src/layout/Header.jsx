@@ -67,7 +67,7 @@ export default function Header({ isOpen, setOpen }) {
   ];
 
   return (
-    <header className="header">
+    <header>
       <div className="brand">
         <div className="logo-brand">
           <img onClick={() => setOpen(!isOpen)} className="img-logo" src={Logo} alt="logo" />
@@ -77,15 +77,15 @@ export default function Header({ isOpen, setOpen }) {
         <ul>
           {headerItems.map((item, index) => (
             <li key={index} onClick={() => navigate(item.path)}>
-              <a>{item.name}</a>
+              <a className="icon-header">{item.name}</a>
             </li>
           ))}
         </ul>
       </div>
       <div className="user-menu">
-        <a><CartIcon /> {t('Cart')}</a>
+        <a className="icon-header"><CartIcon /> {t('Cart')}</a>
         <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
-          <a><UserIcon /> {t('Account')}</a>
+          <a className="icon-header"><UserIcon /> {t('Account')}</a>
         </Dropdown>
         <Dropdown menu={{ items: languageMenuItems }} trigger={['hover']}>
           <a>{t('Language')} <DownOutlined /></a>

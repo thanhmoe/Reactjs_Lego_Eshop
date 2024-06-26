@@ -29,8 +29,8 @@ export default function products() {
 
     return <>
         <div className="container-product">
+            <h2 className="products-label">PRODUCTS</h2>
             <div className="filter">
-                <h2 className="products-label">PRODUCTS</h2>
                 <Space>
                     <Search className="searchbar"
                         placeholder="input search text"

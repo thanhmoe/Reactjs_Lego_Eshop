@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProducts, selectLoadingState, fetchProduct } from "../redux/slice/products/productsSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingModal from "../modal/loadingModal";
+import { Spin } from "antd";
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
@@ -79,10 +80,12 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
 
     const Product = (prop) => {
         const { product } = prop
+        const [isLoadedImg, setIsLoadedImg] = useState(false)
+
         return (
             <div key={product.id} className="product-info" onClick={() => linkToDetail(product.id)}>
-                <img className="image-product" src={product.image} />
-                <h3>{product.name_product}</h3>
+                {isLoadedImg ? <img className="image-product" src={product.image} onLoad={() => setIsLoadedImg(true)}/> : <Spin/>}
+                <h3 className="product-name">{product.name_product}</h3>
                 <p>Description:{product.introduce}</p>
                 <button className="btn-buy">Add to cart</button>
             </div>

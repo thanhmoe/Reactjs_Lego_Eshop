@@ -26,7 +26,21 @@ header {
     position: relative;
     z-index: 1;
     color: rgb(72, 72, 72);
+    transition: all 200ms ease-in-out 0s;
 }
+
+.icon-header {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 200ms ease-in-out;
+}
+
+.icon-header:hover {
+    cursor: pointer;
+    color: rgb(230, 0, 18);
+}
+
 
 header a {
     color: inherit;
@@ -47,10 +61,6 @@ header a {
     display: flex;
 }
 
-.brand:hover {
-    cursor: pointer;
-}
-
 .logo-brand {
     width: 120px;
     height: 60px;
@@ -60,7 +70,9 @@ header a {
     align-items: center;
     color: white;
 }
-
+.logo-brand{
+    cursor: pointer;
+}
 .img-logo {
     height: 25px;
 }
@@ -82,14 +94,12 @@ header a {
 .contentBody {
     display: flex;
     justify-content: center;
-    padding: 20px;
     flex: 1;
 }
 
 .contentBody.is-shown {
     margin-left: 20%;
     flex: 1;
-    padding: 20px;
 }
 
 .aside {
@@ -168,16 +178,12 @@ header a {
     padding: 10px 20px;
 }
 
-.menu-item ul li a {
+/* .menu-item ul li a {
     text-align: center;
     cursor: pointer;
     color: inherit;
     text-decoration: none;
-}
-
-.menu-item ul li a:hover {
-    text-decoration: underline;
-}
+} */
 
 .countryFlag {
     width: 25px;

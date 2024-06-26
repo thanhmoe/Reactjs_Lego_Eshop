@@ -74,7 +74,8 @@
     color: black;
     border-radius: 5px;
 }
-.forminput-gender:focus{
+
+.forminput-gender:focus {
     outline: none;
 }
 
@@ -86,7 +87,8 @@
     border: 1px solid rgb(175, 175, 175);
     padding: 10px;
 }
-.birthday:focus{
+
+.birthday:focus {
     outline: none;
 }
 
@@ -95,7 +97,7 @@
 }
 
 .btn-signup {
-    background-color: #04aa6d;
+    background-color: rgb(230, 0, 18);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -104,11 +106,11 @@
 }
 
 .btn-signup:hover {
-    background-color: #037a54;
+    background-color: rgb(172, 4, 18);
 }
 
 .signup-text a {
-    color: #04aa6d;
+    color: rgb(230, 0, 18);
     cursor: pointer;
 }
 
