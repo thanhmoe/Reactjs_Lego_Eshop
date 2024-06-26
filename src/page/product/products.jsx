@@ -30,7 +30,7 @@ export default function products() {
     return <>
         <div className="container-product">
             <h2 className="products-label">PRODUCTS</h2>
-            <div className="filter">
+            <div className="filter-product">
                 <Space>
                     <Search className="searchbar"
                         placeholder="input search text"

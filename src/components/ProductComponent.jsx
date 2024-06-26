@@ -81,10 +81,17 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     const Product = (prop) => {
         const { product } = prop
         const [isLoadedImg, setIsLoadedImg] = useState(false)
-
+        const handleImageLoad = () => {
+            setIsLoadedImg(true)
+        }
         return (
             <div key={product.id} className="product-info" onClick={() => linkToDetail(product.id)}>
-                {isLoadedImg ? <img className="image-product" src={product.image} onLoad={() => setIsLoadedImg(true)}/> : <Spin/>}
+                {!isLoadedImg && <Spin />}
+                <img
+                    className="image-product"
+                    src={product.image}
+                    onLoad={handleImageLoad}
+                />
                 <h3 className="product-name">{product.name_product}</h3>
                 <p>Description:{product.introduce}</p>
                 <button className="btn-buy">Add to cart</button>
