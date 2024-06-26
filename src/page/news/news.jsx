@@ -27,8 +27,8 @@ export default function news() {
     }
     return <>
         <div className="container-news">
-            <div className="filter">
-                <h2 className="news-label">BROWSER NEWSLETTER</h2>
+            <h2 className="news-label">BROWSER NEWSLETTER</h2>
+            <div className="filter-news">
                 <Space>
                     <Search className="searchbar"
                         placeholder="input search text"

@@ -1,5 +1,5 @@
 .container-product {
-    width: 100%;
+    min-width: 1440px;
 }
 
 .products-list {
@@ -15,6 +15,13 @@
     margin-right: 2rem;
 }
 
+.side-filter-product {
+    padding: 0px 1rem;
+    position: sticky;
+    top: 1rem;
+    height: calc(-1rem + 100vh);
+    overflow: hidden auto;
+}
 
 .product-info {
     display: flex;

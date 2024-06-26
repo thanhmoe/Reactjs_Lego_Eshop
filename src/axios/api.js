@@ -38,18 +38,46 @@ export const registerUser = async (newUser) => {
     }
 };
 
-export const fetchProducts = async () => {
+// export const fetchProducts = async () => {
+//     try {
+//         const response = await instance.get("/products");
+//         return response.data;
+//     } catch (error) {
+//         return error.response.data;
+//     }
+// };
+
+// Assuming `instance` is already defined and configured axios instance
+
+export const fetchProducts = async (page = 1, limit = 10, sortOrder = 'desc', category) => {
     try {
-        const response = await instance.get("/products");
+        // Construct query parameters
+        let queryParams = `?page=${page}&limit=${limit}&sortOrder=${sortOrder}`;
+        if (category) {
+            queryParams += `&category=${category}`;
+        }
+
+        // Make the GET request
+        const response = await instance.get(`/products${queryParams}`);
         return response.data;
     } catch (error) {
-        return error.response.data;
+        return error.response ? error.response.data : { error: 'An error occurred' };
     }
 };
+
 
 export const fetchArticles = async () => {
     try {
         const response = await axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/list");
+        return response.data;
+    } catch (error) {
+        return error(error);
+    }
+};
+
+export const fetchMockProducts = async () => {
+    try {
+        const response = await axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/products");
         return response.data;
     } catch (error) {
         return error(error);

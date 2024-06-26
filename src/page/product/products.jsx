@@ -46,6 +46,7 @@ export default function products() {
                     </div>
                 </Space>
             </div>
+            {/* <div className="side-filter-product"></div> */}
             <div className="products-list">
                 {/* <ProductComponent searchQuery={searchQuery} sortOption={sortOption} /> */}
                 <ProductComponent />
