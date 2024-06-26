@@ -23,7 +23,7 @@ import Signup from './page/register/signup.jsx';
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
 import LoadingModal from './modal/loadingModal.jsx';
-
+import CartComponent from './page/cart/cart.jsx';
 
 
 export const cookies = new Cookies(null, { path: '/' })
@@ -86,15 +86,12 @@ const router = createBrowserRouter([
     </MainLayout>,
   },
 
-
   {
     path: "/detail",
     element: <MainLayout>
       <ProductsDetail />
     </MainLayout>,
   },
-
-
 
   {
     path: "/contact",
@@ -112,6 +109,12 @@ const router = createBrowserRouter([
     path: "/about",
     element: <MainLayout>
       <About />
+    </MainLayout>,
+  },
+  {
+    path: "/cart",
+    element: <MainLayout>
+      <CartComponent />
     </MainLayout>,
   },
   {

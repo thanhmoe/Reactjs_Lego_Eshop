@@ -82,7 +82,7 @@ export default function Header({ isOpen, setOpen }) {
         </ul>
       </div>
       <div className="user-menu">
-        <a className="icon-header"><CartIcon /> {t('Cart')}</a>
+        <a className="icon-header" onClick={()=>navigate('/cart')}><CartIcon /> {t('Cart')}</a>
         <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
           <a className="icon-header"><UserIcon /> {t('User')}</a>
         </Dropdown>

@@ -1,12 +1,15 @@
 .product-detail-container {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
 .detail-container {
     width: 100%;
     background-color: rgb(114, 114, 114);
-    position: relative;
-    z-index: 5;
+    display: flex;
     justify-content: center;
 }
 
@@ -14,45 +17,77 @@
     display: grid;
     grid-template-columns: 3fr 2fr;
     background: white;
-    margin: 0px auto;
+    margin: 0 auto;
     column-gap: 2rem;
     padding: 2rem 3rem;
+    transform: translateY(2em);
     border-radius: 10px;
     width: 800px;
-    height: auto;
-    transform: translateY(2em);
-    border-radius: var(10px);
-    box-shadow: rgba(60, 64, 89, 0.15) 0px 4px 16px 0px;
+    box-shadow: rgba(60, 64, 89, 0.15) 0px 4px 16px;
 }
 
 .leftInfo {
-    grid-column: 1;
-    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .imageDetail {
-    max-width: 400px;
-    height: auto;
+    max-width: 100%;
     border-radius: 8px;
 }
 
-.imageDetail:hover {
-    cursor: pointer;
-}
-
 .detailInfo {
-    grid-column: 2;
-    padding-bottom: 20px;
+    padding: 0 20px;
 }
 
 .productName {
     border-bottom: 1px solid #646464;
     color: #484848;
+    padding-bottom: 10px;
+}
+
+.price {
+    color: #d9534f;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.quantity-selector input {
+    width: 50px;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.product-detail-button {
+    margin-top: 20px;
+}
+
+.btn-buy {
+    background-color: #d9534f;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.btn-buy:hover {
+    background-color: #c9302c;
 }
 
 .comment {
     margin-top: 4rem;
-    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
     color: black;
 }
 
@@ -70,30 +105,24 @@
     border: none;
     border-radius: 10px;
     padding: 10px 15px;
-    align-self: center;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
+.btn-cmt:hover {
+    background-color: #009a9e;
+}
+
 .comment ul {
     list-style: none;
-    padding: 10px;
+    padding: 0;
 }
 
 .commented li {
     border: 1px solid #646464;
     border-radius: 5px;
-
     padding: 10px;
-
-}
-
-.btnCmt {
-    background-color: #505252;
-    color: #FFFFFF;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    margin-bottom: 10px;
 }
 
 .inputCmt {
@@ -107,7 +136,6 @@
 .inputCmt:focus {
     outline: none;
 }
-
 
 @media (max-width: 768px) {
     .productsDetail {
