@@ -18,7 +18,8 @@ export default function newsDetail() {
         if (articles.length === 0) {
             dispatch(fetchArticle())
         };
-    }, []);
+    }, []); 
+
 
     return <>
         {articles.length === 0

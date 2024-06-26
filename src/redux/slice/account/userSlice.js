@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchCustomers, registerUser } from '../../../axios/apilocal';
+import { fetchCustomers, registerUser } from '../../../axios/api';
 
 export const userLoginFetch = createAsyncThunk(
     'user/login',

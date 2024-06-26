@@ -47,7 +47,8 @@ export default function products() {
                 </Space>
             </div>
             <div className="products-list">
-                <ProductComponent searchQuery={searchQuery} sortOption={sortOption} />
+                {/* <ProductComponent searchQuery={searchQuery} sortOption={sortOption} /> */}
+                <ProductComponent />
             </div>
         </div>
     </>

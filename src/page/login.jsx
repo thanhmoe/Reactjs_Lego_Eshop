@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
 import './login.css';
-import { fetchCustomers } from '../axios/apilocal';
+import { fetchCustomers } from '../axios/api';
 
 const Login = () => {
     const [user, setUser] = useState({
