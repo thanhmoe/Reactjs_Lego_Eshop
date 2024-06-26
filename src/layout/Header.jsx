@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Logo from '../assets/icons/nintendo.svg';
 import CartIcon from '../assets/icons/cart.svg?react';
 import UserIcon from '../assets/icons/user.svg?react';
-import { DownOutlined, HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled, UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
@@ -39,31 +39,30 @@ export default function Header({ isOpen, setOpen }) {
   ];
 
   const userMenuItems = [
-    { key: '1', label: t('Setting') },
-    { type: 'divider' },
-    { label: <a onClick={handleSignOut}>{t('SignOut')}</a>, key: '2' },
-  ];
-
-  const languageMenuItems = [
     {
       key: '1',
-      label: (
-        <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
-          <img className="countryFlag" src="/assets/usa.png" alt="usa" />
-          <span>{t('English')}</span>
-        </div>
-      ),
+      label: t('Setting'),
+      children: [
+        {
+          key: '1-1',
+          label: <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
+            <img className="countryFlag" src="/assets/usa.png" alt="usa" />
+            <span>{t('English')}</span>
+          </div>,
+        },
+        {
+          key: '1-2',
+          label: (
+            <div className="countryName" onClick={() => i18next.changeLanguage('vi')}>
+              <img className="countryFlag" src="/assets/vietnam.png" alt="vietnam" />
+              <span>{t('Vietnamese')}</span>
+            </div>
+          ),
+        },
+      ],
     },
     { type: 'divider' },
-    {
-      key: '2',
-      label: (
-        <div className="countryName" onClick={() => i18next.changeLanguage('vi')}>
-          <img className="countryFlag" src="/assets/vietnam.png" alt="vietnam" />
-          <span>{t('Vietnamese')}</span>
-        </div>
-      ),
-    },
+    { label: <a onClick={handleSignOut}>{t('SignOut')}</a>, key: '2' },
   ];
 
   return (
@@ -85,10 +84,7 @@ export default function Header({ isOpen, setOpen }) {
       <div className="user-menu">
         <a className="icon-header"><CartIcon /> {t('Cart')}</a>
         <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
-          <a className="icon-header"><UserIcon /> {t('Account')}</a>
-        </Dropdown>
-        <Dropdown menu={{ items: languageMenuItems }} trigger={['hover']}>
-          <a>{t('Language')} <DownOutlined /></a>
+          <a className="icon-header"><UserIcon /> {t('User')}</a>
         </Dropdown>
       </div>
     </header>
