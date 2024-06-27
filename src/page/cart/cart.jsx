@@ -3,13 +3,7 @@ import "./cart.css";
 
 const CartComponent = () => {
     const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "Lego Cole",
-            price: 299.99,
-            quantity: 1,
-            image: "path_to_image.png"
-        }
+
     ]);
 
     const handleQuantityChange = (id, delta) => {

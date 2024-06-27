@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchProducts, fetchProductById } from "../../../axios/api";
+import { fetchProducts, fetchProductById, searchProducts } from "../../../axios/api";
 
 export const fetchProduct = createAsyncThunk(
     'productList/fetchProduct',
-    async ({ page, limit }) => {
-        const response = await fetchProducts(page, limit);
+    async ({ page, limit, sortBy, sortOrder, category }) => {
+        const response = await fetchProducts(page, limit, sortBy, sortOrder, category);
         return { data: response.data, totalItems: response.total_products }; // Adjusted to match the API response
     }
 );
@@ -14,6 +14,14 @@ export const fetchProductDetail = createAsyncThunk(
     async (productId) => {
         const response = await fetchProductById(productId);
         return response;
+    }
+);
+
+export const searchProduct = createAsyncThunk(
+    'productList/searchProduct',
+    async ({ page, limit, sortBy, sortOrder, search_keywords }) => {
+        const response = await searchProducts(page, limit, sortBy, sortOrder, search_keywords);
+        return { data: response.data, totalItems: response.total_products };
     }
 );
 
@@ -28,8 +36,7 @@ const productsSlice = createSlice({
         productDetailStatus: 'idle',
         productDetailError: null
     },
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchProduct.pending, (state) => {
@@ -46,7 +53,8 @@ const productsSlice = createSlice({
                 state.hasError = action.error.message;
                 state.status = 'failed';
             })
-            // 
+
+            //product detail
             .addCase(fetchProductDetail.pending, (state) => {
                 state.productDetailStatus = 'loading';
                 state.productDetailError = null;
@@ -59,11 +67,25 @@ const productsSlice = createSlice({
             .addCase(fetchProductDetail.rejected, (state, action) => {
                 state.productDetailError = action.error.message;
                 state.productDetailStatus = 'failed';
+            })
+
+            //search product
+            .addCase(searchProduct.pending, (state) => {
+                state.status = 'loading';
+                state.hasError = null;
+            })
+            .addCase(searchProduct.fulfilled, (state, action) => {
+                state.items = action.payload.data;
+                state.totalItems = action.payload.totalItems;
+                state.status = 'succeeded';
+                state.hasError = null;
+            })
+            .addCase(searchProduct.rejected, (state, action) => {
+                state.hasError = action.error.message;
+                state.status = 'failed';
             });
     }
 });
-
-export const { setCurrentPage } = productsSlice.actions;
 
 export const selectProducts = state => state.productList.items;
 export const selectLoadingState = state => state.productList.status;

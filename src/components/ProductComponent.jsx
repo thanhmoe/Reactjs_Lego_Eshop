@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectProducts, selectLoadingState, fetchProduct, selectTotalItems } from "../redux/slice/products/productsSlice";
+import { selectProducts, selectLoadingState, fetchProduct, searchProduct, selectTotalItems } from "../redux/slice/products/productsSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingModal from "../modal/loadingModal";
 import { Spin, Pagination } from "antd";
-
-// const IMAGE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
@@ -14,22 +12,27 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     const products = useSelector(selectProducts);
     const [currentPage, setCurrentPage] = useState(1);
     const totalItems = useSelector(selectTotalItems);
-    const itemsPerPage = 5; // Define the number of items per page
+    const itemsPerPage = 10; // Define the number of items per page
 
     useEffect(() => {
-        if (productsStatus === 'idle' || productsStatus === 'loading') {
-            dispatch(fetchProduct({ page: currentPage, limit: itemsPerPage }));
+        if (searchQuery) {
+            dispatch(searchProduct({ page: currentPage, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption, search_keywords: searchQuery }));
+        } else {
+            dispatch(fetchProduct({ page: currentPage, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption }));
         }
     }, [currentPage, searchQuery, sortOption]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page)
-        dispatch(fetchProduct({ page, limit: itemsPerPage }))
+        if (searchQuery) {
+            dispatch(searchProduct({ page, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption, search_keywords: searchQuery }));
+        } else {
+            dispatch(fetchProduct({ page, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption }));
+        }
     };
 
     const Product = ({ product }) => {
         const [isLoadedImg, setIsLoadedImg] = useState(false);
-        // const imageUrl = `${IMAGE_BASE_URL}${product.image_path}`;
         const handleImageLoad = () => {
             setIsLoadedImg(true);
         };
@@ -56,7 +59,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         <>
             {productsStatus === 'loading' && <LoadingModal />}
             <div className="products-list">
-                {products.map(product => <Product key={product.id} product={product} />)}
+                {products && products.map(product => <Product key={product.id} product={product} />)}
             </div>
             <div className="pagination-product">
                 <Pagination

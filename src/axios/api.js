@@ -6,7 +6,6 @@ const instance = axios.create({
     baseURL: baseURL
 });
 
-
 instance.interceptors.request.use(
     async (config) => {
         const token = getToken();
@@ -20,14 +19,12 @@ instance.interceptors.request.use(
     }
 );
 
-
-
 export const fetchProducts = async (
     page,
     limit,
     sortBy = 'create_at',
     sortOrder = 'desc',
-    category,
+    category
 ) => {
     try {
         let queryParams = `?page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
@@ -68,8 +65,6 @@ export const registerUser = async (newUser) => {
     }
 };
 
-
-
 export const fetchArticles = async () => {
     try {
         const response = await axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/list");
@@ -85,5 +80,14 @@ export const fetchMockProducts = async () => {
         return response.data;
     } catch (error) {
         return error(error);
+    }
+};
+
+export const searchProducts = async (page, limit, sortBy, sortOrder, search_keywords) => {
+    try {
+        const response = await instance.post(`/products/search?page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}`, { search_keywords });
+        return response.data;
+    } catch (error) {
+        return error.response ? error.response.data : { error: 'An error occurred' };
     }
 };
