@@ -26,7 +26,6 @@ import NewsDetail from './page/news/newsDetail.jsx';
 import LoadingModal from './modal/loadingModal.jsx';
 
 
-
 export const cookies = new Cookies(null, { path: '/' })
 
 //custom notification
@@ -87,7 +86,6 @@ const router = createBrowserRouter([
     </MainLayout>,
   },
 
-
   {
     path: "/detail",
     element: <MainLayout>
@@ -116,6 +114,12 @@ const router = createBrowserRouter([
     path: "/about",
     element: <MainLayout>
       <About />
+    </MainLayout>,
+  },
+  {
+    path: "/cart",
+    element: <MainLayout>
+      <CartComponent />
     </MainLayout>,
   },
   {
