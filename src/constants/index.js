@@ -23,25 +23,13 @@ export const JOBSELECT = [
 export const FILTERPRODUCTS = [
     {
         id: 1,
-        type: 'nameAsc',
+        type: 'asc',
         name: 'Name A - Z'
     },
     {
         id: 2,
-        type: 'nameDesc',
+        type: 'desc',
         name: 'Name Z - A'
-    },
-
-    {
-        id: 3,
-        type: 'PriceAsc',
-        name: 'Price Low - High'
-    },
-
-    {
-        id: 4,
-        type: 'priceDesc',
-        name: 'Price High - Low'
     },
 ]
 

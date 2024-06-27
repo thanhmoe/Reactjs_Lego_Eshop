@@ -90,5 +90,7 @@
     text-align: center;
 }
 .pagination-product{
-    
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
 }

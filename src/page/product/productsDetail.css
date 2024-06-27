@@ -1,3 +1,8 @@
+:root {
+    --border-radius-small: 0.75rem;
+    --border-radius: 1rem;
+}
+
 .product-detail-container {
     width: 100%;
     display: flex;
@@ -31,12 +36,82 @@
     justify-content: center;
 }
 
-.quantity-selector {
+.category-detail {
+    margin-bottom: 10px;
+}
+
+.category {
+    font-size: 12px;
+    color: #666;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.category-separator {
+    margin-right: 5px;
+    color: #999;
+}
+
+.product-control {
     display: grid;
     grid-template-columns: 1fr 3fr;
     gap: 1rem;
     align-items: center;
 }
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100px;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.quantity-button {
+    background: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-button:hover {
+    background: #e0e0e0;
+}
+
+.quantity-button:visited {
+    border: none;
+}
+
+.quantity-input-div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.quantity-input {
+    width: 40px;
+    border: none;
+    background: white;
+    color: black;
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 
 .description {
     color: #484848;
@@ -71,18 +146,6 @@
     color: #d9534f;
     font-size: 24px;
     margin: 10px 0;
-}
-
-.quantity-selector {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-}
-
-.quantity-selector input {
-    width: 50px;
-    margin-left: 10px;
-    padding: 5px;
 }
 
 .product-detail-button {

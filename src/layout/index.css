@@ -57,7 +57,7 @@ header a {
 }
 
 .brand {
-    width: 20%;
+    /* width: 20%; */
     display: flex;
 }
 
@@ -95,6 +95,7 @@ header a {
     display: flex;
     justify-content: center;
     flex: 1;
+    margin: 50px;
 }
 
 .contentBody.is-shown {

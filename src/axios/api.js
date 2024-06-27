@@ -22,9 +22,15 @@ instance.interceptors.request.use(
 
 
 
-export const fetchProducts = async (page, limit, sortOrder, category) => {
+export const fetchProducts = async (
+    page,
+    limit,
+    sortBy = 'create_at',
+    sortOrder = 'desc',
+    category,
+) => {
     try {
-        let queryParams = `?page=${page}&limit=${limit}&sortOrder=${sortOrder}`;
+        let queryParams = `?page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
         if (category) {
             queryParams += `&category=${category}`;
         }
@@ -35,6 +41,14 @@ export const fetchProducts = async (page, limit, sortOrder, category) => {
     }
 };
 
+export const fetchProductById = async (id) => {
+    try {
+        const response = await instance.get(`/products/${id}`);
+        return response.data.data[0];
+    } catch (error) {
+        return error.response ? error.response.data : { error: 'An error occurred' };
+    }
+};
 
 export const fetchCustomers = async (user) => {
     try {
