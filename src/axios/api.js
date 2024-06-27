@@ -20,6 +20,22 @@ instance.interceptors.request.use(
     }
 );
 
+
+
+export const fetchProducts = async (page, limit, sortOrder, category) => {
+    try {
+        let queryParams = `?page=${page}&limit=${limit}&sortOrder=${sortOrder}`;
+        if (category) {
+            queryParams += `&category=${category}`;
+        }
+        const response = await instance.get(`/products${queryParams}`);
+        return response.data;
+    } catch (error) {
+        return error.response ? error.response.data : { error: 'An error occurred' };
+    }
+};
+
+
 export const fetchCustomers = async (user) => {
     try {
         const response = await instance.post("/customers/login", user);
@@ -38,32 +54,6 @@ export const registerUser = async (newUser) => {
     }
 };
 
-// export const fetchProducts = async () => {
-//     try {
-//         const response = await instance.get("/products");
-//         return response.data;
-//     } catch (error) {
-//         return error.response.data;
-//     }
-// };
-
-// Assuming `instance` is already defined and configured axios instance
-
-export const fetchProducts = async (page = 1, limit = 10, sortOrder = 'desc', category) => {
-    try {
-        // Construct query parameters
-        let queryParams = `?page=${page}&limit=${limit}&sortOrder=${sortOrder}`;
-        if (category) {
-            queryParams += `&category=${category}`;
-        }
-
-        // Make the GET request
-        const response = await instance.get(`/products${queryParams}`);
-        return response.data;
-    } catch (error) {
-        return error.response ? error.response.data : { error: 'An error occurred' };
-    }
-};
 
 
 export const fetchArticles = async () => {
