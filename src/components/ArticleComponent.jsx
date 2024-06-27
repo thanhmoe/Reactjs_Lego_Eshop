@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectArticles,selectLoadingState,fetchArticle } from "../redux/slice/articles/articlesSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingModal from "../modal/loadingModal";
-
+import { Skeleton, Spin } from "antd";
 const ArticleComponent = ({ searchQuery, sortOption }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [visibleArticles, setVisibleArticles] = useState([])
@@ -11,7 +11,10 @@ const ArticleComponent = ({ searchQuery, sortOption }) => {
     const articlesStatus = useSelector(selectLoadingState);
     const articles = useSelector(selectArticles);
     const navigate = useNavigate();
-
+    const [isLoadedImg, setIsLoadedImg] = useState(false);
+    const handleImageLoad = () => {
+            setIsLoadedImg(true);
+        };
     const linkToDetail = (id) => {
         navigate(`/news/${id}`)
     }
@@ -73,7 +76,8 @@ const ArticleComponent = ({ searchQuery, sortOption }) => {
         {isLoading && <LoadingModal />}
         {filteredArticles.map(article => (
             <div className="articles" key={article.id} onClick={() => linkToDetail(article.id)}>
-                <img src={article.image} alt={article.title} />
+                {!isLoadedImg && <Skeleton active/>}
+                <img src={article.image} onLoad={handleImageLoad} alt={article.title} />
                 <h2>{article.title}</h2>
                 <p>View:{article.view}</p>
                 <p>{article.description}</p>

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { fetchProductDetail, selectProductDetail, selectProductDetailStatus, selectProductDetailError } from "../../redux/slice/products/productsSlice.js";
 import LoadingModal from "../../modal/loadingModal.jsx";
 import CartIcon from '/src/assets/icons/cart.svg?react';
-import { Image, message, InputNumber, Breadcrumb } from "antd";
+import { Image,Skeleton, message, InputNumber, Breadcrumb } from "antd";
 
 export default function ProductsDetail() {
     const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export default function ProductsDetail() {
     return (
         <>
             {!product
-                ? <LoadingModal />
+                ? <Skeleton active/>
                 : <div className="product-detail-container">
                     <div className="detail-container">
                         <div className="productsDetail">

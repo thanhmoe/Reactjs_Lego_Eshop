@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProducts, selectLoadingState, fetchProduct, searchProduct, selectTotalItems } from "../redux/slice/products/productsSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingModal from "../modal/loadingModal";
-import { Spin, Pagination } from "antd";
+import { Spin,Skeleton, Pagination } from "antd";
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
@@ -38,7 +38,8 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         };
         return (
             <div key={product.id} className="product-info" onClick={() => linkToDetail(product.id)}>
-                {!isLoadedImg && <Spin />}
+                {!isLoadedImg && <Skeleton active/>}
+                
                 <img
                     className="image-product"
                     src={product.image_path}
