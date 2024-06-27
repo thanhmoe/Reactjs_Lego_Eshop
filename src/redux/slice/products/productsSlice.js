@@ -13,7 +13,7 @@ const productsSlice = createSlice({
     name: 'productList',
     initialState: {
         items: [],
-        status: 'ide',
+        status: 'idle',
         hasError: null
     },
     reducers: {

@@ -67,7 +67,13 @@
 }
 
 .product-name {
-    color: black;
+    color: rgb(72, 72, 72);
+
+}
+
+.product-price {
+    color: rgb(72, 72, 72);
+    font-weight: 700;
 }
 
 .products-label {

@@ -1,4 +1,4 @@
-import React, {useEffect, Suspense, lazy } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
@@ -18,6 +18,7 @@ import Products from './page/product/products.jsx';
 import Contact from './page/contact/contact.jsx';
 import News from './page/news/news.jsx';
 import About from './page/about/about.jsx';
+import CartComponent from './page/cart/cart.jsx';
 import Login from './page/login.jsx';
 import Signup from './page/register/signup.jsx';
 import ProductsDetail from './page/product/productsDetail.jsx';
@@ -93,9 +94,12 @@ const router = createBrowserRouter([
       <ProductsDetail />
     </MainLayout>,
   },
-
-
-
+  {
+    path: "/cart",
+    element: <MainLayout>
+      <CartComponent />
+    </MainLayout>,
+  },
   {
     path: "/contact",
     element: <MainLayout>

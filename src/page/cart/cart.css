@@ -1,0 +1,145 @@
+.shopping-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #484848;
+    margin: 20px;
+}
+
+.cart-header {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.breadcrumb {
+    color: gray;
+    margin-top: 5px;
+}
+
+.free-shipping-message {
+    background-color: #359b4d9a;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.cart-body {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.cart-items {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-item-image {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.cart-item h2 {
+    margin: 0 0 10px 0;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.quantity-control button {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.quantity-control span {
+    margin: 0 10px;
+}
+
+.cart-item-price {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.remove-item {
+    color: red;
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    background: none;
+}
+
+.order-summary {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.order-summary h2 {
+    margin-top: 0;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.checkout-button {
+    width: 100%;
+    padding: 10px;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: 20px;
+    color: white;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}

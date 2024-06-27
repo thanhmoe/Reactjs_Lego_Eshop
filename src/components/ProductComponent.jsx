@@ -22,7 +22,7 @@ const ProductComponent = () => {
     }
     //fetch data
     useEffect(() => {
-        if (productsStatus === 'ide') {
+        if (productsStatus === 'idle') {
             dispatch(fetchProduct())
         }
         setIsLoading(false)
@@ -46,6 +46,7 @@ const ProductComponent = () => {
                     alt={product.name}
                 />
                 <h3 className="product-name">{product.name}</h3>
+                <p className="product-price">${product.price}</p>
                 <button className="btn-buy">Add to cart</button>
             </div>
         )

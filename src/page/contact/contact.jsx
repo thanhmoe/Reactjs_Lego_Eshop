@@ -142,8 +142,8 @@ export default function contact() {
 
     return <>
         <div className="formContact">
-            <h3 className='decs'>Contact Us</h3>
-            <p className='decs'>You are welcome to fill in the form below
+            <h3 className='decs-contact'>Contact Us</h3>
+            <p className='decs-contact'>You are welcome to fill in the form below
             </p>
             <div className='form-group'>
                 <div>
