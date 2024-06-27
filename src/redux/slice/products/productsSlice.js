@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchProducts, fetchProductById, searchProducts } from "../../../axios/api";
+import { fetchProducts,fetchRelatedProducts, fetchProductById, searchProducts } from "../../../axios/api";
 
 export const fetchProduct = createAsyncThunk(
     'productList/fetchProduct',
@@ -25,6 +25,13 @@ export const searchProduct = createAsyncThunk(
     }
 );
 
+export const fetchRelatedProduct = createAsyncThunk(
+    'productList/fetchRelatedProduct',
+    async ({ page, limit, sortBy, sortOrder, categoryId }) => {
+        const response = await fetchRelatedProducts(page, limit, sortBy, sortOrder, categoryId);
+        return { data: response.data, totalItems: response.total_products }; // Adjusted to match the API response
+    }
+);
 const productsSlice = createSlice({
     name: 'productList',
     initialState: {
@@ -34,7 +41,10 @@ const productsSlice = createSlice({
         totalItems: 0,
         selectedProduct: null,
         productDetailStatus: 'idle',
-        productDetailError: null
+        productDetailError: null,
+        relatedProducts: [],
+        relatedProductsStatus: 'idle',
+        relatedProductsError: null
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -83,6 +93,20 @@ const productsSlice = createSlice({
             .addCase(searchProduct.rejected, (state, action) => {
                 state.hasError = action.error.message;
                 state.status = 'failed';
+            })
+            //product related
+            .addCase(fetchRelatedProduct.pending, (state) => {
+                state.relatedProductsStatus = 'loading';
+                state.relatedProductsError = null;
+            })
+            .addCase(fetchRelatedProduct.fulfilled, (state, action) => {
+                state.relatedProducts = action.payload;
+                state.relatedProductsStatus = 'succeeded';
+                state.relatedProductsError = null;
+            })
+            .addCase(fetchRelatedProduct.rejected, (state, action) => {
+                state.relatedProductsError = action.error.message;
+                state.relatedProductsStatus = 'failed';
             });
     }
 });
@@ -94,5 +118,8 @@ export const selectTotalItems = state => state.productList.totalItems;
 export const selectProductDetail = state => state.productList.selectedProduct;
 export const selectProductDetailStatus = state => state.productList.productDetailStatus;
 export const selectProductDetailError = state => state.productList.productDetailError;
+export const selectRelatedProducts = state => state.productList.relatedProducts;
+export const selectRelatedProductsStatus = state => state.productList.relatedProductsStatus;
+export const selectRelatedProductsError = state => state.productList.relatedProductsError;
 
 export default productsSlice.reducer;

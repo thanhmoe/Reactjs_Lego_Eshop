@@ -86,8 +86,8 @@
     background: #e0e0e0;
 }
 
-.quantity-button:visited {
-    border: none;
+.quantity-button:focus {
+    outline: none;
 }
 
 .quantity-input-div {

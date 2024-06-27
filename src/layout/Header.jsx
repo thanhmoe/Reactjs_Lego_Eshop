@@ -9,7 +9,7 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { notify } from "../main";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../redux/slice/account/userSlice";
+import { clearToken } from "../axios/auth";
 import "./index.css";
 
 export default function Header({ isOpen, setOpen }) {
@@ -19,7 +19,7 @@ export default function Header({ isOpen, setOpen }) {
   const token = localStorage.getItem('auth_token');
 
   function handleSignOut() {
-    dispatch(logoutUser());
+    clearToken()
     navigate('/login');
     notify('info', `You've been logged out!`);
   }

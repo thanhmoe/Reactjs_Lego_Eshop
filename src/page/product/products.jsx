@@ -12,7 +12,7 @@ export default function Products() {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOption, setSortOption] = useState('asc');
     const dispatch = useDispatch();
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
     const handleSearchChange = (e) => {

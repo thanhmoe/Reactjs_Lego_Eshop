@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import './productsDetail.css';
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { CommentOutlined } from '@ant-design/icons';
-import { fetchMockProduct, selectProducts } from "../../redux/slice/products/productMockSlice";
 import { fetchProductDetail, selectProductDetail, selectProductDetailStatus, selectProductDetailError } from "../../redux/slice/products/productsSlice.js";
 import LoadingModal from "../../modal/loadingModal.jsx";
 import CartIcon from '/src/assets/icons/cart.svg?react';
