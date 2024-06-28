@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProducts, selectLoadingState, fetchProduct, searchProduct, selectTotalItems } from "../redux/slice/products/productsSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingModal from "../modal/loadingModal";
-import { Spin,Skeleton, Pagination } from "antd";
+import { Spin, Skeleton, Pagination, Checkbox } from "antd";
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
@@ -38,8 +38,8 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         };
         return (
             <div key={product.id} className="product-info" onClick={() => linkToDetail(product.id)}>
-                {!isLoadedImg && <Skeleton active/>}
-                
+                {!isLoadedImg && <Skeleton active />}
+
                 <img
                     className="image-product"
                     src={product.image_path}
@@ -59,8 +59,19 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     return (
         <>
             {productsStatus === 'loading' && <LoadingModal />}
-            <div className="products-list">
-                {products && products.map(product => <Product key={product.id} product={product} />)}
+            <div className="content-product">
+                <div className="aside-product">
+                    <div className="select-category">
+                        <h3>Categories</h3>
+                        <Checkbox>Category1</Checkbox>
+                        <Checkbox>Category1</Checkbox>
+                        <Checkbox>Category1</Checkbox>
+                        <Checkbox>Category1</Checkbox>
+                    </div>
+                </div>
+                <div className="products-list">
+                    {products && products.map(product => <Product key={product.id} product={product} />)}
+                </div>
             </div>
             <div className="pagination-product">
                 <Pagination
