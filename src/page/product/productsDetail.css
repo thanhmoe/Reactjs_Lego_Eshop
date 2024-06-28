@@ -32,8 +32,18 @@
 
 .leftInfo {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
+
+.breadcrumb-product {
+    margin-bottom: 1rem;
+}
+
+.breadcrumb-product:hover {
+    cursor: pointer;
+}
+
 
 .category-detail {
     margin-bottom: 10px;
@@ -168,10 +178,11 @@
     background-color: #c9302c;
 }
 
-.instock-detail{
+.instock-detail {
     margin-top: 10px;
 }
-.instock{
+
+.instock {
     font-size: 12px;
     color: #666;
 }

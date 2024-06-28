@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './productsDetail.css';
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { fetchProductDetail, selectProductDetail, selectProductDetailStatus, selectProductDetailError } from "../../redux/slice/products/productsSlice.js";
 import LoadingModal from "../../modal/loadingModal.jsx";
 import CartIcon from '/src/assets/icons/cart.svg?react';
-import { Image,Skeleton, message, InputNumber, Breadcrumb } from "antd";
+import { Image, Skeleton, message, InputNumber, Breadcrumb } from "antd";
 
 export default function ProductsDetail() {
     const dispatch = useDispatch();
@@ -18,7 +18,9 @@ export default function ProductsDetail() {
     useEffect(() => {
         dispatch(fetchProductDetail(productId));
     }, []);
-    // const imageUrl = `${IMAGE_BASE_URL}${product.image_path}`;
+
+    const navigate = useNavigate()
+
     const handleQuantityChange = (newQuantity) => {
         if (newQuantity < 1) {
             setQuantity(1);
@@ -40,12 +42,21 @@ export default function ProductsDetail() {
     return (
         <>
             {!product
-                ? <Skeleton active/>
+                ? <Skeleton active />
                 : <div className="product-detail-container">
                     <div className="detail-container">
                         <div className="productsDetail">
                             <div className="leftInfo">
-                                <Image src={product.image_path} />
+                                <div className="breadcrumb-product">
+                                    <Breadcrumb>
+                                        <Breadcrumb.Item onClick={() => navigate('/')}>Home</Breadcrumb.Item>
+                                        <Breadcrumb.Item onClick={() => navigate('/products')}>Products</Breadcrumb.Item>
+                                        <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
+                                    </Breadcrumb>
+                                </div>
+                                <div>
+                                    <Image src={product.image_path} />
+                                </div>
                             </div>
                             <div className="detailInfo">
                                 <div className="category-detail">
