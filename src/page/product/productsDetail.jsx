@@ -73,6 +73,9 @@ export default function ProductsDetail() {
                                     </div>
                                     <button className="btn-buy"><CartIcon />Add to cart</button>
                                 </div>
+                                <div className="instock-detail">
+                                    <span className="instock">instock: {product.quantity}</span>
+                                </div>
                                 <p className="addinfor">This item will be shipped to your address.</p>
                             </div>
                         </div>

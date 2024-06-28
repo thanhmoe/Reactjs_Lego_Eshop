@@ -168,57 +168,12 @@
     background-color: #c9302c;
 }
 
-.comment {
-    margin-top: 4rem;
-    width: 100%;
-    max-width: 800px;
-    color: black;
+.instock-detail{
+    margin-top: 10px;
 }
-
-.comment-component {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-    gap: 20px;
-}
-
-.btn-cmt {
-    background-color: #00ADB5;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-cmt:hover {
-    background-color: #009a9e;
-}
-
-.comment ul {
-    list-style: none;
-    padding: 0;
-}
-
-.commented li {
-    border: 1px solid #646464;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.inputCmt {
-    padding: 10px;
-    width: 100%;
-    color: black;
-    background-color: white;
-    border: 1px solid black;
-}
-
-.inputCmt:focus {
-    outline: none;
+.instock{
+    font-size: 12px;
+    color: #666;
 }
 
 @media (max-width: 768px) {
