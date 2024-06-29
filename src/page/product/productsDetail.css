@@ -134,6 +134,7 @@
 .detailInfo {
     display: grid;
     grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
 }
 
 .productName {
