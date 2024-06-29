@@ -32,6 +32,7 @@ export const fetchProducts = async (
             queryParams += `&category=${category}`;
         }
         const response = await instance.get(`/products${queryParams}`);
+        console.log(response.data,123123);
         return response.data;
     } catch (error) {
         return error.response ? error.response.data : { error: 'An error occurred' };
