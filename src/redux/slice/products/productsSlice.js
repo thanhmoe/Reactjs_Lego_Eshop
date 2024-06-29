@@ -5,7 +5,7 @@ export const fetchProduct = createAsyncThunk(
     'productList/fetchProduct',
     async ({ page, limit, sortBy, sortOrder, category }) => {
         const response = await fetchProducts(page, limit, sortBy, sortOrder, category);
-        return { data: response.data, totalItems: response.total_products }; // Adjusted to match the API response
+        return { data: response.products, totalItems: response.total_products }; // Adjusted to match the API response
     }
 );
 
