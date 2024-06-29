@@ -18,17 +18,15 @@ export default function ProductsDetail() {
     useEffect(() => {
         dispatch(fetchProductDetail(productId));
     }, []);
-    // const imageUrl = `${IMAGE_BASE_URL}${product.image_path}`;
+  
     const handleQuantityChange = (newQuantity) => {
         if (newQuantity < 1) {
             setQuantity(1);
-        } else if (newQuantity > product.quantity) {
-            message.error(`Only ${product.quantity} available in stock.`);
-            setQuantity(product.quantity);
-        } else {
+        } else if (newQuantity <= product.quantity) {
             setQuantity(newQuantity);
         }
     };
+
     const incrementQuantity = () => {
         handleQuantityChange(quantity + 1);
     };
@@ -61,7 +59,7 @@ export default function ProductsDetail() {
                                 <p className="price">${product.price}</p>
                                 <div className="product-control">
                                     <div className="quantity-selector">
-                                        <button onClick={decrementQuantity} className="quantity-button">-</button>
+                                        <button onClick={decrementQuantity} disabled={quantity <= 1} className="quantity-button quantity-button-decrement">-</button>
                                         <div className="quantity-input-div">
                                             <input className="quantity-input"
                                                 type="number"
@@ -69,13 +67,24 @@ export default function ProductsDetail() {
                                                 onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
                                             />
                                         </div>
-                                        <button onClick={incrementQuantity} className="quantity-button">+</button>
+                                        <button onClick={incrementQuantity} disabled={quantity >= product.quantity} className="quantity-button quantity-button-increment">+</button>
                                     </div>
                                     <button className="btn-buy"><CartIcon />Add to cart</button>
                                 </div>
                                 <p className="addinfor">This item will be shipped to your address.</p>
                             </div>
                         </div>
+                    </div>
+                    <div className="product-detail-description">
+                    <h2>More Product Information!</h2>
+                        <h3>{product.name}</h3>
+                        <p>Brand: Lego</p>
+                        {product.categories.map((category) => (
+                                        <p key={category.id} className="category">
+                                          {category.name}
+                                        </p>
+                                    ))}
+                        <p>{product.description}</p>
                     </div>
                 </div>
             }
