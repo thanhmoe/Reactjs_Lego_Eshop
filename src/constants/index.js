@@ -20,16 +20,30 @@ export const JOBSELECT = [
     }
 ]
 
-export const FILTERPRODUCTS = [
+export const FILTER_PRODUCTS_OPTIONS = [
     {
-        id: 1,
-        type: 'asc',
+        id: 0,
+        sortOrder: 'asc',
+        sortBy: 'name',
         name: 'Name A - Z'
     },
     {
-        id: 2,
-        type: 'desc',
+        id: 1,
+        sortOrder: 'desc',
+        sortBy: 'name',
         name: 'Name Z - A'
+    },
+    {
+        id: 2,
+        sortOrder: 'asc',
+        sortBy: 'price',
+        name: 'Price Low to High'
+    },
+    {
+        id: 3,
+        sortOrder: 'desc',
+        sortBy: 'price',
+        name: 'Price High to Low'
     },
 ]
 

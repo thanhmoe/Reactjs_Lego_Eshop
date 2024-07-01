@@ -10,7 +10,6 @@
 .aside-product {
     display: flex;
     flex-direction: column;
-    width: 200px;
     position: sticky;
     border-radius: 10px;
     top: 0;

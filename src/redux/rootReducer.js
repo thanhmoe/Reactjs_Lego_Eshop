@@ -6,7 +6,7 @@ import userSlice from "./slice/account/userSlice"
 // import articlesSlice from "../slice/articles/articlesSlice";
 // import userSlice from "../slice/account/loginSlice";
 const rootReducer = combineReducers({
-    productList: productsSlice,
+    productsSlice,
     articleList: articlesSlice,
     user: userSlice
 })

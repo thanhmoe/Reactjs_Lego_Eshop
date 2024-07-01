@@ -1,35 +1,55 @@
+import { Checkbox, Pagination, Skeleton } from "antd";
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectProducts, selectLoadingState, fetchProduct, searchProduct, selectTotalItems } from "../redux/slice/products/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { FILTER_PRODUCTS_OPTIONS } from "../constants";
 import LoadingModal from "../modal/loadingModal";
-import { Spin, Skeleton, Pagination, Checkbox } from "antd";
+import {
+    fetchProduct,
+    selectLoadingState,
+    selectTotalItems,
+} from "../redux/slice/products/productsSlice";
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const productsStatus = useSelector(selectLoadingState);
-    const products = useSelector(selectProducts);
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const productsStatus = useSelector(selectLoadingState);
+    const products = useSelector((state) => state.productsSlice.items);
+    const categories = useSelector((state) => state.productsSlice.categories) || [];
     const totalItems = useSelector(selectTotalItems);
-    const itemsPerPage = 10; // Define the number of items per page
+
+    const itemsPerPage = 12; // Define the number of items per page
+
+    const getListProduct = async () => {
+        dispatch(
+            fetchProduct({
+                page: currentPage,
+                limit: itemsPerPage,
+                textSearch: searchQuery,
+                sortBy: FILTER_PRODUCTS_OPTIONS[sortOption].sortBy,
+                sortOrder: FILTER_PRODUCTS_OPTIONS[sortOption].sortOrder,
+                category: selectedCategory
+            })
+        );
+    };
+
+    const handleCategoryChange = (e) => {
+        const categoryId = e.target.value;
+        setSelectedCategory((prevSelectedCategory) =>
+            prevSelectedCategory === categoryId ? null : categoryId
+        );
+        setCurrentPage(1);
+    };
+
+    const linkToDetail = (id) => {
+        navigate(`/products/${id}`);
+    };
 
     useEffect(() => {
-        if (searchQuery) {
-            dispatch(searchProduct({ page: currentPage, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption, search_keywords: searchQuery }));
-        } else {
-            dispatch(fetchProduct({ page: currentPage, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption }));
-        }
-    }, [currentPage, searchQuery, sortOption]);
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page)
-        if (searchQuery) {
-            dispatch(searchProduct({ page, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption, search_keywords: searchQuery }));
-        } else {
-            dispatch(fetchProduct({ page, limit: itemsPerPage, sortBy: 'name', sortOrder: sortOption }));
-        }
-    };
+        getListProduct();
+    }, [searchQuery, sortOption, currentPage, selectedCategory]);
 
     const Product = ({ product }) => {
         const [isLoadedImg, setIsLoadedImg] = useState(false);
@@ -37,7 +57,11 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
             setIsLoadedImg(true);
         };
         return (
-            <div key={product.id} className="product-info" onClick={() => linkToDetail(product.id)}>
+            <div
+                key={product.id}
+                className="product-info"
+                onClick={() => linkToDetail(product.id)}
+            >
                 {!isLoadedImg && <Skeleton active />}
 
                 <img
@@ -52,25 +76,32 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         );
     };
 
-    const linkToDetail = (id) => {
-        navigate(`/products/${id}`);
-    };
-
     return (
         <>
-            {productsStatus === 'loading' && <LoadingModal />}
+            {productsStatus === "loading" && <LoadingModal />}
             <div className="content-product">
                 <div className="aside-product">
                     <div className="select-category">
                         <h3>Categories</h3>
-                        <Checkbox>Category1</Checkbox>
-                        <Checkbox>Category1</Checkbox>
-                        <Checkbox>Category1</Checkbox>
-                        <Checkbox>Category1</Checkbox>
+                        {categories.length > 0 &&
+                            categories.map((category) => (
+                                <Checkbox
+                                    key={category.id}
+                                    value={category.id}
+                                    checked={selectedCategory === category.id}
+                                    onChange={handleCategoryChange}
+                                >
+                                    {category.name} {`(${category.total_products})`}
+                                </Checkbox>
+                            ))
+                        }
                     </div>
                 </div>
                 <div className="products-list">
-                    {products && products.map(product => <Product key={product.id} product={product} />)}
+                    {products.length > 0 &&
+                        products.map((product) => (
+                            <Product key={product.id} product={product} />
+                        ))}
                 </div>
             </div>
             <div className="pagination-product">
@@ -78,7 +109,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                     current={currentPage}
                     pageSize={itemsPerPage}
                     total={totalItems}
-                    onChange={handlePageChange}
+                    onChange={(page) => setCurrentPage(page)}
                 />
             </div>
         </>

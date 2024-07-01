@@ -1,50 +1,34 @@
-import React, { useState } from "react";
-import './products.css'
-import { Input, Space, Select } from 'antd';
-import { FILTERPRODUCTS } from "../../constants";
+import { Input, Select, Space } from 'antd';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import ProductComponent from "../../components/ProductComponent";
+import { FILTER_PRODUCTS_OPTIONS } from "../../constants";
+import './products.css';
+import { fetchProductsRefactor } from '../../axios/api';
 const { Search } = Input;
 const { Option } = Select;
-import ProductComponent from "../../components/ProductComponent";
-import { useDispatch } from "react-redux";
-import { searchProduct, fetchProduct } from "../../redux/slice/products/productsSlice";
 
 export default function Products() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortOption, setSortOption] = useState('asc');
+    const [sortOption, setSortOption] = useState(0);
     const dispatch = useDispatch();
     const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
     const handleSearchChange = (e) => {
-        const value = e.target.value;
-        setTimeout(() => {
-            setSearchQuery(value);
-
-            if (value.trim() !== "") {
-                dispatch(searchProduct({ page: currentPage, limit: itemsPerPage, sortBy, sortOrder: sortOption, search_keywords: value }));
-            } else {
-                dispatch(fetchProduct({ page: currentPage, limit: itemsPerPage, sortBy, sortOrder: sortOption }));
-            }
-        }, 1000);
-    };
-
-    const onSearch = (value) => {
-        setSearchQuery(value);
-        if (value.trim() !== "") {
-            dispatch(searchProduct({ page: currentPage, limit: itemsPerPage, sortBy, sortOrder: sortOption, search_keywords: value }));
-        } else {
-            dispatch(fetchProduct({ page: currentPage, limit: itemsPerPage, sortBy, sortOrder: sortOption }));
-        }
+        // handle sau khi ket thuc nhap 1s thi moi update state
+        // setTimeout(() => {
+        //     setSearchQuery(e.target.value);
+        // }, 1000);
     };
 
     const handleSortChange = (value) => {
-        setSortOption(value);
-        if (searchQuery.trim() !== "") {
-            dispatch(searchProduct({ page: currentPage, limit: itemsPerPage, sortBy, sortOrder: value, search_keywords: searchQuery }));
-        } else {
-            dispatch(fetchProduct({ page: currentPage, limit: itemsPerPage, sortBy, sortOrder: value }));
-        }
+        setSortOption(value)
     };
+
+    const onSearch = (value) => {
+        setSearchQuery(value)
+    }
 
     return (
         <div className="container-product">
@@ -54,13 +38,13 @@ export default function Products() {
                     <Search 
                         className="searchbar"
                         placeholder="input search text"
-                        onSearch={onSearch}
+                        onSearch={(value) => onSearch(value)}
                         onChange={handleSearchChange}
                     />
                     <div>
-                        <Select defaultValue="asc" style={{ width: 200 }} onChange={handleSortChange}>
-                            {FILTERPRODUCTS.map(filter => (
-                                <Option key={filter.id} value={filter.type}>{filter.name}</Option>
+                        <Select defaultValue={FILTER_PRODUCTS_OPTIONS[0].name} style={{ width: 200 }} onChange={handleSortChange}>
+                            {FILTER_PRODUCTS_OPTIONS.map(option => (
+                                <Option key={option.id} value={option.id}>{option.name}</Option>
                             ))}
                         </Select>
                     </div>

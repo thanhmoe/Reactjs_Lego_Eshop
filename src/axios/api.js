@@ -1,11 +1,13 @@
 import axios from "axios";
 import { getToken } from "./auth";
 
+// Init axios instance
 const baseURL = import.meta.env.VITE_BASE_URL;
 const instance = axios.create({
     baseURL: baseURL
 });
 
+// axios config
 instance.interceptors.request.use(
     async (config) => {
         const token = getToken();
@@ -19,25 +21,25 @@ instance.interceptors.request.use(
     }
 );
 
-export const fetchProducts = async (
-    page,
-    limit,
-    sortBy ,
-    sortOrder ,
-    category
-) => {
+export const fetchProductsRefactor = async (params) => {
+    const {page, limit, textSearch, sortBy, sortOrder,category} = params
     try {
-        let queryParams = `?page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
-        if (category) {
-            queryParams += `&category=${category}`;
+        // required params
+        let url = `/products?page=${page}&limit=${limit}`
+
+        // optional params
+        if(sortOrder, sortBy, category) {
+            url += `&sortBy=${sortBy}&sortOrder=${sortOrder}&category=${category}`
         }
-        const response = await instance.get(`/products${queryParams}`);
-        console.log(response.data,123123);
-        return response.data;
+        const response = await instance.get(url)
+        console.log('RES ==>', response)
+        if(response && response.status == 200){
+            return response.data
+        }
     } catch (error) {
         return error.response ? error.response.data : { error: 'An error occurred' };
     }
-};
+}
 
 export const fetchProductById = async (id) => {
     try {
