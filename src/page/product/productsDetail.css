@@ -10,6 +10,10 @@
     align-items: center;
 }
 
+h2 {
+    color: #484848;
+}
+
 .detail-container {
     width: 100%;
     background-color: rgb(114, 114, 114);
@@ -31,9 +35,7 @@
 }
 
 .leftInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
 }
 
 .breadcrumb-product {
@@ -94,11 +96,13 @@
 .quantity-button:focus {
     outline: none;
 }
+
 .quantity-button-decrement:disabled,
 .quantity-button-increment:disabled {
     cursor: not-allowed;
     opacity: 0.5;
 }
+
 .quantity-input-div {
     flex: 1;
     display: flex;
@@ -126,7 +130,8 @@
     color: #484848;
 }
 
-.addinfor {
+.addinfor,
+.instock {
     font-size: 0.75rem;
     color: #484848;
 }
@@ -171,7 +176,7 @@
     background-color: #c9302c;
 }
 
-.product-detail-description{
+.product-detail-description {
     margin: 3rem 0px 3rem 0px;
     max-width: 1000px;
 }

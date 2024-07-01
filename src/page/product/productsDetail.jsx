@@ -18,7 +18,7 @@ export default function ProductsDetail() {
     useEffect(() => {
         dispatch(fetchProductDetail(productId));
     }, []);
-  
+
 
     const navigate = useNavigate()
 
@@ -83,22 +83,22 @@ export default function ProductsDetail() {
                                     </div>
                                     <button className="btn-buy"><CartIcon />Add to cart</button>
                                 </div>
-                                <div className="instock-detail">
+                                {/* <div className="instock-detail">
                                     <span className="instock">instock: {product.quantity}</span>
-                                </div>
+                                </div> */}
                                 <p className="addinfor">This item will be shipped to your address.</p>
                             </div>
                         </div>
                     </div>
                     <div className="product-detail-description">
-                    <h2>More Product Information!</h2>
-                        <h3>{product.name}</h3>
+                        <h2>Product Information!</h2>
+                        <h3 className="productName">{product.name}</h3>
                         <p>Brand: Lego</p>
                         {product.categories.map((category) => (
-                                        <p key={category.id} className="category">
-                                          {category.name}
-                                        </p>
-                                    ))}
+                            <p key={category.id} className="category">
+                                {category.name}
+                            </p>
+                        ))}
                         <p>{product.description}</p>
                     </div>
                 </div>
