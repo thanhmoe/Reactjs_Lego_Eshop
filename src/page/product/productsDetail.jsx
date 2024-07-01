@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import './productsDetail.css';
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { fetchProductDetail, selectProductDetail, selectProductDetailStatus, selectProductDetailError } from "../../redux/slice/products/productsSlice.js";
+import { fetchProduct, fetchProductDetail, selectProductDetail, selectProducts } from "../../redux/slice/products/productsSlice.js";
 import LoadingModal from "../../modal/loadingModal.jsx";
 import CartIcon from '/src/assets/icons/cart.svg?react';
 import { Image, Skeleton, message, InputNumber, Breadcrumb } from "antd";
@@ -10,17 +10,28 @@ import { Image, Skeleton, message, InputNumber, Breadcrumb } from "antd";
 export default function ProductsDetail() {
     const dispatch = useDispatch();
     const { productId } = useParams();
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 20; // Define the number of items per page
     const product = useSelector(selectProductDetail);
-    const productDetailStatus = useSelector(selectProductDetailStatus);
-    const productDetailError = useSelector(selectProductDetailError);
     const [quantity, setQuantity] = useState(1);
-
-    useEffect(() => {
-        dispatch(fetchProductDetail(productId));
-    }, []);
-
-
+    const relatedProducts = useSelector(selectProducts)
     const navigate = useNavigate()
+
+
+    const getRelatedProduct = async () => {
+        dispatch(
+            fetchProduct({
+                page: currentPage,
+                limit: itemsPerPage,
+                product: productId
+            })
+        );
+    };
+    const linkToDetail = (id) => {
+        navigate(`/products/${id}`);
+        // window.scrollTo(0, 0);
+        window.location.reload();
+    };
 
     const handleQuantityChange = (newQuantity) => {
         if (newQuantity < 1) {
@@ -37,6 +48,12 @@ export default function ProductsDetail() {
     const decrementQuantity = () => {
         handleQuantityChange(quantity - 1);
     };
+
+    useEffect(() => {
+        dispatch(fetchProductDetail(productId));
+        getRelatedProduct();
+    }, [productId]);
+
 
     return (
         <>
@@ -100,6 +117,27 @@ export default function ProductsDetail() {
                             </p>
                         ))}
                         <p>{product.description}</p>
+                    </div>
+                    <h2>Recommend For You!</h2>
+                    <div className="related-products-list">
+                        {relatedProducts.length > 0 &&
+                            relatedProducts.map((product) => (
+                                <div
+                                    key={product.id}
+                                    className="product-info"
+                                    onClick={() => linkToDetail(product.id)}
+                                >
+                                    {console.log(product.id, 1231313)}
+                                    {/* {!isLoadedImg && <Skeleton active />} */}
+                                    <img
+                                        className="image-product"
+                                        src={product.image_path}
+                                        alt={product.name}
+                                    />
+                                    <h3 className="product-name">{product.name}</h3>
+                                    <p className="product-price">${product.price}</p>
+                                </div>
+                            ))}
                     </div>
                 </div>
             }

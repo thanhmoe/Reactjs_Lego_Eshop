@@ -180,7 +180,14 @@ h2 {
     margin: 3rem 0px 3rem 0px;
     max-width: 1000px;
 }
-
+.related-products-list{
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem;
+    align-items: start;
+}
 @media (max-width: 768px) {
     .productsDetail {
         display: flex;
