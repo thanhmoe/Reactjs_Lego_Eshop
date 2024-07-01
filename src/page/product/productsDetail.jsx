@@ -127,7 +127,6 @@ export default function ProductsDetail() {
                                     className="product-info"
                                     onClick={() => linkToDetail(product.id)}
                                 >
-                                    {console.log(product.id, 1231313)}
                                     {/* {!isLoadedImg && <Skeleton active />} */}
                                     <img
                                         className="image-product"

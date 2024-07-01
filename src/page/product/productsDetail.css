@@ -178,6 +178,7 @@ h2 {
 
 .product-detail-description {
     margin: 3rem 0px 3rem 0px;
+    width: 100%;
     max-width: 1000px;
 }
 .related-products-list{
@@ -190,6 +191,10 @@ h2 {
 }
 @media (max-width: 768px) {
     .productsDetail {
+        display: flex;
+        flex-direction: column;
+    }
+    .related-products-list{
         display: flex;
         flex-direction: column;
     }

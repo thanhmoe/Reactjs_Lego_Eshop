@@ -15,6 +15,7 @@ export default function Products() {
     const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
+
     const handleSearchChange = (e) => {
         // handle sau khi ket thuc nhap 1s thi moi update state
         // setTimeout(() => {
@@ -35,11 +36,12 @@ export default function Products() {
             <h2 className="products-label">PRODUCTS</h2>
             <div className="filter-product">
                 <Space>
-                    <Search 
+                    <Search
                         className="searchbar"
                         placeholder="input search text"
                         onSearch={(value) => onSearch(value)}
                         onChange={handleSearchChange}
+                        onBlur={handleSearchChange}
                     />
                     <div>
                         <Select defaultValue={FILTER_PRODUCTS_OPTIONS[0].name} style={{ width: 200 }} onChange={handleSortChange}>

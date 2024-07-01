@@ -27,7 +27,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
             fetchProduct({
                 page: currentPage,
                 limit: itemsPerPage,
-                textSearch: searchQuery,
+                textQuery: searchQuery,
                 sortBy: FILTER_PRODUCTS_OPTIONS[sortOption].sortBy,
                 sortOrder: FILTER_PRODUCTS_OPTIONS[sortOption].sortOrder,
                 category: selectedCategory

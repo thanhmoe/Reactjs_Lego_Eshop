@@ -22,17 +22,23 @@ instance.interceptors.request.use(
 );
 
 export const fetchProductsRefactor = async (params) => {
-    const {page, limit, textSearch, sortBy, sortOrder,product,category} = params
+    const {page, limit, textQuery, sortBy, sortOrder,product,category} = params
     try {
         // required params
         let url = `/products?page=${page}&limit=${limit}`
 
         // optional params
-        if(sortOrder, sortBy, category) {
-            url += `&sortBy=${sortBy}&sortOrder=${sortOrder}&category=${category}`
+        if(sortOrder, sortBy) {
+            url += `&sortBy=${sortBy}&sortOrder=${sortOrder}`
         }
         if (product) {
             url += `&product=${product}`
+        }
+        if (category) {
+            url += `&category=${category}`  
+        }
+        if (textQuery) {
+            url += `&textQuery=${textQuery}`     
         }
         const response = await instance.get(url)
         console.log('RES ==>', response)
