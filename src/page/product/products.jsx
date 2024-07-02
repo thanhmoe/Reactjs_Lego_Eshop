@@ -1,3 +1,4 @@
+// /src/pages/Products.js
 import { Input, Select, Space } from 'antd';
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -15,13 +16,21 @@ export default function Products() {
     const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
+    const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
 
     const handleSearchChange = (e) => {
-        // handle sau khi ket thuc nhap 1s thi moi update state
-        // setTimeout(() => {
-        //     setSearchQuery(e.target.value);
-        // }, 1000);
+        setSearchQuery(e.target.value);
     };
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedQuery(searchQuery);
+        }, 1000); // 1 second debounce time
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchQuery]);
 
     const handleSortChange = (value) => {
         setSortOption(value)
@@ -41,7 +50,6 @@ export default function Products() {
                         placeholder="input search text"
                         onSearch={(value) => onSearch(value)}
                         onChange={handleSearchChange}
-                        onBlur={handleSearchChange}
                     />
                     <div>
                         <Select defaultValue={FILTER_PRODUCTS_OPTIONS[0].name} style={{ width: 200 }} onChange={handleSortChange}>
@@ -53,7 +61,7 @@ export default function Products() {
                 </Space>
             </div>
             <div>
-                <ProductComponent searchQuery={searchQuery} sortOption={sortOption} />
+                <ProductComponent searchQuery={debouncedQuery} sortOption={sortOption} />
             </div>
         </div>
     );

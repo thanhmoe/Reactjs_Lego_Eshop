@@ -9,6 +9,7 @@ import {
     selectLoadingState,
     selectTotalItems,
 } from "../redux/slice/products/productsSlice";
+import noResult from "/public/assets/no-result.png"
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
@@ -63,7 +64,6 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 onClick={() => linkToDetail(product.id)}
             >
                 {!isLoadedImg && <Skeleton active />}
-
                 <img
                     className="image-product"
                     src={product.image_path}
@@ -97,12 +97,17 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                         }
                     </div>
                 </div>
-                <div className="products-list">
-                    {products.length > 0 &&
-                        products.map((product) => (
+                {products ?
+                    <div className="products-list">
+                        {products.map((product) => (
                             <Product key={product.id} product={product} />
                         ))}
-                </div>
+                    </div>
+                    :
+                    <div className="no-result-found">
+                        <img className="no-result-img" src={noResult} alt="Not Found" />
+                        <h2>No Result!</h2>
+                    </div>}
             </div>
             <div className="pagination-product">
                 <Pagination
