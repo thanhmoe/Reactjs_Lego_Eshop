@@ -86,7 +86,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     background: white;
     justify-content: space-between;
-    height: 450px;
+    height: 350px;
 }
 
 .product-info:hover {
@@ -127,6 +127,9 @@
 .product-name {
     color: rgb(72, 72, 72);
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .product-price {
