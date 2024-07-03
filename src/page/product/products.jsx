@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import ProductComponent from "../../components/ProductComponent";
 import { FILTER_PRODUCTS_OPTIONS } from "../../constants";
 import './products.css';
-import { fetchProductsRefactor } from '../../axios/api';
+import { debounce } from 'lodash';
 const { Search } = Input;
 const { Option } = Select;
 
@@ -16,24 +16,17 @@ export default function Products() {
     const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
-
-    const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
-
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedQuery(searchQuery);
-        }, 1000); // 1 second debounce time
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchQuery]);
+    // Debounce search input
+    const debouncedSearch = debounce((value) => {
+        setSearchQuery(value);
+    }, 1000);
 
     const handleSortChange = (value) => {
         setSortOption(value)
+    };
+
+    const handleSearchChange = (e) => {
+        debouncedSearch(e.target.value);
     };
 
     const onSearch = (value) => {
@@ -61,7 +54,7 @@ export default function Products() {
                 </Space>
             </div>
             <div>
-                <ProductComponent searchQuery={debouncedQuery} sortOption={sortOption} />
+                <ProductComponent searchQuery={searchQuery} sortOption={sortOption} />
             </div>
         </div>
     );
