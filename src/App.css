@@ -55,43 +55,8 @@ section {
   height: auto;
 }
 
-@keyframes slideInLeft {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
 
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInRight {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.slide-in-left {
-  animation: slideInLeft 1.5s ease-in-out;
-}
-
-.slide-in-right {
-  animation: slideInRight 1.5s ease-in-out;
-}
-.short-paragraph {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 10px;
-}
-h2{
+h2 {
   color: #484848;
   /* text-align: center; */
 }

@@ -8,11 +8,12 @@
     background-color: #f9f9f9;
     min-height: 100vh;
     animation: fadeIn 1s ease-in-out;
-    gap: 50px;
 }
-h1{
+
+h1 {
     color: black;
 }
+
 /* Title styling */
 .about-us-title {
     font-size: 2.5rem;
@@ -84,6 +85,7 @@ h1{
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -94,6 +96,7 @@ h1{
         opacity: 0;
         transform: translateY(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -105,8 +108,47 @@ h1{
         opacity: 0;
         transform: translateX(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 1.5s ease-in-out;
+}
+
+.slide-in-right {
+    animation: slideInRight 1.5s ease-in-out;
+}
+
+.short-paragraph {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
 }
