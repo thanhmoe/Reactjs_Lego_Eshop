@@ -3,9 +3,18 @@ export const getToken = () => {
 };
 
 export const setToken = (token) => {
+    const TOKEN_EXPIRY_TIME = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+    const expiresAt = Date.now() + TOKEN_EXPIRY_TIME;
     localStorage.setItem('auth_token', token);
+    localStorage.setItem('expiresAt', expiresAt);
+};
+
+export const isTokenExpired = () => {
+    const expiresAt = localStorage.getItem('expiresAt');
+    return !expiresAt || Date.now() > expiresAt;
 };
 
 export const clearToken = () => {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('expiresAt');
 };

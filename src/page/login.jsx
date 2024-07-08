@@ -4,6 +4,7 @@ import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
 import './login.css';
 import { fetchCustomers } from '../axios/api';
+import { setToken, clearToken, isTokenExpired } from '../axios/auth';
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -27,6 +28,8 @@ const Login = () => {
             }));
         }
     }, [location.state]);
+
+
     const validate = () => {
         let tempErrors = { email: '', password: '', general: '' };
         let isValid = true;
@@ -57,7 +60,7 @@ const Login = () => {
         if (validate()) {
             const response = await fetchCustomers(user);
             if (response.success) {
-                localStorage.setItem("auth_token", response.data.auth_token);
+                setToken(response.data.auth_token);
                 navigate('/');
                 return response.data;
             } else {

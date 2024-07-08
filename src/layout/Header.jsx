@@ -9,14 +9,14 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { notify } from "../main";
 import { useSelector, useDispatch } from "react-redux";
-import { clearToken } from "../axios/auth";
+import { clearToken, isTokenExpired, getToken } from "../axios/auth";
 import "./index.css";
 
 export default function Header({ isOpen, setOpen }) {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = localStorage.getItem('auth_token');
+  const token = getToken();
 
   function handleSignOut() {
     clearToken()
@@ -25,10 +25,11 @@ export default function Header({ isOpen, setOpen }) {
   }
 
   useEffect(() => {
-    if (!token) {
+    if (!token || isTokenExpired()) {
+      clearToken();
       navigate('/login');
     }
-  }, [token]);
+  }, []);
 
   const headerItems = [
     { name: <><HomeFilled /> {t('Home')}</>, path: '/' },
