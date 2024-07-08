@@ -21,7 +21,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     const categories = useSelector((state) => state.productsSlice.categories) || [];
     const totalItems = useSelector(selectTotalItems);
 
-    const itemsPerPage = 12; // Define the number of items per page
+    const [itemsPerPage, setItemsPerPage] = useState(20); // Define the number of items per page
 
     const getListProduct = async () => {
         dispatch(
@@ -76,6 +76,10 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         );
     };
 
+    const handlePageChange = (page, pageSize) => {
+        setCurrentPage(page);
+        setItemsPerPage(pageSize);
+    }
     return (
         <>
             {productsStatus === "loading" && <LoadingModal />}
@@ -114,7 +118,9 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                     current={currentPage}
                     pageSize={itemsPerPage}
                     total={totalItems}
-                    onChange={(page) => setCurrentPage(page)}
+                    showSizeChanger
+                    onChange={handlePageChange}
+                    onShowSizeChange={handlePageChange}
                 />
             </div>
         </>
