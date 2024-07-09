@@ -63,7 +63,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 className="product-info"
                 onClick={() => linkToDetail(product.id)}
             >
-                {!isLoadedImg && <Skeleton active />}
+                {!isLoadedImg && <Skeleton.Image active />}
                 <img
                     className="image-product"
                     src={product.image_path}
