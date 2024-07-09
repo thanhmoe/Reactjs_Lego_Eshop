@@ -1,4 +1,4 @@
-import { Checkbox, Pagination, Skeleton } from "antd";
+import { Checkbox, Pagination, Skeleton, Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import {
     selectLoadingState,
     selectTotalItems,
 } from "../redux/slice/products/productsSlice";
-import noResult from "/public/assets/no-result.png"
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
@@ -105,8 +104,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                     </div>
                     :
                     <div className="no-result-found">
-                        <img className="no-result-img" src={noResult} alt="Not Found" />
-                        <h2>No Result!</h2>
+                        <Empty />
                     </div>}
             </div>
             <div className="pagination-product">

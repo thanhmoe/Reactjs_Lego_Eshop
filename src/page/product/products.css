@@ -37,11 +37,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.no-result-img {
-    width: 300px;
-    height: fit-content;
+    margin-top: 3rem;
 }
 
 .products-list {
