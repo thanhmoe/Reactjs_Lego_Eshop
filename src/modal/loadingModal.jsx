@@ -1,5 +1,6 @@
 import React from "react";
 import './loadingModal.css'
+import { Spin } from "antd";
 
 export default function loadingModal() {
     return <>
@@ -8,8 +9,7 @@ export default function loadingModal() {
         <div className="modal-dialog modal-sm">
             <div className="modal-content">
                 <div className="modal-body text-center">
-                    <div className="loading-spinner mb-2"></div>
-                    <p>Loading</p>
+                    <div> <Spin tip="Loading" size="large"></Spin></div>
                 </div>
             </div>
         </div>
