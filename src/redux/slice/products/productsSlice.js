@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {fetchRelatedProducts, fetchProductById, searchProducts, fetchProductsRefactor } from "../../../axios/api";
+import { fetchRelatedProducts, fetchProductById, searchProducts, fetchProductsRefactor, fetchTopProducts } from "../../../axios/api";
 
 export const fetchProduct = createAsyncThunk(
     'product/getListProduct',
@@ -29,11 +29,19 @@ export const searchProduct = createAsyncThunk(
 
 export const fetchRelatedProduct = createAsyncThunk(
     'productList/fetchRelatedProduct',
-    async ({ page, limit, sortBy, sortOrder, categoryId }) => {
-        const response = await fetchRelatedProducts(page, limit, sortBy, sortOrder, categoryId);
-        return { data: response.data, totalItems: response.total_products }; // Adjusted to match the API response
+    async (params) => {
+        const response = await fetchRelatedProducts(params);
+        return response.products; // Adjusted to match the API response
     }
 );
+
+export const fetchTopProduct = createAsyncThunk(
+    'fetchTopProducts',
+    async (params) => {
+        const response = await fetchTopProducts(params)
+        return response.data
+    }
+)
 
 const productsSlice = createSlice({
     name: 'productsSlice',
@@ -48,7 +56,10 @@ const productsSlice = createSlice({
         productDetailError: null,
         relatedProducts: [],
         relatedProductsStatus: 'idle',
-        relatedProductsError: null
+        relatedProductsError: null,
+        topProducts: [],
+        topProductsStatus: 'idle',
+        topProductsError: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -58,7 +69,6 @@ const productsSlice = createSlice({
                 state.hasError = null;
             })
             .addCase(fetchProduct.fulfilled, (state, action) => {
-                console.log('ACTION =>', action)
                 state.items = action.payload.products;
                 state.categories = action.payload.categories;
                 state.totalItems = action.payload.total_products;
@@ -113,6 +123,20 @@ const productsSlice = createSlice({
             .addCase(fetchRelatedProduct.rejected, (state, action) => {
                 state.relatedProductsError = action.error.message;
                 state.relatedProductsStatus = 'failed';
+            })
+            //top products
+            .addCase(fetchTopProduct.pending, (state) => {
+                state.topProductsStatus = 'loading';
+                state.topProductsError = null;
+            })
+            .addCase(fetchTopProduct.fulfilled, (state, action) => {
+                state.topProducts = action.payload;
+                state.topProductsStatus = 'succeeded';
+                state.topProductsError = null;
+            })
+            .addCase(fetchTopProduct.rejected, (state, action) => {
+                state.topProductsError = action.error.message;
+                state.topProductsStatus = 'failed';
             });
     }
 });

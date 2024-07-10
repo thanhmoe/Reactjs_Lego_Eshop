@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import './productsDetail.css';
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { fetchProduct, fetchProductDetail, selectProductDetail, selectProducts } from "../../redux/slice/products/productsSlice.js";
+import { fetchProduct, fetchProductDetail, fetchRelatedProduct, selectProductDetail, selectRelatedProducts } from "../../redux/slice/products/productsSlice.js";
 import LoadingModal from "../../modal/loadingModal.jsx";
 import CartIcon from '/src/assets/icons/cart.svg?react';
 import { Image, Skeleton, message, InputNumber, Breadcrumb } from "antd";
-
+import TopSellingProducts from "../../components/TopSellingProducts.jsx";
 export default function ProductsDetail() {
     const dispatch = useDispatch();
     const { productId } = useParams();
@@ -14,16 +14,17 @@ export default function ProductsDetail() {
     const itemsPerPage = 20; // Define the number of items per page
     const product = useSelector(selectProductDetail);
     const [quantity, setQuantity] = useState(1);
-    const relatedProducts = useSelector(selectProducts)
+    const relatedProducts = useSelector((state) => state.productsSlice.relatedProducts)
+
     const navigate = useNavigate()
 
 
     const getRelatedProduct = async () => {
         dispatch(
-            fetchProduct({
+            fetchRelatedProduct({
                 page: currentPage,
                 limit: itemsPerPage,
-                product: productId
+                relatedToProduct: productId
             })
         );
     };
@@ -52,8 +53,7 @@ export default function ProductsDetail() {
     useEffect(() => {
         dispatch(fetchProductDetail(productId));
         getRelatedProduct();
-    }, [productId]);
-
+    }, []);
 
     return (
         <>
@@ -127,7 +127,6 @@ export default function ProductsDetail() {
                                     className="product-info"
                                     onClick={() => linkToDetail(product.id)}
                                 >
-                                    {/* {!isLoadedImg && <Skeleton active />} */}
                                     <img
                                         className="image-product"
                                         src={product.image_path}
@@ -137,6 +136,9 @@ export default function ProductsDetail() {
                                     <p className="product-price">${product.price}</p>
                                 </div>
                             ))}
+                    </div>
+                    <div>
+                        <TopSellingProducts />
                     </div>
                 </div>
             }

@@ -9,7 +9,7 @@ export default function loadingModal() {
         <div className="modal-dialog modal-sm">
             <div className="modal-content">
                 <div className="modal-body text-center">
-                    <div> <Spin tip="Loading" size="large"></Spin></div>
+                    <div> <Spin size="large"></Spin></div>
                 </div>
             </div>
         </div>

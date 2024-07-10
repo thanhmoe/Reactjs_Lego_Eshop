@@ -22,27 +22,27 @@ instance.interceptors.request.use(
 );
 
 export const fetchProductsRefactor = async (params) => {
-    const {page, limit, textQuery, sortBy, sortOrder,product,category} = params
+    const { page, limit, textQuery, sortBy, sortOrder, product, category } = params
     try {
         // required params
         let url = `/products?page=${page}&limit=${limit}`
 
         // optional params
-        if(sortOrder, sortBy) {
+        if (sortOrder, sortBy) {
             url += `&sortBy=${sortBy}&sortOrder=${sortOrder}`
         }
         if (product) {
             url += `&product=${product}`
         }
         if (category) {
-            url += `&category=${category}`  
+            url += `&category=${category}`
         }
         if (textQuery) {
-            url += `&textQuery=${textQuery}`     
+            url += `&textQuery=${textQuery}`
         }
         const response = await instance.get(url)
         console.log('RES ==>', response)
-        if(response && response.status == 200){
+        if (response && response.status == 200) {
             return response.data
         }
     } catch (error) {
@@ -59,15 +59,10 @@ export const fetchProductById = async (id) => {
     }
 };
 
-export const fetchRelatedProducts = async (
-    page,
-    limit,
-    sortBy = 'create_at' ,
-    sortOrder = 'desc',
-    categoryId
-) => {
+export const fetchRelatedProducts = async (params) => {
+    const { page, limit, relatedToProduct } = params
     try {
-        let queryParams = `?page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}&category=${categoryId}`;
+        let queryParams = `?page=${page}&limit=${limit}&relatedToProduct=${relatedToProduct}`;
         const response = await instance.get(`/products${queryParams}`);
         return response.data;
     } catch (error) {
@@ -102,15 +97,6 @@ export const fetchArticles = async () => {
     }
 };
 
-export const fetchMockProducts = async () => {
-    try {
-        const response = await axios.get("https://6667b7edf53957909ff50b75.mockapi.io/api/v1/products");
-        return response.data;
-    } catch (error) {
-        return error(error);
-    }
-};
-
 export const searchProducts = async (page, limit, sortBy, sortOrder, search_keywords) => {
     try {
         const response = await instance.post(`/products/search?page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}`, { search_keywords });
@@ -119,3 +105,13 @@ export const searchProducts = async (page, limit, sortBy, sortOrder, search_keyw
         return error.response ? error.response.data : { error: 'An error occurred' };
     }
 };
+
+export const fetchTopProducts = async (params) => {
+    const { limit } = params
+    try {
+        const response = await instance.get(`/products/top-selling/list?limit=${limit}`)
+        return response.data;
+    } catch (error) {
+        return error.response ? error.response.data : { error: 'An error occurred' };
+    }
+}

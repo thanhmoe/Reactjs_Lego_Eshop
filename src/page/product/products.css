@@ -85,6 +85,18 @@
     height: 350px;
 }
 
+.top-product-info {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: white;
+    justify-content: space-between;
+    height: 400px;
+}
+
 .product-info:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -141,4 +153,26 @@
     margin: 20px 0px;
     display: flex;
     justify-content: center;
+}
+
+
+.top-product-list {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.top-product-container {
+    margin-top: 3rem;
+}
+
+.top-product-container h2 {
+    text-align: center;
+}
+
+.total-sold-label {
+    font-size: 0.75rem;
+    color: #484848;
 }
