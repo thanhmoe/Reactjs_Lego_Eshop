@@ -69,8 +69,8 @@ export default function Header({ isOpen, setOpen }) {
   return (
     <header>
       <div className="brand">
-        <div className="logo-brand">
-          <img onClick={() => setOpen(!isOpen)} className="img-logo" src={Logo} alt="logo" />
+        <div onClick={() => navigate('/')} className="logo-brand">
+          <img className="img-logo" src={Logo} alt="logo" />
         </div>
       </div>
       <div className="menu-item">

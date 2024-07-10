@@ -20,7 +20,7 @@ function App() {
           <div className='label-banner'>
             <h2>A model of Italian perfection</h2>
             <p>The new LEGO® Icons Lamborghini Countach 5000 Quattrovalvole has arrived.</p>
-            <Button style={{ height: '40px', marginTop: '5rem', }}>Shop Now {<RightOutlined />}</Button>
+            <Button onClick={() => navigate('/products/68')} style={{ height: '40px', marginTop: '5rem', }}>Shop Now {<RightOutlined />}</Button>
           </div>
           <img src={banner1} alt="banner1" />
         </div>
