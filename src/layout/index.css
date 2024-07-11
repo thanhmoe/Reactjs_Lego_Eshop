@@ -51,7 +51,7 @@ header a {
 .user-menu {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 2rem;
     padding: 0px 1.25rem;
     cursor: pointer;
 }
@@ -70,9 +70,11 @@ header a {
     align-items: center;
     color: white;
 }
-.logo-brand{
+
+.logo-brand {
     cursor: pointer;
 }
+
 .img-logo {
     height: 25px;
 }

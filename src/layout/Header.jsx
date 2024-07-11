@@ -3,7 +3,7 @@ import Logo from '../assets/icons/nintendo.svg';
 import CartIcon from '../assets/icons/cart.svg?react';
 import UserIcon from '../assets/icons/user.svg?react';
 import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled } from '@ant-design/icons';
-import { Dropdown, Space } from 'antd';
+import { Dropdown, Space, Avatar, Badge } from 'antd';
 import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
@@ -83,7 +83,9 @@ export default function Header({ isOpen, setOpen }) {
         </ul>
       </div>
       <div className="user-menu">
-        <a className="icon-header" onClick={() => navigate('/cart')}><CartIcon /> {t('Cart')}</a>
+        <Badge className="icon-header" size="small" count={1} overflowCount={999} offset={[5, 0]}>
+          <a className="icon-header" onClick={() => navigate('/cart')}><CartIcon /> {t('Cart')}</a>
+        </Badge>
         <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
           <a className="icon-header"><UserIcon /> {t('User')}</a>
         </Dropdown>

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import './productsDetail.css';
-import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { fetchProduct, fetchProductDetail, fetchRelatedProduct, selectProductDetail, selectRelatedProducts } from "../../redux/slice/products/productsSlice.js";
+
 import LoadingModal from "../../modal/loadingModal.jsx";
+import TopSellingProducts from "../../components/TopSellingProducts.jsx";
+
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProduct, fetchProductDetail, fetchRelatedProduct, selectProductDetail, selectRelatedProducts } from "../../redux/slice/products/productsSlice.js";
+import { addProductToCart } from "../../services/cart_serviced.js";
+import './productsDetail.css';
 import CartIcon from '/src/assets/icons/cart.svg?react';
 import { Image, Skeleton, message, InputNumber, Breadcrumb } from "antd";
-import TopSellingProducts from "../../components/TopSellingProducts.jsx";
+
+
 export default function ProductsDetail() {
     const dispatch = useDispatch();
     const { productId } = useParams();
@@ -39,6 +44,27 @@ export default function ProductsDetail() {
             setQuantity(1);
         } else if (newQuantity <= product.quantity) {
             setQuantity(newQuantity);
+        }
+    };
+
+    const handleAddToCart = async () => {
+        if (!product || quantity < 1 || quantity > product.quantity) {
+            message.error('Invalid quantity selected.');
+            return;
+        }
+        try {
+            console.log(productId, 9999);
+            const result = await addProductToCart({
+                product: productId,
+                quantity: quantity
+            });
+            if (result.success) {
+                message.success('Product added to cart');
+            } else {
+                message.error('Failed to add product to cart');
+            }
+        } catch (error) {
+            message.error('An error occurred while adding product to cart');
         }
     };
 
@@ -98,7 +124,7 @@ export default function ProductsDetail() {
                                         </div>
                                         <button onClick={incrementQuantity} disabled={quantity >= product.quantity} className="quantity-button quantity-button-increment">+</button>
                                     </div>
-                                    <button className="btn-buy"><CartIcon />Add to cart</button>
+                                    <button onClick={() => handleAddToCart(productId)} className="btn-buy"><CartIcon />Add to cart</button>
                                 </div>
                                 {/* <div className="instock-detail">
                                     <span className="instock">instock: {product.quantity}</span>
