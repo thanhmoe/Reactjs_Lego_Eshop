@@ -7,16 +7,19 @@ import TopSellingProducts from "../../components/TopSellingProducts.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProduct, fetchProductDetail, fetchRelatedProduct, selectProductDetail, selectRelatedProducts } from "../../redux/slice/products/productsSlice.js";
 import { addProductToCart } from "../../services/cart_serviced.js";
+import { getTotalProductInCart } from "../../redux/slice/carts/cartsSlice.js";
+
 import './productsDetail.css';
 import CartIcon from '/src/assets/icons/cart.svg?react';
 import { Image, Skeleton, message, InputNumber, Breadcrumb } from "antd";
+import { notify } from "../../main.jsx";
 
 
 export default function ProductsDetail() {
     const dispatch = useDispatch();
     const { productId } = useParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20; // Define the number of items per page
+    const itemsPerPage = 10; // Define the number of items per page
     const product = useSelector(selectProductDetail);
     const [quantity, setQuantity] = useState(1);
     const relatedProducts = useSelector((state) => state.productsSlice.relatedProducts)
@@ -35,7 +38,6 @@ export default function ProductsDetail() {
     };
     const linkToDetail = (id) => {
         navigate(`/products/${id}`);
-        // window.scrollTo(0, 0);
         window.location.reload();
     };
 
@@ -53,13 +55,13 @@ export default function ProductsDetail() {
             return;
         }
         try {
-            console.log(productId, 9999);
             const result = await addProductToCart({
                 product: productId,
                 quantity: quantity
             });
             if (result.success) {
-                message.success('Product added to cart');
+                message.success('sucess')
+                dispatch(getTotalProductInCart())
             } else {
                 message.error('Failed to add product to cart');
             }

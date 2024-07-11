@@ -5,7 +5,6 @@ export const fetchProduct = createAsyncThunk(
     'product/getListProduct',
     async (params) => {
         const response = await fetchProductsRefactor(params);
-        console.log('RESPONSE =>', response)
         return response;
         // return { data: response.products, totalItems: response.total_products }; // Adjusted to match the API response
     }

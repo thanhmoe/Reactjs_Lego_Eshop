@@ -21,7 +21,6 @@ export const fetchProductsRefactor = async (params) => {
             url += `&textQuery=${textQuery}`
         }
         const response = await axios_instance.get(url)
-        console.log('RES ==>', response)
         if (response && response.status == 200) {
             return response.data
         }

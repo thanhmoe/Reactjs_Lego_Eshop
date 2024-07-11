@@ -86,7 +86,6 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         setCurrentPage(page);
         setItemsPerPage(pageSize);
     }
-    console.log(categories, 123123);
     return (
         <>
             {productsStatus === "loading" && <LoadingModal />}

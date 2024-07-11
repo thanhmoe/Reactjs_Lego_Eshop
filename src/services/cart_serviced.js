@@ -10,3 +10,14 @@ export const addProductToCart = async (params) => {
         return error.response.data;
     }
 };
+
+export const getTotalProductCount = async () => {
+    try {
+        let url = `${API_PATH}/total-product-counts`
+        const response = await axios_instance.get(url);
+        console.log(response.data, '=<<<<');
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}; 
