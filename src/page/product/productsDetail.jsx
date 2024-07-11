@@ -11,21 +11,32 @@ import { getTotalProductInCart } from "../../redux/slice/carts/cartsSlice.js";
 
 import './productsDetail.css';
 import CartIcon from '/src/assets/icons/cart.svg?react';
-import { Image, Skeleton, message, InputNumber, Breadcrumb } from "antd";
+import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button } from "antd";
 import { notify } from "../../main.jsx";
 
 
 export default function ProductsDetail() {
-    const dispatch = useDispatch();
     const { productId } = useParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; // Define the number of items per page
-    const product = useSelector(selectProductDetail);
     const [quantity, setQuantity] = useState(1);
+    const itemsPerPage = 10; // Define the number of items per page
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const dispatch = useDispatch();
+    const product = useSelector(selectProductDetail);
     const relatedProducts = useSelector((state) => state.productsSlice.relatedProducts)
 
     const navigate = useNavigate()
 
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+        navigate('/cart')
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const getRelatedProduct = async () => {
         dispatch(
@@ -60,8 +71,8 @@ export default function ProductsDetail() {
                 quantity: quantity
             });
             if (result.success) {
-                message.success('sucess')
                 dispatch(getTotalProductInCart())
+                showModal()
             } else {
                 message.error('Failed to add product to cart');
             }
@@ -168,6 +179,13 @@ export default function ProductsDetail() {
                     <div>
                         <TopSellingProducts />
                     </div>
+                    <Modal title="Added to cart" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="View Cart And Checkout"
+                        cancelText="Continue Shopping">
+                        <Image style={{ width: "400px" }} src={product.image_path} />
+                        <p >{product.name}</p>
+                        <p>qty:{quantity}</p>
+                        <p>${product.price}</p>
+                    </Modal>
                 </div>
             }
         </>
