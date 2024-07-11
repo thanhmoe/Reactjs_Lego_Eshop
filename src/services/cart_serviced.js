@@ -4,7 +4,6 @@ const API_PATH = '/carts'
 export const getProductsOnCart = async () => {
     try {
         const res = await axios_instance.get(API_PATH);
-        console.log('cart items here ==>', res.data);
         return res.data;
     } catch (error) {
         return error.res.data;
@@ -31,4 +30,14 @@ export const getTotalProductCount = async () => {
     } catch (error) {
         return error.response.data;
     }
-}; 
+};
+
+export const updateProductQuantity = async (cartId) => {
+    try {
+        let url = `${API_PATH}/update/${cartId}`
+        const response = await axios_instance.patch(url);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
