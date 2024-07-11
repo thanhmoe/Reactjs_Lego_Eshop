@@ -3,7 +3,7 @@ import { Input, Select, Space } from 'antd';
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductComponent from "../../components/ProductComponent";
-import { FILTER_PRODUCTS_OPTIONS } from "../../constants";
+import { FILTER_PRODUCTS_OPTIONS } from "../../utils/constants";
 import './products.css';
 import { debounce } from 'lodash';
 const { Search } = Input;

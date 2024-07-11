@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './contact.css';
 import Modal from "../../modal/modal";
-import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../../constants";
+import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../../utils/constants";
 
 export default function contact() {
     const [isValid, setIsValid] = useState(false);

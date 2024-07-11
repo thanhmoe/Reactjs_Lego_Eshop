@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next"
-import { MENUITEMS } from '../constants';
+import { MENUITEMS } from '../utils/constants';
 
 export default function Aside() {
   const navigate = useNavigate();

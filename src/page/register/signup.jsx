@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
-import { SELECTGENDER, VALIDEMAIL, REGNUMBER } from '../../constants';
-import { registerUser } from '../../axios/api';
+import { SELECTGENDER, VALIDEMAIL, REGNUMBER } from '../../utils/constants';
+import { registerUser } from '../../services/customer_services';
 import { notify } from '../../main';
 
 const Signup = () => {

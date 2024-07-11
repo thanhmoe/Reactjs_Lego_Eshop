@@ -2,7 +2,7 @@ import { Checkbox, Pagination, Skeleton, Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FILTER_PRODUCTS_OPTIONS } from "../constants";
+import { FILTER_PRODUCTS_OPTIONS } from "../utils/constants";
 import LoadingModal from "../modal/loadingModal";
 import {
     fetchProduct,

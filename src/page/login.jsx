@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
 import './login.css';
-import { fetchCustomers } from '../axios/api';
-import { setToken, clearToken, isTokenExpired } from '../axios/auth';
+import { fetchCustomers } from '../services/customer_services';
+import { setToken } from '../utils/token_utils';
 
 const Login = () => {
     const [user, setUser] = useState({

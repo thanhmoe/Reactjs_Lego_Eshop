@@ -9,7 +9,7 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { notify } from "../main";
 import { useSelector, useDispatch } from "react-redux";
-import { clearToken, isTokenExpired, getToken } from "../axios/auth";
+import { clearToken, isTokenExpired, getToken } from "../utils/token_utils";
 import "./index.css";
 
 export default function Header({ isOpen, setOpen }) {

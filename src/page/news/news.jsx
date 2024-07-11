@@ -4,7 +4,7 @@ import ArticleComponent from "../../components/ArticleComponent";
 import { Input, Space, Select } from 'antd';
 const { Search } = Input;
 const { Option } = Select;
-import { FILTERNEWS } from "../../constants";
+import { FILTERNEWS } from "../../utils/constants";
 export default function news() {
 
     // handle input filter and search
