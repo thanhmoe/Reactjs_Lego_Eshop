@@ -6,6 +6,7 @@ import { FILTER_PRODUCTS_OPTIONS } from "../utils/constants";
 import LoadingModal from "../modal/loadingModal";
 import {
     fetchProduct,
+    fetCategories,
     selectLoadingState,
     selectTotalItems,
 } from "../redux/slice/products/productsSlice";
@@ -35,6 +36,10 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         );
     };
 
+    const getListCategories = async () => {
+        dispatch(fetCategories());
+    }
+
     const handleCategoryChange = (e) => {
         const categoryId = e.target.value;
         setSelectedCategory((prevSelectedCategory) =>
@@ -46,7 +51,9 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     const linkToDetail = (id) => {
         navigate(`/products/${id}`);
     };
-
+    useEffect(() => {
+        getListCategories();
+    }, [])
     useEffect(() => {
         getListProduct();
     }, [searchQuery, sortOption, currentPage, selectedCategory]);
@@ -79,6 +86,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         setCurrentPage(page);
         setItemsPerPage(pageSize);
     }
+    console.log(categories, 123123);
     return (
         <>
             {productsStatus === "loading" && <LoadingModal />}

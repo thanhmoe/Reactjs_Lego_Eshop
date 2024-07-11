@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchRelatedProducts, fetchProductById, searchProducts, fetchProductsRefactor, fetchTopProducts } from "../../../services/product_services";
-
+import { fetCategoryWithProductCount } from "../../../services/category_services";
 export const fetchProduct = createAsyncThunk(
     'product/getListProduct',
     async (params) => {
@@ -10,6 +10,14 @@ export const fetchProduct = createAsyncThunk(
         // return { data: response.products, totalItems: response.total_products }; // Adjusted to match the API response
     }
 );
+
+export const fetCategories = createAsyncThunk(
+    'getCategories',
+    async () => {
+        const response = await fetCategoryWithProductCount();
+        return response;
+    }
+)
 
 export const fetchProductDetail = createAsyncThunk(
     'productList/fetchProductDetail',
@@ -47,7 +55,6 @@ const productsSlice = createSlice({
     name: 'productsSlice',
     initialState: {
         items: [],
-        categories: [],
         status: 'idle',
         hasError: null,
         totalItems: 0,
@@ -60,6 +67,9 @@ const productsSlice = createSlice({
         topProducts: [],
         topProductsStatus: 'idle',
         topProductsError: null,
+        categories: [],
+        categoriesStatus: 'ide',
+        categoriesError: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -70,7 +80,6 @@ const productsSlice = createSlice({
             })
             .addCase(fetchProduct.fulfilled, (state, action) => {
                 state.items = action.payload.products;
-                state.categories = action.payload.categories;
                 state.totalItems = action.payload.total_products;
                 state.status = 'succeeded';
                 state.hasError = null;
@@ -137,6 +146,20 @@ const productsSlice = createSlice({
             .addCase(fetchTopProduct.rejected, (state, action) => {
                 state.topProductsError = action.error.message;
                 state.topProductsStatus = 'failed';
+            })
+            //categories
+            .addCase(fetCategories.pending, (state) => {
+                state.categoriesStatus = 'loading';
+                state.categoriesError = null;
+            })
+            .addCase(fetCategories.fulfilled, (state, action) => {
+                state.categories = action.payload;
+                state.categoriesStatus = 'succeeded';
+                state.categoriesError = null;
+            })
+            .addCase(fetCategories.rejected, (state, action) => {
+                state.categoriesError = action.error.message;
+                state.categoriesStatus = 'failed';
             });
     }
 });
