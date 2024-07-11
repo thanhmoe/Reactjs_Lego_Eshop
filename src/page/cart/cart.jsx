@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getProductsOnCart } from "../../services/cart_serviced";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { Breadcrumb, Alert, Button, Image } from "antd";
 import "./cart.css";
+import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
+import TopSellingProducts from "../../components/TopSellingProducts";
 
 const CartComponent = () => {
     const navigate = useNavigate()
@@ -48,7 +49,13 @@ const CartComponent = () => {
     return (
         <>
             {cartItems.length === 0
-                ? <p>Your cart looks lonely. Why not add something fun?</p>
+                ? <div>
+                    <div className="no-product-label">
+                        <FontAwesomeIcon icon={faCartPlus} size="2x" color="black" />
+                        <p>Your cart looks lonely. Why not add something fun?</p>
+                    </div>
+                    <TopSellingProducts />
+                </div >
                 :
                 <div className="shopping-cart">
                     <div className="cart-header">
