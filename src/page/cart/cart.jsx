@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+// import { getProductsOnCart, updateProductQuantity, getCustomerAddresses, getProvinces, getDistricts, getWards, addNewAddress } from "../../services/cart_serviced";
 import { getProductsOnCart, updateProductQuantity } from "../../services/cart_serviced";
+import { getProvinces,getDistricts,getWards } from "../../services/address_services";
 import TopSellingProducts from "../../components/TopSellingProducts";
-
-import { Breadcrumb, Alert, Button, Image } from "antd";
+import { Breadcrumb, Alert, Button, Image, Modal, Select, Input, Form } from "antd";
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {Modal} from "antd";
 import "./cart.css";
 
+const { Option } = Select;
 
 const CartComponent = () => {
     const navigate = useNavigate();
@@ -18,21 +18,63 @@ const CartComponent = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+    const [addresses, setAddresses] = useState([]);
+    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
+    const [provinces, setProvinces] = useState([]);
+    const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+    const [newAddress, setNewAddress] = useState({
+        province: '',
+        district: '',
+        ward: '',
+        detail: ''
+    });
+
     const getProducts = async () => {
         try {
             const res = await getProductsOnCart();
             if (res.success) {
                 setCartItems(res.cart);
             }
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const getAddresses = async () => {
+        try {
+            const res = await getCustomerAddresses();
+            if (res.success) {
+                setAddresses(res.addresses);
+            }
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const fetchProvinces = async () => {
+        try {
+            const res = await getProvinces();
+            setProvinces(res.provinces);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const fetchDistricts = async (provinceId) => {
+        try {
+            const res = await getDistricts(provinceId);
+            setDistricts(res.districts);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const fetchWards = async (districtId) => {
+        try {
+            const res = await getWards(districtId);
+            setWards(res.wards);
         } catch (error) {
             setError(error.message);
         }
@@ -78,8 +120,24 @@ const CartComponent = () => {
         return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
     };
 
+    const handleAddNewAddress = async () => {
+        try {
+            const res = await addNewAddress(newAddress);
+            if (res.success) {
+                setIsAddAddressModalOpen(false);
+                getAddresses();
+            } else {
+                setError(res.message);
+            }
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
     useEffect(() => {
         getProducts();
+        fetchProvinces();
+        getAddresses();
     }, []);
 
     return (
@@ -119,7 +177,7 @@ const CartComponent = () => {
                                                 <input className="quantity-input" value={item.quantity} readOnly></input>
                                             </div>
                                             <button className="quantity-button quantity-button-increment"
-                                               disabled={(item.quantity >= item.in_stock) || loading} onClick={() => handleQuantityIncrease(item.id)}>+</button>
+                                                disabled={(item.quantity >= item.in_stock) || loading} onClick={() => handleQuantityIncrease(item.id)}>+</button>
                                         </div>
                                     </div>
                                     <div className="remove-and-price">
@@ -149,7 +207,7 @@ const CartComponent = () => {
                                 <span>Estimated total</span>
                                 <span>${calculateTotal()}</span>
                             </div>
-                            <button onClick={showModal} className="checkout-button">Checkout</button>
+                            <button onClick={() => setIsModalOpen(true)} className="checkout-button">Checkout</button>
                             <div className="payment-methods">
                                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
                                 <FontAwesomeIcon icon={faCcPaypal} size="2x" />
@@ -158,11 +216,75 @@ const CartComponent = () => {
                             </div>
                         </div>
                     </div>
-                    <Modal title="Confirmation" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                         <p>Some contents...</p>
-                        <p>Some contents...</p>
-                        <p>Some contents...</p>
-                     </Modal>
+                    <Modal title="Checkout" open={isModalOpen} onOk={() => setIsModalOpen(false)} onCancel={() => setIsModalOpen(false)}>
+                        <Form layout="vertical">
+                            <Form.Item label="Select Address">
+                                {/* <Select
+                                    value={selectedAddress}
+                                    onChange={setSelectedAddress}
+                                    style={{ width: '100%' }}
+                                >
+                                    {addresses.map(address => (
+                                        <Option key={address.id} value={address.id}>
+                                            {`${address.detail}, ${address.ward}, ${address.district}, ${address.province}`}
+                                        </Option>
+                                    ))}
+                                </Select> */}
+                            </Form.Item>
+                            <Button type="dashed" onClick={() => setIsAddAddressModalOpen(true)} style={{ width: '100%' }}>
+                                Add New Address
+                            </Button>
+                        </Form>
+                    </Modal>
+                    <Modal title="Add New Address" open={isAddAddressModalOpen} onOk={handleAddNewAddress} onCancel={() => setIsAddAddressModalOpen(false)}>
+                        <Form layout="vertical">
+                            <Form.Item label="Province">
+                                <Select
+                                    value={newAddress.province}
+                                    onChange={(value) => {
+                                        setNewAddress({ ...newAddress, province: value });
+                                        fetchDistricts(value);
+                                    }}
+                                    style={{ width: '100%' }}
+                                >
+                                    {provinces.map(province => (
+                                        <Option key={province.id} value={province.id}>{province.name}</Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item label="District">
+                                <Select
+                                    value={newAddress.district}
+                                    onChange={(value) => {
+                                        setNewAddress({ ...newAddress, district: value });
+                                        fetchWards(value);
+                                    }}
+                                    style={{ width: '100%' }}
+                                >
+                                    {districts.map(district => (
+                                        <Option key={district.id} value={district.id}>{district.name}</Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item label="Ward">
+                                <Select
+                                    value={newAddress.ward}
+                                    onChange={(value) => setNewAddress({ ...newAddress, ward: value })}
+                                    style={{ width: '100%' }}
+                                >
+                                    {wards.map(ward => (
+                                        <Option key={ward.id} value={ward.id}>{ward.name}</Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item label="Detail Address">
+                                <Input
+                                    value={newAddress.detail}
+                                    onChange={(e) => setNewAddress({ ...newAddress, detail: e.target.value })}
+                                />
+                            </Form.Item>
+                        </Form>
+                    </Modal>
                 </div>
             }
         </>
