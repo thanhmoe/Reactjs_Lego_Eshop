@@ -1,5 +1,17 @@
 import { axios_instance } from "./axios_config";
 const API_PATH = '/carts'
+
+export const getProductsOnCart = async () => {
+    try {
+        const res = await axios_instance.get(API_PATH);
+        console.log('cart items here ==>', res.data);
+        return res.data;
+    } catch (error) {
+        return error.res.data;
+    }
+};
+
+
 export const addProductToCart = async (params) => {
     const { product, quantity } = params
     try {
@@ -15,7 +27,6 @@ export const getTotalProductCount = async () => {
     try {
         let url = `${API_PATH}/total-product-counts`
         const response = await axios_instance.get(url);
-        console.log(response.data, '=<<<<');
         return response.data;
     } catch (error) {
         return error.response.data;

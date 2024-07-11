@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getProductsOnCart } from "../../services/cart_serviced";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import { Breadcrumb, Alert, Button, Image } from "antd";
 import "./cart.css";
+import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 
 const CartComponent = () => {
-    const [cartItems, setCartItems] = useState([
-
-    ]);
-
+    const navigate = useNavigate()
+    const [cartItems, setCartItems] = useState([]);
+    const getProducts = async () => {
+        try {
+            const res = await getProductsOnCart()
+            if (res.success) {
+                setCartItems(res.cart)
+            }
+        } catch (error) {
+            return error
+        }
+    }
     const handleQuantityChange = (id, delta) => {
         setCartItems(prevItems =>
             prevItems.map(item =>
@@ -18,10 +32,19 @@ const CartComponent = () => {
         setCartItems(prevItems => prevItems.filter(item => item.id !== id));
     };
 
+    const calculateItemTotal = (item) => {
+        return (item.price * item.quantity).toFixed(2);
+    };
+
     const calculateTotal = () => {
         return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
     };
-    console.log(cartItems.length);
+
+
+    useEffect(() => {
+        getProducts()
+    }, [])
+
     return (
         <>
             {cartItems.length === 0
@@ -29,27 +52,37 @@ const CartComponent = () => {
                 :
                 <div className="shopping-cart">
                     <div className="cart-header">
-                        <h1>Shopping cart</h1>
-                        <div className="breadcrumb">Home &gt;Shopping cart</div>
-                    </div>
-                    <div className="free-shipping-message">
-                        <span>Congratulations you've qualified for free shipping!</span>
+                        <h2>Shopping cart</h2>
+                        <Breadcrumb className="breadcrumb">
+                            <Breadcrumb.Item onClick={() => navigate('/')}>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item onClick={() => navigate('/products')}>Products</Breadcrumb.Item>
+                            <Breadcrumb.Item>Shopping Cart</Breadcrumb.Item>
+                        </Breadcrumb>
                     </div>
                     <div className="cart-body">
                         <div className="cart-items">
+                            <div className="free-shipping-message">
+                                <Alert style={{ width: '100%', margin: '2rem 0 2rem 0', textAlign: 'center' }} message="Congratulations you've qualified for free shipping!" type="info" />
+                            </div>
                             {cartItems.map(item => (
                                 <div key={item.id} className="cart-item">
-                                    <img src={item.image} alt={item.name} className="cart-item-image" />
+                                    <Image style={{ width: '150px' }} src={item.image_path} alt={item.name} className="cart-item-image" />
+                                    <h3 className="product-name">{item.name}</h3>
                                     <div className="cart-item-details">
-                                        <h2>{item.name}</h2>
-                                        <div className="quantity-control">
-                                            <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
-                                            <span>{item.quantity}</span>
-                                            <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
+                                        <div className="quantity-selector">
+                                            <button className="quantity-button quantity-button-decrement"
+                                                onClick={() => handleQuantityChange(item.id, -1)}>-</button>
+                                            <div className="quantity-input-div">
+                                                <input className="quantity-input" value={item.quantity}></input>
+                                            </div>
+                                            <button className="quantity-button quantity-button-increment"
+                                                onClick={() => handleQuantityChange(item.id, 1)}>+</button>
                                         </div>
-                                        <span className="cart-item-price">${item.price.toFixed(2)}</span>
                                     </div>
-                                    <button className="remove-item" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                                    <div className="remove-and-price">
+                                        <span className="cart-item-price">${calculateItemTotal(item)}</span>
+                                        <Button onClick={() => handleRemoveItem(item.id)} danger>Remove</Button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -73,12 +106,12 @@ const CartComponent = () => {
                                 <span>Estimated total</span>
                                 <span>${calculateTotal()}</span>
                             </div>
-                            <button className="checkout-button">Log in to checkout</button>
+                            <button className="checkout-button">Checkout</button>
                             <div className="payment-methods">
-                                <img src="visa.png" alt="Visa" />
-                                <img src="mastercard.png" alt="Mastercard" />
-                                <img src="applepay.png" alt="Apple Pay" />
-                                <img src="googlepay.png" alt="Google Pay" />
+                                <FontAwesomeIcon icon={faCreditCard} size="2x" />
+                                <FontAwesomeIcon icon={faCcPaypal} size="2x" />
+                                <FontAwesomeIcon icon={faCcApplePay} size="2x" />
+                                <FontAwesomeIcon icon={faMoneyBill} size="2x" />
                             </div>
                         </div>
                     </div>

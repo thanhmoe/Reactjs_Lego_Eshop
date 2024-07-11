@@ -12,6 +12,11 @@
   "dependencies": {
     "@coreui/coreui": "^5.0.2",
     "@coreui/react": "^5.1.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@reduxjs/toolkit": "^2.2.5",
     "antd": "^5.17.4",
     "axios": "^1.7.2",
