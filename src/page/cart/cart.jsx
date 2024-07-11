@@ -1,32 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { getProductsOnCart } from "../../services/cart_serviced";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb, Alert, Button, Image } from "antd";
-import "./cart.css";
-import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
+
+import { getProductsOnCart, updateProductQuantity } from "../../services/cart_serviced";
 import TopSellingProducts from "../../components/TopSellingProducts";
 
+import { Breadcrumb, Alert, Button, Image } from "antd";
+import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
+import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {Modal} from "antd";
+import "./cart.css";
+
+
 const CartComponent = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
     const getProducts = async () => {
         try {
-            const res = await getProductsOnCart()
+            const res = await getProductsOnCart();
             if (res.success) {
-                setCartItems(res.cart)
+                setCartItems(res.cart);
             }
         } catch (error) {
-            return error
+            setError(error.message);
         }
-    }
-    const handleQuantityChange = (id, delta) => {
-        setCartItems(prevItems =>
-            prevItems.map(item =>
-                item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-            )
-        );
+    };
+
+    const handleQuantityChange = async (id, increase) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await updateProductQuantity({
+                productId: id,
+                increase: increase
+            });
+            if (res.success) {
+                await getProducts();
+            } else {
+                setError(res.message);
+            }
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleQuantityDecrease = (id) => {
+        handleQuantityChange(id, 0);
+    };
+
+    const handleQuantityIncrease = (id) => {
+        handleQuantityChange(id, 1);
     };
 
     const handleRemoveItem = (id) => {
@@ -41,10 +78,9 @@ const CartComponent = () => {
         return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
     };
 
-
     useEffect(() => {
-        getProducts()
-    }, [])
+        getProducts();
+    }, []);
 
     return (
         <>
@@ -55,7 +91,7 @@ const CartComponent = () => {
                         <p>Your cart looks lonely. Why not add something fun?</p>
                     </div>
                     <TopSellingProducts />
-                </div >
+                </div>
                 :
                 <div className="shopping-cart">
                     <div className="cart-header">
@@ -74,16 +110,16 @@ const CartComponent = () => {
                             {cartItems.map(item => (
                                 <div key={item.id} className="cart-item">
                                     <Image style={{ width: '150px' }} src={item.image_path} alt={item.name} className="cart-item-image" />
-                                    <h3 className="product-name">{item.name}</h3>
+                                    <p className="product-name">{item.name}</p>
                                     <div className="cart-item-details">
                                         <div className="quantity-selector">
                                             <button className="quantity-button quantity-button-decrement"
-                                                onClick={() => handleQuantityChange(item.id, -1)}>-</button>
+                                                onClick={() => handleQuantityDecrease(item.id)} disabled={loading}>-</button>
                                             <div className="quantity-input-div">
-                                                <input className="quantity-input" value={item.quantity}></input>
+                                                <input className="quantity-input" value={item.quantity} readOnly></input>
                                             </div>
                                             <button className="quantity-button quantity-button-increment"
-                                                onClick={() => handleQuantityChange(item.id, 1)}>+</button>
+                                               disabled={(item.quantity >= item.in_stock) || loading} onClick={() => handleQuantityIncrease(item.id)}>+</button>
                                         </div>
                                     </div>
                                     <div className="remove-and-price">
@@ -113,7 +149,7 @@ const CartComponent = () => {
                                 <span>Estimated total</span>
                                 <span>${calculateTotal()}</span>
                             </div>
-                            <button className="checkout-button">Checkout</button>
+                            <button onClick={showModal} className="checkout-button">Checkout</button>
                             <div className="payment-methods">
                                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
                                 <FontAwesomeIcon icon={faCcPaypal} size="2x" />
@@ -122,6 +158,11 @@ const CartComponent = () => {
                             </div>
                         </div>
                     </div>
+                    <Modal title="Confirmation" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                         <p>Some contents...</p>
+                        <p>Some contents...</p>
+                        <p>Some contents...</p>
+                     </Modal>
                 </div>
             }
         </>

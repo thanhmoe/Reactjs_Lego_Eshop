@@ -50,6 +50,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
 
     const linkToDetail = (id) => {
         navigate(`/products/${id}`);
+        window.location.reload();
     };
     useEffect(() => {
         getListCategories();
@@ -69,7 +70,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 className="product-info"
                 onClick={() => linkToDetail(product.id)}
             >
-                {!isLoadedImg && <Skeleton.Image active />}
+                {!isLoadedImg && <Skeleton active />}
                 <img
                     className="image-product"
                     src={product.image_path}
