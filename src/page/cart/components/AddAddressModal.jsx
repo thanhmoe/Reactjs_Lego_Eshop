@@ -58,7 +58,8 @@ const AddAddressModal = ({
                         style={{ width: '100%' }}
                     >
                         {provinces.map(province => (
-                            <Option key={province.id} value={province.id}>{province.name}</Option>
+                            <Option
+                                key={province.id} value={province.id}>{province.name}</Option>
                         ))}
                     </Select>
                 </Form.Item>

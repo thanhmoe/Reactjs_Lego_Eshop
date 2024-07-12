@@ -122,6 +122,7 @@ const CartComponent = () => {
     };
 
     const handleAddNewAddress = async () => {
+        console.log('addaddadd', newAddress);
         try {
             const res = await addNewAddress(newAddress);
             if (res.success) {
@@ -136,17 +137,20 @@ const CartComponent = () => {
     };
 
     const handleProvinceChange = (value) => {
-        setNewAddress({ ...newAddress, province: value });
+        const selectedProvince = provinces.find(province => province.id === value);
+        setNewAddress({ ...newAddress, province: selectedProvince.name, provinceId: value });
         fetchDistricts(value);
     };
 
     const handleDistrictChange = (value) => {
-        setNewAddress({ ...newAddress, district: value });
+        const selectedDistrict = districts.find(district => district.id === value);
+        setNewAddress({ ...newAddress, district: selectedDistrict.name, districtId: value });
         fetchWards(value);
     };
 
     const handleWardChange = (value) => {
-        setNewAddress({ ...newAddress, ward: value });
+        const selectedWard = wards.find(ward => ward.id === value);
+        setNewAddress({ ...newAddress, ward: selectedWard.name, wardId: value });
     };
 
     const handleDetailChange = (e) => {
