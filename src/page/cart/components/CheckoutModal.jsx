@@ -3,23 +3,25 @@ import { Modal, Form, Select, Button } from 'antd';
 
 const { Option } = Select;
 
-const CheckoutModal = ({ isOpen, addresses, selectedAddress, onAddressSelect, onClose, onAddNewAddress }) => (
+const CheckoutModal = ({ isOpen, addresses, selectedAddress, onAddressSelect, onClose, onCheckout, onAddNewAddress }) => (
     <Modal
-        title="Checkout"
+        title="Checkout your order!"
         open={isOpen}
-        onOk={onClose}
+        onOk={onCheckout}
         onCancel={onClose}
+        okText='Place Your Order!'
     >
         <Form layout="vertical">
-            <Form.Item label="Select Address">
+            <Form.Item label="Select Address:">
                 <Select
                     value={selectedAddress}
                     onChange={onAddressSelect}
                     style={{ width: '100%' }}
+                    rules={[{ required: true, message: 'Please select your address before ordering!' }]}
                 >
                     {addresses.map(address => (
                         <Option key={address.id} value={address.id}>
-                            {`${address.commune_ward}, ${address.district}, ${address.province_city} ${address.detail}`}
+                            {`${address.name} - ${address.phone_number}, ${address.commune_ward}, ${address.district}, ${address.province_city} ${address.detail}`}
                         </Option>
                     ))}
                 </Select>

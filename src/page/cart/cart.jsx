@@ -6,6 +6,8 @@ import { getProvinces, getDistricts, getWards } from "../../services/address_ser
 import { createAddress, getCustomerAddress } from "../../services/customer_services";
 import TopSellingProducts from "../../components/TopSellingProducts";
 
+import { notify } from "../../main";
+
 import { Breadcrumb, Alert, Button, Image } from "antd";
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
@@ -131,6 +133,7 @@ const CartComponent = () => {
             if (res.success) {
                 setIsAddAddressModalOpen(false);
                 getAddresses();
+                notify('success', 'New Address Added!')
             } else {
                 setError(res.message);
             }
@@ -167,7 +170,14 @@ const CartComponent = () => {
     const handlePhoneNumberChange = (e) => {
         setNewAddress({ ...newAddress, phone_number: e.target.value });
     };
+    const onCheckout = () => {
+        // setLoading(true)
+        // setTimeout(() => {
+        //     setIsModalOpen(false);
+        //     setLoading(false);
+        // }, 1000)
 
+    }
     useEffect(() => {
         getProducts();
         fetchProvinces();
@@ -242,6 +252,7 @@ const CartComponent = () => {
                                 <span>${calculateTotal()}</span>
                             </div>
                             <button onClick={() => setIsModalOpen(true)} className="checkout-button">Checkout</button>
+                            <p className="decs">Payment methods</p>
                             <div className="payment-methods">
                                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
                                 <FontAwesomeIcon icon={faCcPaypal} size="2x" />
@@ -256,7 +267,9 @@ const CartComponent = () => {
                         addresses={addresses}
                         selectedAddress={selectedAddress}
                         onAddressSelect={setSelectedAddress}
+                        onSave={onCheckout}
                         onClose={() => setIsModalOpen(false)}
+                        onCheckout={onCheckout}
                         onAddNewAddress={() => setIsAddAddressModalOpen(true)}
                     />
 

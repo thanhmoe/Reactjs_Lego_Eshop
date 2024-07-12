@@ -96,6 +96,7 @@ const AddAddressModal = ({
                 <Form.Item
                     label="Detail Address"
                     name="detail"
+                    rules={[{ required: true, message: 'Please enter your detail address' }]}
                 >
                     <Input
                         value={newAddress.detail}

@@ -19,8 +19,6 @@
     cursor: pointer;
 }
 
-.free-shipping-message {}
-
 .cart-body {
     display: flex;
     justify-content: space-between;
@@ -139,7 +137,7 @@
 .payment-methods {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin: 0 2rem 0 2rem;
 }
 
 .no-product-label {
