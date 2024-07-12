@@ -8,7 +8,7 @@ import TopSellingProducts from "../../components/TopSellingProducts";
 
 import { notify } from "../../main";
 
-import { Breadcrumb, Alert, Button, Image } from "antd";
+import { Breadcrumb, Alert, Button, Image, FloatButton } from "antd";
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -288,6 +288,7 @@ const CartComponent = () => {
                         onSave={handleAddNewAddress}
                         onClose={() => setIsAddAddressModalOpen(false)}
                     />
+                    <FloatButton.BackTop />
                 </div>
             }
         </>
