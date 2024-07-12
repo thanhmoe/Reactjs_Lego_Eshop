@@ -165,6 +165,8 @@
 }
 
 .top-product-container {
+    display: grid;
+    justify-content: center;
     margin-top: 3rem;
 }
 

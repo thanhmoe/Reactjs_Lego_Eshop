@@ -123,7 +123,6 @@ export default function ProductsDetail() {
                                     ))}
                                 </div>
                                 <h3 className="productName">{product.name}</h3>
-                                {/* <p className="description">Description: {product.introduce}</p> */}
                                 <p className="price">${product.price}</p>
                                 <div className="product-control">
                                     <div className="quantity-selector">
@@ -179,8 +178,18 @@ export default function ProductsDetail() {
                     <div>
                         <TopSellingProducts />
                     </div>
-                    <Modal title="Added to cart" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="View Cart And Checkout"
-                        cancelText="Continue Shopping">
+                    <Modal title="Added to cart"
+                        open={isModalOpen}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        okText="View Cart And Checkout"
+                        cancelText="Continue Shopping"
+                        okButtonProps={{
+
+                        }}
+                        cancelButtonProps={{
+
+                        }}>
                         <Image style={{ width: "400px" }} src={product.image_path} />
                         <p >{product.name}</p>
                         <p>qty:{quantity}</p>

@@ -1,32 +1,117 @@
 import React, { useEffect, useState } from "react";
-import { getProductsOnCart } from "../../services/cart_serviced";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb, Alert, Button, Image, FloatButton } from "antd";
-import "./cart.css";
-import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
+
+import { getProductsOnCart, updateProductQuantity } from "../../services/cart_serviced";
+import { getProvinces, getDistricts, getWards } from "../../services/address_services";
+import { createAddress, getCustomerAddress } from "../../services/customer_services";
 import TopSellingProducts from "../../components/TopSellingProducts";
 
+import { notify } from "../../main";
+
+import { Breadcrumb, Alert, Button, Image } from "antd";
+import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
+import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CheckoutModal from "./components/CheckoutModal";
+import AddAddressModal from "./components/AddAddressModal";
+import "./cart.css";
+
 const CartComponent = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [addresses, setAddresses] = useState([]);
+    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
+    const [provinces, setProvinces] = useState([]);
+    const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+    const [newAddress, setNewAddress] = useState({
+        name: '',
+        phone_number: '',
+        province: '',
+        district: '',
+        ward: '',
+        detail: ''
+    });
+
     const getProducts = async () => {
         try {
-            const res = await getProductsOnCart()
+            const res = await getProductsOnCart();
             if (res.success) {
-                setCartItems(res.cart)
+                setCartItems(res.cart);
             }
         } catch (error) {
-            return error
+            setError(error.message);
         }
-    }
-    const handleQuantityChange = (id, delta) => {
-        setCartItems(prevItems =>
-            prevItems.map(item =>
-                item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-            )
-        );
+    };
+
+    const getAddresses = async () => {
+        try {
+            const res = await getCustomerAddress();
+            if (res.success) {
+                setAddresses(res.addresses);
+            }
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const fetchProvinces = async () => {
+        try {
+            const res = await getProvinces();
+            setProvinces(res.data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const fetchDistricts = async (provinceId) => {
+        try {
+            const res = await getDistricts(provinceId);
+            setDistricts(res.data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const fetchWards = async (districtId) => {
+        try {
+            const res = await getWards(districtId);
+            setWards(res.data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const handleQuantityChange = async (id, increase) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await updateProductQuantity({
+                productId: id,
+                increase: increase
+            });
+            if (res.success) {
+                await getProducts();
+            } else {
+                setError(res.message);
+            }
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleQuantityDecrease = (id) => {
+        handleQuantityChange(id, 0);
+    };
+
+    const handleQuantityIncrease = (id) => {
+        handleQuantityChange(id, 1);
     };
 
     const handleRemoveItem = (id) => {
@@ -41,10 +126,63 @@ const CartComponent = () => {
         return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
     };
 
+    const handleAddNewAddress = async () => {
+        console.log('addaddadd', newAddress);
+        try {
+            const res = await createAddress(newAddress);
+            if (res.success) {
+                setIsAddAddressModalOpen(false);
+                getAddresses();
+                notify('success', 'New Address Added!')
+            } else {
+                setError(res.message);
+            }
+        } catch (error) {
+            setError(error.message);
+        }
+    };
 
+    const handleProvinceChange = (value) => {
+        const selectedProvince = provinces.find(province => province.id === value);
+        setNewAddress({ ...newAddress, province: selectedProvince.name, provinceId: value });
+        fetchDistricts(value);
+    };
+
+    const handleDistrictChange = (value) => {
+        const selectedDistrict = districts.find(district => district.id === value);
+        setNewAddress({ ...newAddress, district: selectedDistrict.name, districtId: value });
+        fetchWards(value);
+    };
+
+    const handleWardChange = (value) => {
+        const selectedWard = wards.find(ward => ward.id === value);
+        setNewAddress({ ...newAddress, ward: selectedWard.name, wardId: value });
+    };
+
+    const handleDetailChange = (e) => {
+        setNewAddress({ ...newAddress, detail: e.target.value });
+    };
+
+    const handleNameChange = (e) => {
+        setNewAddress({ ...newAddress, name: e.target.value });
+    };
+
+    const handlePhoneNumberChange = (e) => {
+        setNewAddress({ ...newAddress, phone_number: e.target.value });
+    };
+    const onCheckout = () => {
+        // setLoading(true)
+        // setTimeout(() => {
+        //     setIsModalOpen(false);
+        //     setLoading(false);
+        // }, 1000)
+
+    }
     useEffect(() => {
-        getProducts()
-    }, [])
+        getProducts();
+        fetchProvinces();
+        getAddresses();
+    }, []);
 
     return (
         <>
@@ -55,7 +193,7 @@ const CartComponent = () => {
                         <p>Your cart looks lonely. Why not add something fun?</p>
                     </div>
                     <TopSellingProducts />
-                </div >
+                </div>
                 :
                 <div className="shopping-cart">
                     <div className="cart-header">
@@ -74,16 +212,16 @@ const CartComponent = () => {
                             {cartItems.map(item => (
                                 <div key={item.id} className="cart-item">
                                     <Image style={{ width: '150px' }} src={item.image_path} alt={item.name} className="cart-item-image" />
-                                    <h3 className="product-name">{item.name}</h3>
+                                    <p className="product-name">{item.name}</p>
                                     <div className="cart-item-details">
                                         <div className="quantity-selector">
                                             <button className="quantity-button quantity-button-decrement"
-                                                onClick={() => handleQuantityChange(item.id, -1)}>-</button>
+                                                onClick={() => handleQuantityDecrease(item.id)} disabled={loading}>-</button>
                                             <div className="quantity-input-div">
-                                                <input className="quantity-input" value={item.quantity}></input>
+                                                <input className="quantity-input" value={item.quantity} readOnly></input>
                                             </div>
                                             <button className="quantity-button quantity-button-increment"
-                                                onClick={() => handleQuantityChange(item.id, 1)}>+</button>
+                                                disabled={(item.quantity >= item.in_stock) || loading} onClick={() => handleQuantityIncrease(item.id)}>+</button>
                                         </div>
                                     </div>
                                     <div className="remove-and-price">
@@ -113,7 +251,8 @@ const CartComponent = () => {
                                 <span>Estimated total</span>
                                 <span>${calculateTotal()}</span>
                             </div>
-                            <button className="checkout-button">Checkout</button>
+                            <button onClick={() => setIsModalOpen(true)} className="checkout-button">Checkout</button>
+                            <p className="decs">Payment methods</p>
                             <div className="payment-methods">
                                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
                                 <FontAwesomeIcon icon={faCcPaypal} size="2x" />
@@ -122,7 +261,33 @@ const CartComponent = () => {
                             </div>
                         </div>
                     </div>
-                    <FloatButton.BackTop />
+
+                    <CheckoutModal
+                        isOpen={isModalOpen}
+                        addresses={addresses}
+                        selectedAddress={selectedAddress}
+                        onAddressSelect={setSelectedAddress}
+                        onSave={onCheckout}
+                        onClose={() => setIsModalOpen(false)}
+                        onCheckout={onCheckout}
+                        onAddNewAddress={() => setIsAddAddressModalOpen(true)}
+                    />
+
+                    <AddAddressModal
+                        isOpen={isAddAddressModalOpen}
+                        provinces={provinces}
+                        districts={districts}
+                        wards={wards}
+                        newAddress={newAddress}
+                        onProvinceChange={handleProvinceChange}
+                        onDistrictChange={handleDistrictChange}
+                        onWardChange={handleWardChange}
+                        onDetailChange={handleDetailChange}
+                        onNameChange={handleNameChange}
+                        onPhoneNumberChange={handlePhoneNumberChange}
+                        onSave={handleAddNewAddress}
+                        onClose={() => setIsAddAddressModalOpen(false)}
+                    />
                 </div>
             }
         </>

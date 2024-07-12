@@ -32,9 +32,10 @@ export const getTotalProductCount = async () => {
     }
 };
 
-export const updateProductQuantity = async (cartId) => {
+export const updateProductQuantity = async (params) => {
+    const {productId, increase} = params
     try {
-        let url = `${API_PATH}/update/${cartId}`
+        let url = `${API_PATH}/update/${productId}?increase=${increase}`
         const response = await axios_instance.patch(url);
         return response.data;
     } catch (error) {
