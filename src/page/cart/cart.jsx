@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { getProductsOnCart, updateProductQuantity, getCustomerAddresses, getProvinces, getDistricts, getWards, addNewAddress } from "../../services/cart_serviced";
 import { getProductsOnCart, updateProductQuantity } from "../../services/cart_serviced";
-import { getProvinces,getDistricts,getWards } from "../../services/address_services";
+import { getProvinces, getDistricts, getWards } from "../../services/address_services";
 import TopSellingProducts from "../../components/TopSellingProducts";
-import { Breadcrumb, Alert, Button, Image, Modal, Select, Input, Form } from "antd";
+import { Breadcrumb, Alert, Button, Image } from "antd";
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CheckoutModal from "./components/CheckoutModal";
+import AddAddressModal from "./components/AddAddressModal";
 import "./cart.css";
-
-const { Option } = Select;
 
 const CartComponent = () => {
     const navigate = useNavigate();
@@ -25,6 +24,8 @@ const CartComponent = () => {
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
     const [newAddress, setNewAddress] = useState({
+        name: '',
+        phonenumber: '',
         province: '',
         district: '',
         ward: '',
@@ -56,7 +57,7 @@ const CartComponent = () => {
     const fetchProvinces = async () => {
         try {
             const res = await getProvinces();
-            setProvinces(res.provinces);
+            setProvinces(res.data);
         } catch (error) {
             setError(error.message);
         }
@@ -65,7 +66,7 @@ const CartComponent = () => {
     const fetchDistricts = async (provinceId) => {
         try {
             const res = await getDistricts(provinceId);
-            setDistricts(res.districts);
+            setDistricts(res.data);
         } catch (error) {
             setError(error.message);
         }
@@ -74,7 +75,7 @@ const CartComponent = () => {
     const fetchWards = async (districtId) => {
         try {
             const res = await getWards(districtId);
-            setWards(res.wards);
+            setWards(res.data);
         } catch (error) {
             setError(error.message);
         }
@@ -132,6 +133,32 @@ const CartComponent = () => {
         } catch (error) {
             setError(error.message);
         }
+    };
+
+    const handleProvinceChange = (value) => {
+        setNewAddress({ ...newAddress, province: value });
+        fetchDistricts(value);
+    };
+
+    const handleDistrictChange = (value) => {
+        setNewAddress({ ...newAddress, district: value });
+        fetchWards(value);
+    };
+
+    const handleWardChange = (value) => {
+        setNewAddress({ ...newAddress, ward: value });
+    };
+
+    const handleDetailChange = (e) => {
+        setNewAddress({ ...newAddress, detail: e.target.value });
+    };
+
+    const handleNameChange = (e) => {
+        setNewAddress({ ...newAddress, name: e.target.value });
+    };
+
+    const handlePhoneNumberChange = (e) => {
+        setNewAddress({ ...newAddress, phonenumber: e.target.value });
     };
 
     useEffect(() => {
@@ -216,75 +243,31 @@ const CartComponent = () => {
                             </div>
                         </div>
                     </div>
-                    <Modal title="Checkout" open={isModalOpen} onOk={() => setIsModalOpen(false)} onCancel={() => setIsModalOpen(false)}>
-                        <Form layout="vertical">
-                            <Form.Item label="Select Address">
-                                {/* <Select
-                                    value={selectedAddress}
-                                    onChange={setSelectedAddress}
-                                    style={{ width: '100%' }}
-                                >
-                                    {addresses.map(address => (
-                                        <Option key={address.id} value={address.id}>
-                                            {`${address.detail}, ${address.ward}, ${address.district}, ${address.province}`}
-                                        </Option>
-                                    ))}
-                                </Select> */}
-                            </Form.Item>
-                            <Button type="dashed" onClick={() => setIsAddAddressModalOpen(true)} style={{ width: '100%' }}>
-                                Add New Address
-                            </Button>
-                        </Form>
-                    </Modal>
-                    <Modal title="Add New Address" open={isAddAddressModalOpen} onOk={handleAddNewAddress} onCancel={() => setIsAddAddressModalOpen(false)}>
-                        <Form layout="vertical">
-                            <Form.Item label="Province">
-                                <Select
-                                    value={newAddress.province}
-                                    onChange={(value) => {
-                                        setNewAddress({ ...newAddress, province: value });
-                                        fetchDistricts(value);
-                                    }}
-                                    style={{ width: '100%' }}
-                                >
-                                    {provinces.map(province => (
-                                        <Option key={province.id} value={province.id}>{province.name}</Option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                            <Form.Item label="District">
-                                <Select
-                                    value={newAddress.district}
-                                    onChange={(value) => {
-                                        setNewAddress({ ...newAddress, district: value });
-                                        fetchWards(value);
-                                    }}
-                                    style={{ width: '100%' }}
-                                >
-                                    {districts.map(district => (
-                                        <Option key={district.id} value={district.id}>{district.name}</Option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                            <Form.Item label="Ward">
-                                <Select
-                                    value={newAddress.ward}
-                                    onChange={(value) => setNewAddress({ ...newAddress, ward: value })}
-                                    style={{ width: '100%' }}
-                                >
-                                    {wards.map(ward => (
-                                        <Option key={ward.id} value={ward.id}>{ward.name}</Option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                            <Form.Item label="Detail Address">
-                                <Input
-                                    value={newAddress.detail}
-                                    onChange={(e) => setNewAddress({ ...newAddress, detail: e.target.value })}
-                                />
-                            </Form.Item>
-                        </Form>
-                    </Modal>
+
+                    <CheckoutModal
+                        isOpen={isModalOpen}
+                        addresses={addresses}
+                        selectedAddress={selectedAddress}
+                        onAddressSelect={setSelectedAddress}
+                        onClose={() => setIsModalOpen(false)}
+                        onAddNewAddress={() => setIsAddAddressModalOpen(true)}
+                    />
+
+                    <AddAddressModal
+                        isOpen={isAddAddressModalOpen}
+                        provinces={provinces}
+                        districts={districts}
+                        wards={wards}
+                        newAddress={newAddress}
+                        onProvinceChange={handleProvinceChange}
+                        onDistrictChange={handleDistrictChange}
+                        onWardChange={handleWardChange}
+                        onDetailChange={handleDetailChange}
+                        onNameChange={handleNameChange}
+                        onPhoneNumberChange={handlePhoneNumberChange}
+                        onSave={handleAddNewAddress}
+                        onClose={() => setIsAddAddressModalOpen(false)}
+                    />
                 </div>
             }
         </>

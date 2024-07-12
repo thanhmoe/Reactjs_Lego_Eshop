@@ -94,3 +94,7 @@ export const SELECTGENDER = [
         gender: 'Other'
     }
 ]
+
+export const OKBUTTON = {
+
+}
