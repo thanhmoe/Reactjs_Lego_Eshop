@@ -19,7 +19,7 @@ const CheckoutModal = ({ isOpen, addresses, selectedAddress, onAddressSelect, on
                 >
                     {addresses.map(address => (
                         <Option key={address.id} value={address.id}>
-                            {`${address.detail}, ${address.ward}, ${address.district}, ${address.province}`}
+                            {`${address.commune_ward}, ${address.district}, ${address.province_city} ${address.detail}`}
                         </Option>
                     ))}
                 </Select>

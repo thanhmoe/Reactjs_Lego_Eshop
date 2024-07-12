@@ -43,7 +43,7 @@ const AddAddressModal = ({
                     rules={[{ required: true, message: 'Please enter your phone number' }]}
                 >
                     <Input
-                        value={newAddress.phonenumber}
+                        value={newAddress.phone_number}
                         onChange={onPhoneNumberChange}
                     />
                 </Form.Item>

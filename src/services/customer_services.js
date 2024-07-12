@@ -18,3 +18,21 @@ export const registerUser = async (newUser) => {
         return error.response.data;
     }
 };
+
+export const createAddress = async (newAddress) => {
+    try {
+        const response = await axios_instance.post(`${API_PATH}/addresses/create`, newAddress);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const getCustomerAddress = async () => {
+    try {
+        const response = await axios_instance.get(`${API_PATH}/addresses`);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};

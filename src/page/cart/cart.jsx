@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { getProductsOnCart, updateProductQuantity } from "../../services/cart_serviced";
 import { getProvinces, getDistricts, getWards } from "../../services/address_services";
+import { createAddress, getCustomerAddress } from "../../services/customer_services";
 import TopSellingProducts from "../../components/TopSellingProducts";
+
 import { Breadcrumb, Alert, Button, Image } from "antd";
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +28,7 @@ const CartComponent = () => {
     const [wards, setWards] = useState([]);
     const [newAddress, setNewAddress] = useState({
         name: '',
-        phonenumber: '',
+        phone_number: '',
         province: '',
         district: '',
         ward: '',
@@ -45,7 +48,7 @@ const CartComponent = () => {
 
     const getAddresses = async () => {
         try {
-            const res = await getCustomerAddresses();
+            const res = await getCustomerAddress();
             if (res.success) {
                 setAddresses(res.addresses);
             }
@@ -124,7 +127,7 @@ const CartComponent = () => {
     const handleAddNewAddress = async () => {
         console.log('addaddadd', newAddress);
         try {
-            const res = await addNewAddress(newAddress);
+            const res = await createAddress(newAddress);
             if (res.success) {
                 setIsAddAddressModalOpen(false);
                 getAddresses();
@@ -162,7 +165,7 @@ const CartComponent = () => {
     };
 
     const handlePhoneNumberChange = (e) => {
-        setNewAddress({ ...newAddress, phonenumber: e.target.value });
+        setNewAddress({ ...newAddress, phone_number: e.target.value });
     };
 
     useEffect(() => {
