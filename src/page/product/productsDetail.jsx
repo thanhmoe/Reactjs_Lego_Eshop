@@ -11,7 +11,7 @@ import { getTotalProductInCart } from "../../redux/slice/carts/cartsSlice.js";
 
 import './productsDetail.css';
 import CartIcon from '/src/assets/icons/cart.svg?react';
-import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button } from "antd";
+import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button, FloatButton } from "antd";
 import { notify } from "../../main.jsx";
 
 
@@ -186,7 +186,9 @@ export default function ProductsDetail() {
                         <p>qty:{quantity}</p>
                         <p>${product.price}</p>
                     </Modal>
+                    <FloatButton.BackTop />
                 </div>
+
             }
         </>
     );

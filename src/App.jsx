@@ -4,7 +4,7 @@ import './App.css';
 import { cookies, notify } from './main';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from 'antd';
+import { Button, FloatButton } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 
 import banner1 from '../public/assets/banner1.jpg'
@@ -27,6 +27,7 @@ function App() {
         <div className='top-selling-products-container'>
           <TopSellingProducts />
         </div>
+        <FloatButton.BackTop />
       </div >
     </>
   );

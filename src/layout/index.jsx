@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import './index.css';
 import LoadingModal from "../modal/loadingModal";
+import { FloatButton } from "antd";
 
 export default function MainLayout({ children }) {
     // const [isOffset, setIsOffset] = useState(false)

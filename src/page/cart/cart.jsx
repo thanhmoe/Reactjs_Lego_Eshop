@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getProductsOnCart } from "../../services/cart_serviced";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb, Alert, Button, Image } from "antd";
+import { Breadcrumb, Alert, Button, Image, FloatButton } from "antd";
 import "./cart.css";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -122,6 +122,7 @@ const CartComponent = () => {
                             </div>
                         </div>
                     </div>
+                    <FloatButton.BackTop />
                 </div>
             }
         </>

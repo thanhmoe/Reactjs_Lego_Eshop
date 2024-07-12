@@ -1,5 +1,5 @@
 // /src/pages/Products.js
-import { Input, Select, Space } from 'antd';
+import { FloatButton, Input, Select, Space } from 'antd';
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductComponent from "../../components/ProductComponent";
@@ -56,6 +56,8 @@ export default function Products() {
             <div>
                 <ProductComponent searchQuery={searchQuery} sortOption={sortOption} />
             </div>
+            <FloatButton.BackTop />
+
         </div>
     );
 }

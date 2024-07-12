@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './news.css'
 import ArticleComponent from "../../components/ArticleComponent";
-import { Input, Space, Select } from 'antd';
+import { Input, Space, Select, FloatButton } from 'antd';
 const { Search } = Input;
 const { Option } = Select;
 import { FILTERNEWS } from "../../utils/constants";
@@ -47,6 +47,7 @@ export default function news() {
             <div className="news" >
                 <ArticleComponent searchQuery={searchQuery} sortOption={sortOption} />
             </div>
+            <FloatButton.BackTop />
         </div>
     </>
 }
