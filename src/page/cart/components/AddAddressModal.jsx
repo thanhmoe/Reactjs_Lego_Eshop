@@ -5,7 +5,7 @@ const { Option } = Select;
 
 const AddAddressModal = ({
     isOpen, provinces, districts, wards, newAddress,
-    onProvinceChange, onDistrictChange, onWardChange, onDetailChange, onNameChange, onPhoneNumberChange, onSave, onClose
+    onInputChange, onSave, onClose
 }) => {
     const [form] = Form.useForm();
 
@@ -34,17 +34,17 @@ const AddAddressModal = ({
                 >
                     <Input
                         value={newAddress.name}
-                        onChange={onNameChange}
+                        onChange={(e) => onInputChange('name', e.target.value)}
                     />
                 </Form.Item>
                 <Form.Item
                     label="Phone Number"
-                    name="phonenumber"
+                    name="phone_number"
                     rules={[{ required: true, message: 'Please enter your phone number' }]}
                 >
                     <Input
                         value={newAddress.phone_number}
-                        onChange={onPhoneNumberChange}
+                        onChange={(e) => onInputChange('phone_number', e.target.value)}
                     />
                 </Form.Item>
                 <Form.Item
@@ -54,7 +54,7 @@ const AddAddressModal = ({
                 >
                     <Select
                         value={newAddress.province}
-                        onChange={onProvinceChange}
+                        onChange={(value) => onInputChange('province', value)}
                         style={{ width: '100%' }}
                     >
                         {provinces.map(province => (
@@ -70,7 +70,7 @@ const AddAddressModal = ({
                 >
                     <Select
                         value={newAddress.district}
-                        onChange={onDistrictChange}
+                        onChange={(value) => onInputChange('district', value)}
                         style={{ width: '100%' }}
                     >
                         {districts.map(district => (
@@ -85,7 +85,7 @@ const AddAddressModal = ({
                 >
                     <Select
                         value={newAddress.ward}
-                        onChange={onWardChange}
+                        onChange={(value) => onInputChange('ward', value)}
                         style={{ width: '100%' }}
                     >
                         {wards.map(ward => (
@@ -100,7 +100,7 @@ const AddAddressModal = ({
                 >
                     <Input
                         value={newAddress.detail}
-                        onChange={onDetailChange}
+                        onChange={(e) => onInputChange('detail', e.target.value)}
                     />
                 </Form.Item>
             </Form>

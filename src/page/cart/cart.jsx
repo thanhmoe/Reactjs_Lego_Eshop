@@ -127,7 +127,6 @@ const CartComponent = () => {
     };
 
     const handleAddNewAddress = async () => {
-        console.log('addaddadd', newAddress);
         try {
             const res = await createAddress(newAddress);
             if (res.success) {
@@ -142,42 +141,34 @@ const CartComponent = () => {
         }
     };
 
-    const handleProvinceChange = (value) => {
-        const selectedProvince = provinces.find(province => province.id === value);
-        setNewAddress({ ...newAddress, province: selectedProvince.name, provinceId: value });
-        fetchDistricts(value);
-    };
+    const handleInputChange = (name, value) => {
+        setNewAddress(prevAddress => ({
+            ...prevAddress,
+            [name]: value
+        }));
 
-    const handleDistrictChange = (value) => {
-        const selectedDistrict = districts.find(district => district.id === value);
-        setNewAddress({ ...newAddress, district: selectedDistrict.name, districtId: value });
-        fetchWards(value);
+        if (name === 'province') {
+            const selectedProvince = provinces.find(province => province.id === value);
+            setNewAddress(prevAddress => ({ ...prevAddress, province: selectedProvince.name }));
+            fetchDistricts(value);
+        } else if (name === 'district') {
+            const selectedDistrict = districts.find(district => district.id === value);
+            setNewAddress(prevAddress => ({ ...prevAddress, district: selectedDistrict.name }));
+            fetchWards(value);
+        } else if (name === 'ward') {
+            const selectedWard = wards.find(ward => ward.id === value);
+            setNewAddress(prevAddress => ({ ...prevAddress, ward: selectedWard.name }));
+        }
     };
-
-    const handleWardChange = (value) => {
-        const selectedWard = wards.find(ward => ward.id === value);
-        setNewAddress({ ...newAddress, ward: selectedWard.name, wardId: value });
-    };
-
-    const handleDetailChange = (e) => {
-        setNewAddress({ ...newAddress, detail: e.target.value });
-    };
-
-    const handleNameChange = (e) => {
-        setNewAddress({ ...newAddress, name: e.target.value });
-    };
-
-    const handlePhoneNumberChange = (e) => {
-        setNewAddress({ ...newAddress, phone_number: e.target.value });
-    };
+    
     const onCheckout = () => {
-        // setLoading(true)
-        // setTimeout(() => {
-        //     setIsModalOpen(false);
-        //     setLoading(false);
-        // }, 1000)
+        if (!selectedAddress) {
+            setError('Please select an address before proceeding to checkout.');
+            return;
+        }
+        // Implement the checkout logic here
+    };
 
-    }
     useEffect(() => {
         getProducts();
         fetchProvinces();
@@ -279,12 +270,7 @@ const CartComponent = () => {
                         districts={districts}
                         wards={wards}
                         newAddress={newAddress}
-                        onProvinceChange={handleProvinceChange}
-                        onDistrictChange={handleDistrictChange}
-                        onWardChange={handleWardChange}
-                        onDetailChange={handleDetailChange}
-                        onNameChange={handleNameChange}
-                        onPhoneNumberChange={handlePhoneNumberChange}
+                        onInputChange={handleInputChange}
                         onSave={handleAddNewAddress}
                         onClose={() => setIsAddAddressModalOpen(false)}
                     />

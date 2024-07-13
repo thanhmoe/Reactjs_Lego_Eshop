@@ -12,12 +12,15 @@ const CheckoutModal = ({ isOpen, addresses, selectedAddress, onAddressSelect, on
         okText='Place Your Order!'
     >
         <Form layout="vertical">
-            <Form.Item label="Select Address:">
+            <Form.Item
+                label="Select Address:"
+                rules={[{ required: true, message: 'Please select your address before ordering!' }]}
+            >
                 <Select
                     value={selectedAddress}
                     onChange={onAddressSelect}
                     style={{ width: '100%' }}
-                    rules={[{ required: true, message: 'Please select your address before ordering!' }]}
+                    placeholder="Select your address"
                 >
                     {addresses.map(address => (
                         <Option key={address.id} value={address.id}>
