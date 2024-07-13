@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getProductsOnCart, updateProductQuantity } from "../../services/cart_serviced";
 import { getProvinces, getDistricts, getWards } from "../../services/address_services";
 import { createAddress, getCustomerAddress } from "../../services/customer_services";
+import { createOrders } from "../../services/orders";
 import TopSellingProducts from "../../components/TopSellingProducts";
 
 import { notify } from "../../main";
@@ -36,6 +37,7 @@ const CartComponent = () => {
         ward: '',
         detail: ''
     });
+    const [note, setNote] = useState(''); // Add note state
 
     const getProducts = async () => {
         try {
@@ -161,12 +163,32 @@ const CartComponent = () => {
         }
     };
     
-    const onCheckout = () => {
+    const onCheckout = async() => {
         if (!selectedAddress) {
             setError('Please select an address before proceeding to checkout.');
             return;
         }
-        // Implement the checkout logic here
+        const orderData = {
+            address: selectedAddress,
+            cart_items: cartItems.map(item => item.id),
+            note: note
+        };
+
+         try {
+            const res = await createOrders(orderData);
+            if (res.success) {
+                notify('success', 'Order placed successfully!');
+                // Optionally clear cart and reset state
+                // setCartItems([]);
+                // setSelectedAddress(null);
+                setIsModalOpen(false);
+                getProducts();
+            } else {
+                setError(res.message);
+            }
+        } catch (error) {
+            setError(error.message);
+        }
     };
 
     useEffect(() => {
@@ -258,6 +280,8 @@ const CartComponent = () => {
                         addresses={addresses}
                         selectedAddress={selectedAddress}
                         onAddressSelect={setSelectedAddress}
+                        note={note}
+                        onNoteChange={(e) => setNote(e.target.value)}
                         onSave={onCheckout}
                         onClose={() => setIsModalOpen(false)}
                         onCheckout={onCheckout}
