@@ -1,9 +1,9 @@
 import React from 'react';
-import { Modal, Form, Select, Button,Input } from 'antd';
+import { Modal, Form, Select, Button, Input } from 'antd';
 
 const { Option } = Select;
 
-const CheckoutModal = ({ isOpen, addresses, selectedAddress, note,onNoteChange, onAddressSelect, onClose, onCheckout, onAddNewAddress }) => (
+const CheckoutModal = ({ isOpen, addresses, selectedAddress, note, onNoteChange, onAddressSelect, onClose, onCheckout, onAddNewAddress }) => (
     <Modal
         title="Checkout your order!"
         open={isOpen}
@@ -29,8 +29,13 @@ const CheckoutModal = ({ isOpen, addresses, selectedAddress, note,onNoteChange, 
                     ))}
                 </Select>
             </Form.Item>
+            <Form.Item>
+                <Button type="dashed" onClick={onAddNewAddress} style={{ width: '100%' }}>
+                    Add New Address
+                </Button>
+            </Form.Item>
             <Form.Item
-                label="Note (optional)"
+                label="Note (optional):"
             >
                 <Input.TextArea
                     value={note}
@@ -38,9 +43,6 @@ const CheckoutModal = ({ isOpen, addresses, selectedAddress, note,onNoteChange, 
                     placeholder="Add a note for your order"
                 />
             </Form.Item>
-            <Button type="dashed" onClick={onAddNewAddress} style={{ width: '100%' }}>
-                Add New Address
-            </Button>
         </Form>
     </Modal>
 );

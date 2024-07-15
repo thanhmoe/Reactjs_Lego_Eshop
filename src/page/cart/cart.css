@@ -145,3 +145,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+.remove-and-price {
+    display: flex;
+    flex-direction: column;
+}

@@ -179,7 +179,10 @@
     color: #484848;
 }
 
-.remove-and-price {
-    display: flex;
-    flex-direction: column;
+@media (max-width: 768px) {
+    .products-list {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
