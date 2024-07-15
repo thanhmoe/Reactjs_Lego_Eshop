@@ -4,7 +4,7 @@ const API_PATH = '/orders'
 
 export const createOrders = async (orderData) => {
     try {
-        const response = await axios_instance.post(`${API_PATH}/create`,orderData);
+        const response = await axios_instance.post(`${API_PATH}/create`, orderData);
         return response.data;
     } catch (error) {
         return error.response.data;

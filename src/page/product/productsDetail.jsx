@@ -11,7 +11,8 @@ import { getTotalProductInCart } from "../../redux/slice/carts/cartsSlice.js";
 
 import './productsDetail.css';
 import CartIcon from '/src/assets/icons/cart.svg?react';
-import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button, FloatButton } from "antd";
+
+import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button, FloatButton, Drawer } from "antd";
 import { notify } from "../../main.jsx";
 
 
@@ -178,7 +179,7 @@ export default function ProductsDetail() {
                     <div>
                         <TopSellingProducts />
                     </div>
-                    <Modal title="Added to cart"
+                    {/* <Modal title="Added to cart"
                         open={isModalOpen}
                         onOk={handleOk}
                         onCancel={handleCancel}
@@ -194,7 +195,17 @@ export default function ProductsDetail() {
                         <p >{product.name}</p>
                         <p>qty:{quantity}</p>
                         <p>${product.price}</p>
-                    </Modal>
+                    </Modal> */}
+                    <Drawer title="Added to cart" onClose={handleCancel} open={isModalOpen}>
+                        <Image src={product.image_path} />
+                        <p >{product.name}</p>
+                        <p>qty:{quantity}</p>
+                        <p>${product.price}</p>
+                        <div className="product-control-cart">
+                            <button onClick={() => handleOk()} className="btn-buy">View Cart And Checkout</button>
+                            <button onClick={() => handleCancel()} className="btn-continue">Continue Shopping</button>
+                        </div>
+                    </Drawer>
                     <FloatButton.BackTop />
                 </div>
 

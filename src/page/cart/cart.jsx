@@ -177,10 +177,6 @@ const CartComponent = () => {
     };
 
     const onCheckout = async () => {
-        if (!selectedAddress) {
-            setError('Please select an address before proceeding to checkout.');
-            return;
-        }
         const orderData = {
             address: selectedAddress,
             cart_items: cartItems.map(item => item.id),
@@ -196,10 +192,10 @@ const CartComponent = () => {
                 dispatch(getTotalProductInCart());
                 getProducts();
             } else {
-                setError(res.message);
+                notify('error', res.message)
             }
         } catch (error) {
-            setError(error.message);
+            notify(error.message);
         }
     };
 

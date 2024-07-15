@@ -66,6 +66,12 @@ h2 {
     align-items: center;
 }
 
+.product-control-cart {
+    display: grid;
+    gap: 1rem;
+    align-items: center;
+}
+
 .quantity-selector {
     display: flex;
     align-items: center;
@@ -181,7 +187,8 @@ h2 {
     width: 100%;
     max-width: 1000px;
 }
-.related-products-list{
+
+.related-products-list {
     max-width: 1000px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -189,12 +196,14 @@ h2 {
     margin: 2rem;
     align-items: start;
 }
+
 @media (max-width: 768px) {
     .productsDetail {
         display: flex;
         flex-direction: column;
     }
-    .related-products-list{
+
+    .related-products-list {
         display: flex;
         flex-direction: column;
     }
