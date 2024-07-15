@@ -1,43 +1,44 @@
 import React, { useEffect, useState } from "react";
-
 import Logo from '../assets/icons/nintendo.svg';
 import CartIcon from '../assets/icons/cart.svg?react';
 import UserIcon from '../assets/icons/user.svg?react';
 import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled } from '@ant-design/icons';
-import { Dropdown, Space, Avatar, Badge } from 'antd';
+import { Badge, Drawer, Button, List } from 'antd';
 import "./index.css";
-
 import { useNavigate } from "react-router-dom";
-
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
-
 import { notify } from "../main";
-
 import { useSelector, useDispatch } from "react-redux";
 import { clearToken, isTokenExpired, getToken } from "../utils/token_utils";
 import { getTotalProductInCart } from "../redux/slice/carts/cartsSlice";
-// import { getTotalProductCount, addProductToCart } from "../services/cart_serviced";
 
 export default function Header() {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-  const totalItems = useSelector((state) => state.cartsSlice.totalProduct)
-
-  // const [itemsInCart, SetItemInCart] = useState(0)
+  const totalItems = useSelector((state) => state.cartsSlice.totalProduct);
   const token = getToken();
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   function handleSignOut() {
-    clearToken()
+    clearToken();
+    setOpen(false);
     navigate('/login');
     notify('info', `You've been logged out!`);
   }
 
   const fetchData = async () => {
-    dispatch(getTotalProductInCart())
-  }
+    dispatch(getTotalProductInCart());
+  };
 
   useEffect(() => {
     if (!token || isTokenExpired()) {
@@ -46,6 +47,7 @@ export default function Header() {
     }
     fetchData();
   }, []);
+
   const headerItems = [
     { name: <><HomeFilled /> {t('Home')}</>, path: '/' },
     { name: <><ProductFilled /> {t('Products')}</>, path: '/products' },
@@ -61,10 +63,12 @@ export default function Header() {
       children: [
         {
           key: '1-1',
-          label: <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
-            <img className="countryFlag" src="/assets/usa.png" alt="usa" />
-            <span>{t('English')}</span>
-          </div>,
+          label: (
+            <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
+              <img className="countryFlag" src="/assets/usa.png" alt="usa" />
+              <span>{t('English')}</span>
+            </div>
+          ),
         },
         {
           key: '1-2',
@@ -76,9 +80,7 @@ export default function Header() {
           ),
         },
       ],
-    },
-    { type: 'divider' },
-    { label: <a onClick={handleSignOut}>{t('SignOut')}</a>, key: '2' },
+    }
   ];
 
   return (
@@ -101,10 +103,24 @@ export default function Header() {
         <Badge className="icon-header" size="small" count={totalItems} overflowCount={999} offset={[5, 0]}>
           <a className="icon-header" onClick={() => navigate('/cart')}><CartIcon /> {t('Cart')}</a>
         </Badge>
-        <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
-          <a className="icon-header"><UserIcon /> {t('User')}</a>
-        </Dropdown>
+        <a onClick={showDrawer} className="icon-header"><UserIcon /> {t('User')}</a>
       </div>
+      <Drawer title="User" onClose={onClose} open={open} footer={
+        <Button onClick={handleSignOut} style={{ width: '100%' }}>{t('SignOut')}</Button>
+      }>
+        <List>
+          {userMenuItems.map((item) => (
+            <React.Fragment key={item.key}>
+              <List.Item style={{ cursor: 'pointer' }}>{item.label}</List.Item>
+              {item.children && item.children.map((child) => (
+                <List.Item key={child.key} style={{ cursor: 'pointer', paddingLeft: '24px' }}>
+                  {child.label}
+                </List.Item>
+              ))}
+            </React.Fragment>
+          ))}
+        </List>
+      </Drawer>
     </header>
   );
 }

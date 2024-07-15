@@ -27,3 +27,10 @@
 p {
   color: #484848;
 }
+
+@media (max-width: 1400px) {
+  .label-banner {
+    left: 6rem;
+  }
+
+}
