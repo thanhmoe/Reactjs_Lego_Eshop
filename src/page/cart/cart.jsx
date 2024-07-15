@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getProductsOnCart, updateProductQuantity } from "../../services/cart_serviced";
+import { getProductsOnCart, updateProductQuantity, removeItemsFromCart } from "../../services/cart_serviced";
 import { getProvinces, getDistricts, getWards } from "../../services/address_services";
 import { createAddress, getCustomerAddress } from "../../services/customer_services";
 import { createOrders } from "../../services/orders";
+
 import TopSellingProducts from "../../components/TopSellingProducts";
+
+import { getTotalProductInCart } from "../../redux/slice/carts/cartsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 import { notify } from "../../main";
 
@@ -19,6 +23,7 @@ import "./cart.css";
 
 const CartComponent = () => {
     const navigate = useNavigate();
+
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -29,6 +34,7 @@ const CartComponent = () => {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
+    const dispatch = useDispatch();
     const [newAddress, setNewAddress] = useState({
         name: '',
         phone_number: '',
@@ -98,8 +104,6 @@ const CartComponent = () => {
             });
             if (res.success) {
                 await getProducts();
-            } else {
-                setError(res.message);
             }
         } catch (error) {
             setError(error.message);
@@ -108,16 +112,25 @@ const CartComponent = () => {
         }
     };
 
-    const handleQuantityDecrease = (id) => {
-        handleQuantityChange(id, 0);
+    const handleQuantityDecrease = async (id) => {
+        const item = cartItems.find(item => item.id === id);
+        if (item.quantity === 1) {
+            await handleRemoveItem(id);
+        } else {
+            handleQuantityChange(id, 0);
+        }
     };
 
     const handleQuantityIncrease = (id) => {
         handleQuantityChange(id, 1);
     };
 
-    const handleRemoveItem = (id) => {
-        setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    const handleRemoveItem = async (id) => {
+        const res = await removeItemsFromCart(id)
+        if (res.success) {
+            getProducts()
+            dispatch(getTotalProductInCart());
+        }
     };
 
     const calculateItemTotal = (item) => {
@@ -162,8 +175,8 @@ const CartComponent = () => {
             setNewAddress(prevAddress => ({ ...prevAddress, ward: selectedWard.name }));
         }
     };
-    
-    const onCheckout = async() => {
+
+    const onCheckout = async () => {
         if (!selectedAddress) {
             setError('Please select an address before proceeding to checkout.');
             return;
@@ -174,14 +187,13 @@ const CartComponent = () => {
             note: note
         };
 
-         try {
+        try {
             const res = await createOrders(orderData);
             if (res.success) {
                 notify('success', 'Order placed successfully!');
-                // Optionally clear cart and reset state
-                // setCartItems([]);
-                // setSelectedAddress(null);
+                setCartItems([]);
                 setIsModalOpen(false);
+                dispatch(getTotalProductInCart());
                 getProducts();
             } else {
                 setError(res.message);

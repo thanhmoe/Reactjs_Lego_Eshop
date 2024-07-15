@@ -33,7 +33,7 @@ export const getTotalProductCount = async () => {
 };
 
 export const updateProductQuantity = async (params) => {
-    const {productId, increase} = params
+    const { productId, increase } = params
     try {
         let url = `${API_PATH}/update/${productId}?increase=${increase}`
         const response = await axios_instance.patch(url);
@@ -42,3 +42,12 @@ export const updateProductQuantity = async (params) => {
         return error.response.data;
     }
 };
+
+export const removeItemsFromCart = async (productId) => {
+    try {
+        const response = await axios_instance.delete(`${API_PATH}/remove/${productId}`)
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}
