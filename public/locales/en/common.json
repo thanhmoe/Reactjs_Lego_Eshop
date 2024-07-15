@@ -8,9 +8,11 @@
     "Language": "Language",
     "English": "English",
     "Vietnamese": "Vietnamese",
-    "Setting": "Setting",
+    "Setting": "Select Language",
     "SignOut": "Sign Out",
     "Welcome": "Welcome to W3 X",
     "Cart": "Cart",
-    "User": "User"
+    "Cart_user": "Your Cart",
+    "User": "User",
+    "Orders": "Your Orders"
 }

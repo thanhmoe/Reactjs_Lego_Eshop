@@ -8,9 +8,11 @@
     "Language": "Ngôn Ngữ",
     "English": "Tiếng Anh",
     "Vietnamese": "Tiếng Việt",
-    "Setting": "Cài đặt",
+    "Setting": "Chọn Ngôn Ngữ",
     "SignOut": "Đăng Xuất",
     "Welcome": "Chao mung den W3 X",
     "Cart": "Giỏ Hàng",
-    "User": "User"
+    "Cart_user": "Giỏ Hàng",
+    "User": "User",
+    "Orders": "Tra cứu đơn hàng"
 }

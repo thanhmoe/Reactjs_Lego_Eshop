@@ -80,6 +80,14 @@ export default function Header() {
           ),
         },
       ],
+    },
+    {
+      key: '2',
+      label: t('Cart_user'),
+    },
+    {
+      key: '3',
+      label: t('Orders')
     }
   ];
 
