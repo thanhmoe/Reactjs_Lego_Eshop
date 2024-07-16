@@ -35,13 +35,13 @@ const ArticleComponent = () => {
         return (
             <div className="articles" key={article.id} onClick={() => linkToDetail(article.id)}>
                 {!isLoadedImg && <Skeleton active />}
-                <img src={article.image_thumb} onLoad={handleImageLoad} alt={article.title} />
-                <h2>{article.title}</h2>
-                <div>
-                    <p>Author:{article.author}</p>
+                <img className="news-image" src={article.image_thumb} onLoad={handleImageLoad} alt={article.title} />
+                <h2 className="news-title">{article.title}</h2>
+                <div className="author-and-date">
+                    <p>{article.category}</p>
                     <p>{article.create_at}</p>
                 </div>
-                <p>{article.descriptions}</p>
+                <p className="description-news">{article.descriptions}</p>
             </div>
         )
     }

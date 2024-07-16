@@ -9,6 +9,7 @@ import { RightOutlined } from '@ant-design/icons';
 
 import banner1 from '../public/assets/banner1.jpg'
 import TopSellingProducts from './components/TopSellingProducts';
+import ArticleComponent from './components/ArticleComponent';
 
 function App() {
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ function App() {
         </div>
         <div className='top-selling-products-container'>
           <TopSellingProducts />
+        </div>
+        <h2>Lego News</h2>
+        <div className='news-container'>
+          <ArticleComponent />
         </div>
         <FloatButton.BackTop />
       </div >

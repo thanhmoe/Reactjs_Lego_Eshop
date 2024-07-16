@@ -28,6 +28,18 @@ p {
   color: #484848;
 }
 
+h2 {
+  text-align: center;
+}
+
+.news-container {
+  max-width: 1440px;
+  display: flex;
+  gap: 1rem;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 1400px) {
   .label-banner {
     left: 6rem;
