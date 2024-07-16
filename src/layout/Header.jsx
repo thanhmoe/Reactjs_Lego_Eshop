@@ -5,7 +5,7 @@ import UserIcon from '../assets/icons/user.svg?react';
 import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { Badge, Drawer, Button, List } from 'antd';
 import "./index.css";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { notify } from "../main";
@@ -101,15 +101,22 @@ export default function Header() {
       <div className="menu-item">
         <ul>
           {headerItems.map((item, index) => (
-            <li key={index} onClick={() => navigate(item.path)}>
-              <a className="icon-header">{item.name}</a>
+            <li key={index}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}
+              >
+                {item.name}
+              </NavLink>
             </li>
           ))}
         </ul>
       </div>
       <div className="user-menu">
         <Badge className="icon-header" size="small" count={totalItems} overflowCount={999} offset={[5, 0]}>
-          <a className="icon-header" onClick={() => navigate('/cart')}><CartIcon /> {t('Cart')}</a>
+          <NavLink to="/cart" className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}>
+            <CartIcon /> {t('Cart')}
+          </NavLink>
         </Badge>
         <a onClick={showDrawer} className="icon-header"><UserIcon /> {t('User')}</a>
       </div>

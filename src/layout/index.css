@@ -13,7 +13,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* overflow-y: scroll; */
 }
 
 header {
@@ -33,7 +32,28 @@ header {
     color: inherit;
     text-decoration: none;
     font-weight: 700;
+    position: relative;
     transition: color 200ms ease-in-out;
+}
+
+.icon-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: rgb(230, 0, 18);
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.icon-header.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.icon-header.active {
+    color: rgb(230, 0, 18);
 }
 
 .icon-header:hover {
