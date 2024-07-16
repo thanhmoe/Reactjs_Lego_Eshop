@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import './contact.css';
-import Modal from "../../modal/modal";
+
 import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../../utils/constants";
+
+import { Modal } from "antd";
+
+import './contact.css';
 
 export default function contact() {
     const [isValid, setIsValid] = useState(false);
@@ -213,12 +216,15 @@ export default function contact() {
                 </div>
             </div>
         </div>
-        <Modal isOpen={open} onClose={handleClose}>
-            <h3 className="modal-name">Your name is:{formData.inputName}</h3>
-            <p>Position:{formData.jobselect}</p>
-            <p>Email:{formData.email}</p>
-            <p>Phone:{formData.phone}</p>
-            <p>Message:{formData.message}</p>
-        </Modal>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            onOk={handleClose}>
+            <h3 className="modal-name">Your name is: {formData.inputName}</h3>
+            <p>Position: {formData.jobselect}</p>
+            <p>Email: {formData.email}</p>
+            <p>Phone: {formData.phone}</p>
+            <p>Message: {formData.message}</p>
+        </Modal >
     </>
 }
