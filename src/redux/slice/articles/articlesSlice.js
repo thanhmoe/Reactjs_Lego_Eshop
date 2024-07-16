@@ -4,8 +4,8 @@ import { fetchArticles } from "../../../services/news_service";
 export const fetchArticle = createAsyncThunk(
     'articleList/fetchArticle',
     async () => {
-        const data = await fetchArticles();
-        return data;
+        const res = await fetchArticles();
+        return res.news;
     });
 
 const articleSlice = createSlice({
