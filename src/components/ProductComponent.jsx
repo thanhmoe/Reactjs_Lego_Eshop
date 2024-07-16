@@ -1,4 +1,4 @@
-import { Checkbox, Pagination, Skeleton, Empty } from "antd";
+import { Checkbox, Pagination, Skeleton, Empty, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -71,7 +71,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 className="product-info"
                 onClick={() => linkToDetail(product.id)}
             >
-                {!isLoadedImg && <Skeleton active />}
+                {/* {!isLoadedImg && <Spin />} */}
                 <img
                     className="image-product"
                     src={product.image_path}
