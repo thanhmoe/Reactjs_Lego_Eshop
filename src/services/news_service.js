@@ -9,3 +9,12 @@ export const fetchArticles = async () => {
         return error(error);
     }
 };
+
+export const fetchNewsById = async (id) => {
+    try {
+        const response = await axios_instance.get(`${API_PATH}/${id}`);
+        return response.data.news[0];
+    } catch (error) {
+        return error(error);
+    }
+};

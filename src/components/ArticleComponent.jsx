@@ -39,7 +39,7 @@ const ArticleComponent = () => {
                 <h2 className="news-title">{article.title}</h2>
                 <div className="author-and-date">
                     <p>{article.category}</p>
-                    <p>{article.create_at}</p>
+                    <p>{new Date(article.create_at).toLocaleDateString()}</p>
                 </div>
                 <p className="description-news">{article.descriptions}</p>
             </div>

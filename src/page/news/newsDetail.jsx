@@ -1,38 +1,36 @@
 import React, { useState, useEffect } from "react";
 import './news.css';
 import { useSelector, useDispatch } from "react-redux";
-import { selectArticles,fetchArticle,selectLoadingState,selectErrorState } from "../../redux/slice/articles/articlesSlice";
+import { fetchNewsDetail, selectNewDetail } from "../../redux/slice/articles/articlesSlice";
 import { useParams } from "react-router-dom";
 import LoadingModal from "../../modal/loadingModal";
 
-
-export default function newsDetail() {
+export default function NewsDetail() {
     const { articleId } = useParams();
-    const articles = useSelector(selectArticles);
+    const articles = useSelector(selectNewDetail);
     const dispatch = useDispatch();
 
-    const thisArticle = articles.find(a => a.id === articleId)
-
-    //check article data if visible or not
     useEffect(() => {
-        if (articles.length === 0) {
-            dispatch(fetchArticle())
-        };
-    }, []); 
+        dispatch(fetchNewsDetail(articleId));
+    }, [dispatch, articleId]);
 
-
-    return <>
-        {articles.length === 0
-            ? <LoadingModal />
-            :
-            <div className="news-detail">
-                <h1>{thisArticle.title}</h1>
-                <img src={thisArticle.image} alt={thisArticle.title} />
-                <p className="view">View: {thisArticle.view}</p>
-                <p>{thisArticle.description}</p>
-                <p>{thisArticle.content}</p>
-            </div>
-        }
-    </>
-
+    return (
+        <>
+            {!articles ? (
+                <LoadingModal />
+            ) : (
+                <div className="news-detail">
+                    <h1 className="news-detail-title">{articles.title}</h1>
+                    <div className="news-meta">
+                        <span className="news-author">By {articles.author}</span>
+                        <span className="news-date">{new Date(articles.create_at).toLocaleDateString()}</span>
+                    </div>
+                    <img className="news-image-thumb" src={articles.image_thumb} alt={articles.title} />
+                    <p className="news-description">{articles.descriptions}</p>
+                    <img className="news-image-content" src={articles.image_content} alt={articles.title} />
+                    <div className="news-content" dangerouslySetInnerHTML={{ __html: articles.content.replace(/\r\n/g, '<br />') }} />
+                </div>
+            )}
+        </>
+    );
 }
