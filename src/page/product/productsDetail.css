@@ -160,8 +160,19 @@ h2 {
     font-weight: 700;
 }
 
+.price.soldout {
+    text-decoration: line-through;
+}
+
 .product-detail-button {
     margin-top: 20px;
+}
+
+.btn-soldout:disabled {
+    background-color: #8f8f8f;
+    color: #ffffff;
+    font-weight: 700;
+    cursor: not-allowed;
 }
 
 .btn-buy {

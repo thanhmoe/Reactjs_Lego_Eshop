@@ -124,22 +124,32 @@ export default function ProductsDetail() {
                                     ))}
                                 </div>
                                 <h3 className="productName">{product.name}</h3>
-                                <p className="price">${product.price}</p>
-                                <div className="product-control">
-                                    <div className="quantity-selector">
-                                        <button onClick={decrementQuantity} disabled={quantity <= 1} className="quantity-button quantity-button-decrement">-</button>
-                                        <div className="quantity-input-div">
-                                            <input className="quantity-input"
-                                                type="number"
-                                                value={quantity}
-                                                onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                                            />
-                                        </div>
-                                        <button onClick={incrementQuantity} disabled={quantity >= product.quantity} className="quantity-button quantity-button-increment">+</button>
+                                <p className={`price ${(product.quantity === 0) ? `soldout` : ''}`}>${product.price}</p>
+                                {product.quantity === 0
+                                    ?
+                                    <div>
+                                        <button className="btn-soldout" disabled>Sold Out</button>
+                                        <p className="addinfor">This item is currently unavailable. Please check back soon.</p>
                                     </div>
-                                    <button onClick={() => handleAddToCart(productId)} className="btn-buy"><CartIcon />Add to cart</button>
-                                </div>
-                                <p className="addinfor">This item will be shipped to your address.</p>
+                                    :
+                                    <div>
+                                        <div className="product-control">
+                                            <div className="quantity-selector">
+                                                <button onClick={decrementQuantity} disabled={quantity <= 1} className="quantity-button quantity-button-decrement">-</button>
+                                                <div className="quantity-input-div">
+                                                    <input className="quantity-input"
+                                                        type="number"
+                                                        value={quantity}
+                                                        onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
+                                                    />
+                                                </div>
+                                                <button onClick={incrementQuantity} disabled={quantity >= product.quantity} className="quantity-button quantity-button-increment">+</button>
+                                            </div>
+                                            <button onClick={() => handleAddToCart(productId)} className="btn-buy"><CartIcon />Add to cart</button>
+                                        </div>
+                                        <p className="addinfor">This item will be shipped to your address.</p>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
