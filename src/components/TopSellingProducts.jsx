@@ -27,10 +27,10 @@ const topSellingProducts = () => {
     }, [])
     return (
         <div className='top-product-container'>
-            <h2>Top selling</h2>
+            <h2>Best Seller</h2>
             <div className='top-product-list'>
                 {topProducts
-                   ? topProducts.map((product) => (
+                    ? topProducts.map((product) => (
                         <div
                             key={product.id}
                             className="top-product-info"
@@ -45,7 +45,7 @@ const topSellingProducts = () => {
                             <p className="product-price">${product.price}</p>
                             <p className='total-sold-label'>Total sold this moth: {product.total_units_sold}</p>
                         </div>
-                    )): null}
+                    )) : null}
             </div>
         </div>
     );
