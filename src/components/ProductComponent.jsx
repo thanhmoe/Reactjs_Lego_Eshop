@@ -21,7 +21,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     const categories = useSelector((state) => state.productsSlice.categories) || [];
     const totalItems = useSelector(selectTotalItems);
 
-    const [itemsPerPage, setItemsPerPage] = useState(20); // Define the number of items per page
+    const [itemsPerPage, setItemsPerPage] = useState(12); // Define the number of items per page
 
     const getListProduct = async () => {
         dispatch(
@@ -50,7 +50,8 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
 
     const linkToDetail = (id) => {
         navigate(`/products/${id}`);
-        window.location.reload();
+        // window.location.reload();
+        window.scrollTo(0, 0);
     };
     useEffect(() => {
         getListCategories();

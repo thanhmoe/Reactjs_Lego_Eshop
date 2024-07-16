@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 import LoadingModal from "../../modal/loadingModal.jsx";
 import TopSellingProducts from "../../components/TopSellingProducts.jsx";
@@ -50,7 +50,6 @@ export default function ProductsDetail() {
     };
     const linkToDetail = (id) => {
         navigate(`/products/${id}`);
-        window.location.reload();
     };
 
     const handleQuantityChange = (newQuantity) => {
@@ -93,7 +92,8 @@ export default function ProductsDetail() {
     useEffect(() => {
         dispatch(fetchProductDetail(productId));
         getRelatedProduct();
-    }, []);
+        window.scrollTo(0, 0);
+    }, [productId]);
 
     return (
         <>
@@ -139,9 +139,6 @@ export default function ProductsDetail() {
                                     </div>
                                     <button onClick={() => handleAddToCart(productId)} className="btn-buy"><CartIcon />Add to cart</button>
                                 </div>
-                                {/* <div className="instock-detail">
-                                    <span className="instock">instock: {product.quantity}</span>
-                                </div> */}
                                 <p className="addinfor">This item will be shipped to your address.</p>
                             </div>
                         </div>
@@ -179,23 +176,6 @@ export default function ProductsDetail() {
                     <div>
                         <TopSellingProducts />
                     </div>
-                    {/* <Modal title="Added to cart"
-                        open={isModalOpen}
-                        onOk={handleOk}
-                        onCancel={handleCancel}
-                        okText="View Cart And Checkout"
-                        cancelText="Continue Shopping"
-                        okButtonProps={{
-
-                        }}
-                        cancelButtonProps={{
-
-                        }}>
-                        <Image style={{ width: "400px" }} src={product.image_path} />
-                        <p >{product.name}</p>
-                        <p>qty:{quantity}</p>
-                        <p>${product.price}</p>
-                    </Modal> */}
                     <Drawer title="Added to cart" onClose={handleCancel} open={isModalOpen}>
                         <Image src={product.image_path} />
                         <p >{product.name}</p>
@@ -208,8 +188,8 @@ export default function ProductsDetail() {
                     </Drawer>
                     <FloatButton.BackTop />
                 </div>
-
             }
         </>
     );
 }
+
