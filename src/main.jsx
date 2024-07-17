@@ -1,30 +1,41 @@
 import React, { useEffect, Suspense, lazy } from 'react';
+
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
+
 import store from './redux/store.js';
 import { Provider } from 'react-redux';
+
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import Cookies from 'universal-cookie';
+
+import './i18n.js';
+
 import App from './App.jsx';
 import ErrorPage from "./error-page";
-import './i18n.js';
-import './index.css';
+
 import MainLayout from './layout/index.jsx';
+
 import Products from './page/product/products.jsx';
 import Contact from './page/contact/contact.jsx';
 import News from './page/news/news.jsx';
 import About from './page/about/about.jsx';
 import CartComponent from './page/cart/cart.jsx';
+import Orders from './page/orders/orders.jsx';
+
 import Login from './page/login.jsx';
 import Signup from './page/register/signup.jsx';
+
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
 import LoadingModal from './modal/loadingModal.jsx';
 
+import './index.css';
 
 export const cookies = new Cookies(null, { path: '/' })
 
@@ -120,6 +131,12 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <MainLayout>
       <CartComponent />
+    </MainLayout>,
+  },
+  {
+    path: "/orders",
+    element: <MainLayout>
+      <Orders />
     </MainLayout>,
   },
   {

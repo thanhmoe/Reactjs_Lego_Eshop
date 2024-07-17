@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
+
 import Logo from '../assets/icons/nintendo.svg';
 import CartIcon from '../assets/icons/cart.svg?react';
 import UserIcon from '../assets/icons/user.svg?react';
+
+import { faReceipt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { Badge, Drawer, Button, List } from 'antd';
-import "./index.css";
+
 import { NavLink, useNavigate } from "react-router-dom";
+
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
+
 import { notify } from "../main";
+
 import { useSelector, useDispatch } from "react-redux";
 import { clearToken, isTokenExpired, getToken } from "../utils/token_utils";
 import { getTotalProductInCart } from "../redux/slice/carts/cartsSlice";
+
+import "./index.css";
 
 export default function Header() {
   const { t } = useTranslation(['common']);
@@ -113,6 +123,9 @@ export default function Header() {
         </ul>
       </div>
       <div className="user-menu">
+        <NavLink to="/orders" className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}>
+          <FontAwesomeIcon icon={faReceipt} /> {t('Orders')}
+        </NavLink>
         <Badge className="icon-header" size="small" count={totalItems} overflowCount={999} offset={[5, 0]}>
           <NavLink to="/cart" className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}>
             <CartIcon /> {t('Cart')}
