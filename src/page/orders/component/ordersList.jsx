@@ -21,7 +21,7 @@ const OrderList = ({ orders }) => {
                     <p><strong>Order Date:</strong> {new Date(order.create_at).toLocaleString()}</p>
                     <List
                         itemLayout="horizontal"
-                        dataSource={[order]}
+                        dataSource={order.products}
                         renderItem={product => (
                             <List.Item>
                                 <List.Item.Meta

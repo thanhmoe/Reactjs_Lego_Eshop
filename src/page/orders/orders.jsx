@@ -72,7 +72,6 @@ const Orders = () => {
         },
     ];
 
-
     return (
         <>
             <Tabs type="card" size="large" style={{ width: '800px' }}
