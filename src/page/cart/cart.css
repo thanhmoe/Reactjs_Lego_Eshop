@@ -125,7 +125,7 @@
 .checkout-button {
     width: 100%;
     padding: 10px;
-    background-color: red;
+    background-color: rgb(230, 0, 18);
     border: none;
     border-radius: 5px;
     cursor: pointer;

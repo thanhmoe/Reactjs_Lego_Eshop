@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import OrderList from "./component/ordersList";
+import "./orders.css"
 import { Tabs } from "antd";
 import { getOrders } from "../../services/orders";
 
@@ -74,7 +75,8 @@ const Orders = () => {
 
     return (
         <>
-            <Tabs type="card" size="large" style={{ width: '800px' }}
+            <Tabs type="card" size="large"
+                style={{ width: '800px' }}
                 defaultActiveKey="1" items={items} onChange={onChange} />
         </>
     );
