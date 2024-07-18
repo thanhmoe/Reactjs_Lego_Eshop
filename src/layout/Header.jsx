@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import { notify } from "../main";
 
 import { useSelector, useDispatch } from "react-redux";
-import { clearToken, isTokenExpired, getToken } from "../utils/token_utils";
+import { clearToken, isTokenExpired, getToken, setTokenToRedirect } from "../utils/token_utils";
 import { getTotalProductInCart } from "../redux/slice/carts/cartsSlice";
 
 import "./index.css";
@@ -52,6 +52,7 @@ export default function Header() {
 
   useEffect(() => {
     if (!token || isTokenExpired()) {
+      setTokenToRedirect();
       clearToken();
       navigate('/login');
     }

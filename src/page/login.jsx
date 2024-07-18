@@ -4,7 +4,7 @@ import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
 import './login.css';
 import { fetchCustomers } from '../services/customer_services';
-import { setToken } from '../utils/token_utils';
+import { setToken, getTokenToRedirect, removeTokenToRedirect } from '../utils/token_utils';
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -61,8 +61,10 @@ const Login = () => {
             const response = await fetchCustomers(user);
             if (response.success) {
                 setToken(response.data.auth_token);
-                navigate('/');
-                return response.data;
+                const url = getTokenToRedirect();
+                removeTokenToRedirect();
+                navigate(url)
+                console.log(url, 'egegeg');
             } else {
                 setErrors({
                     ...errors,
@@ -76,7 +78,7 @@ const Login = () => {
         <div className='container'>
             <img className='backgroundImage' src={backgroundImage} alt="" />
             <div className='formLogin'>
-                <h3 className='decs'>LOGIN TO X</h3>
+                <h2 className='decs'>LOGIN TO X</h2>
                 <p className='decs'>Become a W3Schooler</p>
                 <div className='form-group-login'>
                     <input

@@ -109,7 +109,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                         }
                     </div>
                 </div>
-                {products.length != 0 ?
+                {products ?
                     <div className="products-list">
                         {products.map((product) => (
                             <Product key={product.id} product={product} />

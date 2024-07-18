@@ -18,3 +18,17 @@ export const clearToken = () => {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('expiresAt');
 };
+
+export const setTokenToRedirect = () => {
+    const currentUrl = window.location.pathname;
+    localStorage.setItem('redirectAfterLogin', currentUrl)
+}
+
+export const removeTokenToRedirect = () => {
+    localStorage.removeItem('redirectAfterLogin')
+}
+
+export const getTokenToRedirect = () => {
+    return localStorage.getItem('redirectAfterLogin') || '/'
+}
+
