@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from "react";
-
 import Logo from '../assets/icons/nintendo.svg';
 import CartIcon from '../assets/icons/cart.svg?react';
 import UserIcon from '../assets/icons/user.svg?react';
-
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { Badge, Drawer, Button, List } from 'antd';
-
 import { NavLink, useNavigate } from "react-router-dom";
-
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
-
 import { notify } from "../main";
-
 import { useSelector, useDispatch } from "react-redux";
 import { clearToken, isTokenExpired, getToken, setTokenToRedirect } from "../utils/token_utils";
 import { getTotalProductInCart } from "../redux/slice/carts/cartsSlice";
-
 import "./index.css";
 
 export default function Header() {
@@ -30,6 +22,7 @@ export default function Header() {
   const totalItems = useSelector((state) => state.cartsSlice.totalProduct);
   const token = getToken();
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const showDrawer = () => {
     setOpen(true);
@@ -37,6 +30,10 @@ export default function Header() {
 
   const onClose = () => {
     setOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   function handleSignOut() {
@@ -109,7 +106,7 @@ export default function Header() {
           <img className="img-logo" src={Logo} alt="logo" />
         </div>
       </div>
-      <div className="menu-item">
+      <div className={`menu-item ${menuOpen ? 'active' : ''}`}>
         <ul>
           {headerItems.map((item, index) => (
             <li key={index}>
@@ -121,17 +118,26 @@ export default function Header() {
               </NavLink>
             </li>
           ))}
+          <li>
+            <NavLink to="/orders" className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}>
+              <FontAwesomeIcon icon={faReceipt} /> {t('Orders')}
+            </NavLink>
+          </li>
+          <li>
+            <Badge className="icon-header" size="small" count={totalItems} overflowCount={999} offset={[5, 0]}>
+              <NavLink to="/cart" className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}>
+                <CartIcon /> {t('Cart')}
+              </NavLink>
+            </Badge>
+          </li>
         </ul>
       </div>
-      <div className="user-menu">
-        <NavLink to="/orders" className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}>
-          <FontAwesomeIcon icon={faReceipt} /> {t('Orders')}
-        </NavLink>
-        <Badge className="icon-header" size="small" count={totalItems} overflowCount={999} offset={[5, 0]}>
-          <NavLink to="/cart" className={({ isActive }) => (isActive ? "active icon-header" : "icon-header")}>
-            <CartIcon /> {t('Cart')}
-          </NavLink>
-        </Badge>
+      <div className="menu-toggle" onClick={toggleMenu}>
+        <div className="hamburger"></div>
+        <div className="hamburger"></div>
+        <div className="hamburger"></div>
+      </div>
+      <div className="user-icon">
         <a onClick={showDrawer} className="icon-header"><UserIcon /> {t('User')}</a>
       </div>
       <Drawer title="User" onClose={onClose} open={open} footer={
