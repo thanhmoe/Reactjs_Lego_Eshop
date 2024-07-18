@@ -4,7 +4,7 @@ import backgroundImage from '../../public/assets/bg.jpg';
 import { notify } from '../main';
 import './login.css';
 import { fetchCustomers } from '../services/customer_services';
-import { setToken, getTokenToRedirect, removeTokenToRedirect } from '../utils/token_utils';
+import { setToken, getTokenToRedirect, removeTokenToRedirect, setTokenForRememberUser, getTokenForRememberUser, removeTokenForRememberUser } from '../utils/token_utils';
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -21,6 +21,15 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation()
     useEffect(() => {
+        // Load email from localStorage if it exists
+        const rememberedEmail = getTokenForRememberUser();
+        if (rememberedEmail) {
+            setUser((prevUser) => ({
+                ...prevUser,
+                email: rememberedEmail
+            }));
+            setIsCheck(true);
+        }
         if (location.state && location.state.email) {
             setUser((prevUser) => ({
                 ...prevUser,
@@ -63,8 +72,12 @@ const Login = () => {
                 setToken(response.data.auth_token);
                 const url = getTokenToRedirect();
                 removeTokenToRedirect();
-                navigate(url)
-                console.log(url, 'egegeg');
+                if (isCheck) {
+                    setTokenForRememberUser(user.email)
+                } else {
+                    removeTokenForRememberUser();
+                }
+                navigate(url);
             } else {
                 setErrors({
                     ...errors,

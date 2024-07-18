@@ -1,3 +1,4 @@
+//token for auththenciation
 export const getToken = () => {
     return localStorage.getItem('auth_token');
 };
@@ -19,6 +20,7 @@ export const clearToken = () => {
     localStorage.removeItem('expiresAt');
 };
 
+//token for redirect
 export const setTokenToRedirect = () => {
     const currentUrl = window.location.pathname;
     localStorage.setItem('redirectAfterLogin', currentUrl)
@@ -32,3 +34,14 @@ export const getTokenToRedirect = () => {
     return localStorage.getItem('redirectAfterLogin') || '/'
 }
 
+//token for remeber email
+export const setTokenForRememberUser = (email) => {
+    localStorage.setItem('rememberedEmail', email);
+}
+export const getTokenForRememberUser = () => {
+    return localStorage.getItem('rememberedEmail');
+};
+
+export const removeTokenForRememberUser = () => {
+    localStorage.removeItem('rememberedEmail');
+}
