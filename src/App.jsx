@@ -23,14 +23,16 @@ function App() {
             <p>The new LEGO® Icons Lamborghini Countach 5000 Quattrovalvole has arrived.</p>
             <Button onClick={() => navigate('/products/68')} style={{ height: '40px', marginTop: '5rem', }}>Shop Now {<RightOutlined />}</Button>
           </div>
-          <img src={banner1} alt="banner1" />
+          <img className='image-banner' src={banner1} alt="banner1" />
         </div>
         <div className='top-selling-products-container'>
           <TopSellingProducts />
         </div>
         <h2>Lego News</h2>
-        <div className='news-container'>
-          <ArticleComponent />
+        <div className='container-news'>
+          <div className='news'>
+            <ArticleComponent />
+          </div>
         </div>
         <FloatButton.BackTop />
       </div >

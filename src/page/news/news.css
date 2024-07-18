@@ -89,3 +89,14 @@
   font-size: 1em;
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .news {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .news-container {
+    flex-direction: column;
+  }
+}

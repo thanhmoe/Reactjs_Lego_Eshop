@@ -3,13 +3,27 @@
   height: 100%;
 }
 
+.app-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
 .label-banner {
   position: absolute;
   max-width: 35%;
   padding: 0px;
   text-align: left;
-  left: 12rem;
-  margin-top: 5rem;
+  left: 6rem;
+  top: 12rem;
+  transform: translateY(-50%);
+  margin-top: 0;
 }
 
 .label-banner h2 {
@@ -24,12 +38,18 @@
   line-height: 1.75rem;
 }
 
+.image-banner {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 p {
   color: #484848;
 }
 
-h2 {
-  text-align: center;
+.top-selling-products-container {
+  padding: 2rem;
 }
 
 .news-container {
@@ -43,7 +63,55 @@ h2 {
 
 @media (max-width: 1400px) {
   .label-banner {
-    left: 6rem;
+    left: 4rem;
+    max-width: 45%;
   }
 
+  .label-banner h2 {
+    font-size: 2rem;
+  }
+
+  .label-banner p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .label-banner {
+    left: 2rem;
+    top: 10%;
+    max-width: 80%;
+  }
+
+  .label-banner h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .label-banner p {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .banner {
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .label-banner {
+    left: 1rem;
+    top: 5%;
+    max-width: 90%;
+  }
+
+  .label-banner h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .label-banner p {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
 }
