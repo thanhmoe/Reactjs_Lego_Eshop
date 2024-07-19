@@ -122,7 +122,7 @@ const Login = () => {
                     <div className='btn-group-login'>
                         <button className='btnLogin' onClick={handleSubmit}>Login
                         </button>
-                        <button className='btn-forgot'>Forgot Password?</button>
+                        <button onClick={() => navigate('/forgot-password')} className='btn-forgot'>Forgot Password?</button>
                     </div>
                     <div className='login-text'>
                         <p>Don't have an account? <a className='signup-text' onClick={() => navigate('/signup')}>Sign Up</a></p>

@@ -30,6 +30,7 @@ import Orders from './page/orders/orders.jsx';
 
 import Login from './page/login.jsx';
 import Signup from './page/register/signup.jsx';
+import PasswordRecover from './page/password/password.jsx';
 
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
@@ -149,6 +150,12 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <Suspense fallback={<LoadingModal />}>
       <Signup />
+    </Suspense>,
+  },
+  {
+    path: "/forgot-password",
+    element: <Suspense fallback={<LoadingModal />}>
+      <PasswordRecover />
     </Suspense>,
   },
 ]);

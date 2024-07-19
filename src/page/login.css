@@ -75,6 +75,11 @@ label {
     gap: 10px;
 }
 
-.signup-text {
+.login-text a {
     color: rgb(230, 0, 18);
+}
+
+.login-text a:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
