@@ -191,6 +191,7 @@ const CartComponent = () => {
                 setIsModalOpen(false);
                 dispatch(getTotalProductInCart());
                 getProducts();
+                navigate('/orders')
             } else {
                 notify('error', res.message)
             }
