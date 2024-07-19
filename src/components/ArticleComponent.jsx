@@ -21,9 +21,7 @@ const ArticleComponent = () => {
 
     //fetch data
     useEffect(() => {
-        if (articlesStatus === 'ide') {
-            dispatch(fetchArticle())
-        }
+        dispatch(fetchArticle())
         setIsLoading(false)
     }, []);
 
