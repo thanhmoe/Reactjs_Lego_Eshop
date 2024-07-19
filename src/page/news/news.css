@@ -10,6 +10,10 @@
   gap: 1rem;
 }
 
+.news-label {
+  text-align: center;
+}
+
 .articles {
   display: flex;
   flex-direction: column;

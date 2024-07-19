@@ -1,29 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
-
-import { useSelector, useDispatch } from "react-redux";
-import { selectArticles, selectLoadingState, fetchArticle } from "../redux/slice/articles/articlesSlice";
-
+import React, { useState } from "react";
+import { Skeleton, Empty } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import LoadingModal from "../modal/loadingModal";
-import { Empty, Skeleton, Spin } from "antd";
-
-const ArticleComponent = () => {
-    const [isLoading, setIsLoading] = useState(true)
-    const dispatch = useDispatch()
-    const articlesStatus = useSelector(selectLoadingState);
-    const articles = useSelector(selectArticles);
+const ArticlesList = ({ articles }) => {
     const navigate = useNavigate();
 
     const linkToDetail = (id) => {
-        navigate(`/news/${id}`)
-    }
-
-    //fetch data
-    useEffect(() => {
-        dispatch(fetchArticle())
-        setIsLoading(false)
-    }, []);
+        navigate(`/news/${id}`);
+    };
 
     const Article = ({ article }) => {
         const [isLoadedImg, setIsLoadedImg] = useState(false);
@@ -41,19 +25,20 @@ const ArticleComponent = () => {
                 </div>
                 <p className="description-news">{article.descriptions}</p>
             </div>
-        )
-    }
+        );
+    };
+
     return (
         <>
-            {isLoading && <LoadingModal />}
-            {articles.length != 0 ?
+            {articles.length !== 0 ? (
                 articles.map((article) => (
                     <Article key={article.id} article={article} />
                 ))
-                :
+            ) : (
                 <Empty />
-            }
+            )}
         </>
     );
 };
-export default ArticleComponent;
+
+export default ArticlesList;

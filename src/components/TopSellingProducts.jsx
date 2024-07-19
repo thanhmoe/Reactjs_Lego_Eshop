@@ -6,7 +6,7 @@ import '../page/product/products.css';
 
 const topSellingProducts = () => {
     const navigate = useNavigate()
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(4);
     const dispatch = useDispatch()
     const topProducts = useSelector((state) => state.productsSlice.topProducts);
 

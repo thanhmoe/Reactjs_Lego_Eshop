@@ -1,0 +1,62 @@
+.articles-carousel {
+    justify-content: center;
+    padding: 20px;
+}
+
+.carousel-item {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.carousel-item h2 {
+    width: 600px;
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.carousel-item .author-and-date {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.carousel-item .description-news {
+    width: 600px;
+    margin: 10px 0;
+}
+
+/* Custom styles for carousel buttons */
+.articles-carousel .ant-carousel .slick-prev,
+.articles-carousel .ant-carousel .slick-next {
+    font-size: 24px;
+    color: #000;
+    z-index: 1;
+}
+
+.articles-carousel .ant-carousel .slick-prev:hover,
+.articles-carousel .ant-carousel .slick-next:hover {
+    color: #000;
+    opacity: 0.75;
+}
+
+.articles-carousel .ant-carousel .slick-prev:before,
+.articles-carousel .ant-carousel .slick-next:before {
+    font-size: 24px;
+    color: #000;
+}
+
+.articles-carousel .ant-carousel .slick-dots li button {
+    bottom: 12px;
+    color: black;
+}

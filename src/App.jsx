@@ -9,7 +9,8 @@ import { RightOutlined } from '@ant-design/icons';
 
 import banner1 from '../public/assets/banner1.jpg'
 import TopSellingProducts from './components/TopSellingProducts';
-import ArticleComponent from './components/ArticleComponent';
+import ArticleComponent from './page/news/components/ArticleComponent';
+import ArticlesCarousel from './page/news/components/ArticlesCarousel';
 
 function App() {
   const navigate = useNavigate();
@@ -28,10 +29,10 @@ function App() {
         <div className='top-selling-products-container'>
           <TopSellingProducts />
         </div>
-        <h2>Lego News</h2>
+        <h2 className='news-label'>Lego News</h2>
         <div className='container-news'>
-          <div className='news'>
-            <ArticleComponent />
+          <div>
+            <ArticleComponent viewType='carousel' />
           </div>
         </div>
         <FloatButton.BackTop />
