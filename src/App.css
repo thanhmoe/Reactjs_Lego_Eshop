@@ -127,3 +127,7 @@ p {
     max-width: 350px;
   }
 }
+
+.ant-result .ant-result-title {
+  color: #484848;
+}

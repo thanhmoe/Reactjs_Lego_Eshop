@@ -14,10 +14,12 @@ import CartIcon from '/src/assets/icons/cart.svg?react';
 
 import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button, FloatButton, Drawer } from "antd";
 import { notify } from "../../main.jsx";
+import { getToken } from "../../utils/token_utils.js";
 
 
 export default function ProductsDetail() {
     const { productId } = useParams();
+    const token = getToken();
     const [currentPage, setCurrentPage] = useState(1);
     const [quantity, setQuantity] = useState(1);
     const itemsPerPage = 10; // Define the number of items per page
@@ -61,6 +63,10 @@ export default function ProductsDetail() {
     };
 
     const handleAddToCart = async () => {
+        if (!token) {
+            navigate('/login')
+            notify('info', 'Login to continues shopping with us!')
+        }
         if (!product || quantity < 1 || quantity > product.quantity) {
             message.error('Invalid quantity selected.');
             return;
@@ -73,8 +79,6 @@ export default function ProductsDetail() {
             if (result.success) {
                 dispatch(getTotalProductInCart())
                 showModal()
-            } else {
-                message.error('Failed to add product to cart');
             }
         } catch (error) {
             message.error('An error occurred while adding product to cart');

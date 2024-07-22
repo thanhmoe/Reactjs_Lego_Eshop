@@ -13,7 +13,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { notify } from "../../main";
 
-import { Breadcrumb, Alert, Button, Image, FloatButton, Popconfirm } from "antd";
+import { Breadcrumb, Alert, Button, Image, FloatButton, Popconfirm, Result } from "antd";
+import { ShoppingCartOutlined } from '@ant-design/icons';
+
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -210,10 +212,11 @@ const CartComponent = () => {
         <>
             {cartItems.length === 0
                 ? <div>
-                    <div className="no-product-label">
-                        <FontAwesomeIcon icon={faCartPlus} size="2x" color="black" />
-                        <p>Your cart looks lonely. Why not add something fun?</p>
-                    </div>
+                    <Result
+                        icon={<ShoppingCartOutlined style={{ color: '#484848' }} />}
+                        title="Your cart look lonely, Why not add something fun?"
+                        extra={<Button onClick={() => navigate('/products')} type="primary">Go Shopping</Button>}
+                    />
                     <TopSellingProducts />
                 </div>
                 :

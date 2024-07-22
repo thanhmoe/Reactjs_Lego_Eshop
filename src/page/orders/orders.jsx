@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import OrderList from "./component/ordersList";
 import "./orders.css"
-import { Tabs } from "antd";
+import { Button, Result, Tabs } from "antd";
+import { ShoppingOutlined } from '@ant-design/icons';
 import { getOrders } from "../../services/orders";
+import { getToken } from "../../utils/token_utils";
 
 const Orders = () => {
     const [page, setPage] = useState(1)
@@ -10,22 +13,24 @@ const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [activeTab, setActiveTab] = useState('1');
     const [orderStatus, setOrdersStatus] = useState('pending')
+    const token = getToken()
+    const naigate = useNavigate()
 
     const fetchOrders = async (orderStatus) => {
         try {
             const res = await getOrders({ page, limit: itemsPerPage, sortStatus: orderStatus });
             if (res.success) {
                 setOrders(res.orders);
-            } else {
-                console.error(res.message);
             }
         } catch (error) {
-            console.error(error.message);
+            error(error.message);
         }
     };
 
     useEffect(() => {
-        fetchOrders(orderStatus);
+        if (token) {
+            fetchOrders(orderStatus);
+        }
     }, []);
 
     const onChange = (key) => {
@@ -75,9 +80,15 @@ const Orders = () => {
 
     return (
         <>
-            <Tabs type="card" size="large"
+            {token ? <Tabs type="card" size="large"
                 style={{ width: '800px' }}
                 defaultActiveKey="1" items={items} onChange={onChange} />
+                :
+                <Result
+                    icon={<ShoppingOutlined style={{ color: '#484848' }} />}
+                    title="Login to see what's in your cart!"
+                    extra={<Button onClick={() => naigate('/login')} type="primary">Login</Button>}
+                />}
         </>
     );
 };

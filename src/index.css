@@ -56,6 +56,7 @@ button:focus-visible {
 
 .ant-btn-primary {
   background-color: rgb(230, 0, 18);
+  font-weight: 700;
 }
 
 :where(.css-dev-only-do-not-override-j9bb5n).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
