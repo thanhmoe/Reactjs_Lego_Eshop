@@ -167,14 +167,20 @@ header a {
     .menu-toggle {
         position: absolute;
         display: block;
-        margin-left: 35%;
+        margin-left: 40%;
         margin-top: 1rem;
     }
 
     .menu-item.active ul {
         display: flex;
     }
-
+    
+    .menu-item.active {
+        position: fixed;
+        height: -webkit-fill-available;
+        background: white;
+        z-index: 10;
+    }
     .user-menu {
         display: none;
     }
