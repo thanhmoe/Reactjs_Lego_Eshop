@@ -86,14 +86,6 @@ export default function Header() {
         },
       ],
     },
-    {
-      key: '2',
-      label: t('Cart_user'),
-    },
-    {
-      key: '3',
-      label: t('Orders')
-    }
   ];
 
   return (
@@ -150,6 +142,8 @@ export default function Header() {
                   {child.label}
                 </List.Item>
               ))}
+              <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/cart')}>{t('Cart_user')} </List.Item>
+              <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/orders')}>{t('Orders')} </List.Item>
             </React.Fragment>
           ))}
         </List>
