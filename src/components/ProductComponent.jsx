@@ -71,7 +71,6 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 className="product-info"
                 onClick={() => linkToDetail(product.id)}
             >
-                {/* {!isLoadedImg && <Spin />} */}
                 <img
                     className="image-product"
                     src={product.image_path}
@@ -79,8 +78,10 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                     alt={product.name}
                 />
                 <h3 className="product-name">{product.name}</h3>
+                {product.quantity === 0 ? <p className="sold-out-label">Sold out</p> : null}
                 <p className="product-price">${product.price}</p>
             </div>
+
         );
     };
 

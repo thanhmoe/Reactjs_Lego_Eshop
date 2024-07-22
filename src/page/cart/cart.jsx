@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { notify } from "../../main";
 
-import { Breadcrumb, Alert, Button, Image, FloatButton } from "antd";
+import { Breadcrumb, Alert, Button, Image, FloatButton, Popconfirm } from "antd";
 import { faCcApplePay, faCcPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus, faCreditCard, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -248,7 +248,16 @@ const CartComponent = () => {
                                     </div>
                                     <div className="remove-and-price">
                                         <span className="cart-item-price">${calculateItemTotal(item)}</span>
-                                        <Button onClick={() => handleRemoveItem(item.id)} danger>Remove</Button>
+                                        <Popconfirm
+                                            title="Remove the products"
+                                            description="Are you sure to remove this products from cart?"
+                                            onConfirm={() => handleRemoveItem(item.id)}
+                                            okText="Yes"
+                                            cancelText="No"
+                                        >
+                                            <Button danger>Delete</Button>
+                                        </Popconfirm>
+                                        {/* <Button onClick={() => handleRemoveItem(item.id)} danger>Remove</Button> */}
                                     </div>
                                 </div>
                             ))}
