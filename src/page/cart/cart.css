@@ -1,3 +1,5 @@
+/* cart.css */
+
 .shopping-cart {
     display: flex;
     flex-direction: column;
@@ -21,7 +23,7 @@
 
 .cart-body {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     width: 100%;
     max-width: 1200px;
     margin-bottom: 3rem;
@@ -36,9 +38,9 @@
 
 .cart-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 10px;
-    justify-content: space-between;
     border-bottom: 1px solid #ccc;
 }
 
@@ -51,6 +53,7 @@
 .cart-item-details {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .product-name {
@@ -60,6 +63,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     width: 200px;
+    text-align: center;
 }
 
 .quantity-control {
@@ -149,4 +153,33 @@
 .remove-and-price {
     display: flex;
     flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .cart-body {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .cart-item {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .cart-item-details {
+        align-items: flex-start;
+    }
+
+    .product-name {
+        text-align: left;
+    }
+    .order-summary {
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-summary {
+        margin: 2rem;   
+    }
 }
