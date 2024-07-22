@@ -14,5 +14,6 @@
     "Cart": "Cart",
     "Cart_user": "Your Cart",
     "User": "User",
+    "User-no-token": "Login / Sign Up",
     "Orders": "Your Orders"
 }
