@@ -114,4 +114,16 @@ p {
     font-size: 0.75rem;
     line-height: 1rem;
   }
+
+  .container-news {
+    max-width: 400px;
+  }
+
+  .container-news h2 {
+    max-width: 350px;
+  }
+
+  .container-news .description-news {
+    max-width: 350px;
+  }
 }

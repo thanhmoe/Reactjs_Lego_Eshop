@@ -3,6 +3,10 @@
     padding: 20px;
 }
 
+.carousel-item:hover {
+    cursor: pointer;
+}
+
 .carousel-item {
     display: flex !important;
     flex-direction: column;
