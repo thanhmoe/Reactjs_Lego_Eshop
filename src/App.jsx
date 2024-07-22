@@ -9,7 +9,6 @@ import { RightOutlined } from '@ant-design/icons';
 
 import banner1 from '../public/assets/banner1.jpg'
 import TopSellingProducts from './components/TopSellingProducts';
-import ArticleComponent from './page/news/components/ArticleComponent';
 import ArticlesCarousel from './page/news/components/ArticlesCarousel';
 
 function App() {
@@ -32,7 +31,7 @@ function App() {
         <h2 className='news-label'>Lego News</h2>
         <div className='container-news'>
           <div>
-            <ArticleComponent viewType='carousel' />
+            <ArticlesCarousel />
           </div>
         </div>
         <FloatButton.BackTop />

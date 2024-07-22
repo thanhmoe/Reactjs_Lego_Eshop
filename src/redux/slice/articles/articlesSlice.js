@@ -5,6 +5,7 @@ export const fetchArticle = createAsyncThunk(
     'articleList/fetchArticle',
     async (params) => {
         const res = await fetchArticles(params);
+        console.log(res,123123);
         return res;
     });
 
