@@ -98,3 +98,10 @@ export const SELECTGENDER = [
 export const OKBUTTON = {
 
 }
+
+export const STATUSCOLORS = {
+    cancel: 'badge-canceled',
+    delivered: 'badge-delivered',
+    pending: 'badge-pending',
+    shipping: 'badge-shipping'
+};

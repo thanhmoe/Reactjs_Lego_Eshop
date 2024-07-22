@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, List } from 'antd';
-
+import { Card, List, Badge } from 'antd';
+import { STATUSCOLORS } from '../../../utils/constants';
 const OrderList = ({ orders }) => {
     return (
         <List
@@ -17,7 +17,10 @@ const OrderList = ({ orders }) => {
                     <p><strong>Address:</strong> {order.address_detail}, {order.commune_ward}, {order.district}, {order.province_city}</p>
                     <p><strong>Phone Number:</strong> {order.phone_number}</p>
                     <p><strong>Total Amount:</strong> ${order.total_amount}</p>
-                    <p><strong>Status:</strong> {order.status}</p>
+                    <p><strong>Status:</strong>
+                        <span className={STATUSCOLORS[order.status] || 'badge-default'}>
+                            {order.status}
+                        </span></p>
                     <p><strong>Order Date:</strong> {new Date(order.create_at).toLocaleString()}</p>
                     <List
                         itemLayout="horizontal"

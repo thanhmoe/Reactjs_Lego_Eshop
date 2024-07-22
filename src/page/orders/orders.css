@@ -7,3 +7,40 @@
     color: rgb(230, 0, 18);
     text-shadow: 0 0 0.25px currentcolor;
 }
+
+
+.badge-canceled {
+    background-color: red;
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.badge-delivered {
+    background-color: green;
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.badge-pending {
+    background-color: orange;
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.badge-shipping {
+    background-color: #1677ff;
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+/* Default badge style */
+.badge-default {
+    background-color: gray;
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+}
