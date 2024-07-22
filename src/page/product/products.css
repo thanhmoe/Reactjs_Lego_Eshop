@@ -95,7 +95,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     background: white;
     justify-content: space-between;
-    height: 400px;
+    height: 450px;
 }
 
 .top-product-info :hover {
@@ -111,6 +111,7 @@
 .image-product {
     border-radius: 10px;
     width: 100%;
+    max-height: 250px;
     object-fit: fill;
     align-self: center;
 }
