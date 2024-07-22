@@ -3,10 +3,6 @@
     padding: 20px;
 }
 
-.carousel-item:hover {
-    cursor: pointer;
-}
-
 .carousel-item {
     display: flex !important;
     flex-direction: column;
@@ -16,13 +12,18 @@
     box-sizing: border-box;
 }
 
+.carousel-item img,
+h2:hover {
+    cursor: pointer;
+}
+
 .carousel-item img {
     max-width: 100%;
-    height: auto;
+    height: 300px;
     margin-bottom: 20px;
 }
 
-.carousel-item h2 {
+/* .carousel-item h2 {
     width: 600px;
     font-size: 1.5rem;
     margin: 10px 0;
@@ -38,8 +39,7 @@
 .carousel-item .description-news {
     width: 600px;
     margin: 10px 0;
-}
-
+} 
 /* Custom styles for carousel buttons */
 .articles-carousel .ant-carousel .slick-prev,
 .articles-carousel .ant-carousel .slick-next {

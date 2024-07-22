@@ -16,10 +16,14 @@ const ArticlesCarousel = ({ articles }) => {
             setIsLoadedImg(true);
         };
         return (
-            <div className="carousel-item" onClick={() => linkToDetail(article.id)}>
+            <div className="carousel-item">
                 {!isLoadedImg && <Skeleton active />}
-                <img src={article.image_thumb} onLoad={handleImageLoad} alt={article.title} />
-                <h2>{article.title}</h2>
+                <img onClick={() => linkToDetail(article.id)} src={article.image_thumb} onLoad={handleImageLoad} alt={article.title} />
+                <h2 onClick={() => linkToDetail(article.id)}>{article.title}</h2>
+                <div className="author-and-date">
+                    <p>{article.category}</p>
+                    <p>{new Date(article.create_at).toLocaleDateString()}</p>
+                </div>
                 <p className="description-news">{article.descriptions}</p>
             </div>
         );
@@ -28,7 +32,32 @@ const ArticlesCarousel = ({ articles }) => {
     return (
         <div className="articles-carousel">
             {articles.length !== 0 ? (
-                <Carousel arrows infinite={true} autoplay>
+                <Carousel arrows draggable autoplay slidesToShow={3} dots={false} responsive={[
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2,
+                            initialSlide: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]}>
                     {articles.map((article) => (
                         <Article key={article.id} article={article} />
                     ))}
