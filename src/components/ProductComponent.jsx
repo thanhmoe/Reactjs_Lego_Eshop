@@ -58,7 +58,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     }, [])
     useEffect(() => {
         getListProduct();
-    }, [searchQuery, sortOption, currentPage, selectedCategory]);
+    }, [searchQuery, sortOption, currentPage,itemsPerPage, selectedCategory]);
 
     const Product = ({ product }) => {
         const [isLoadedImg, setIsLoadedImg] = useState(false);

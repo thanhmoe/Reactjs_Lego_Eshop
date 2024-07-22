@@ -1,9 +1,11 @@
 import { axios_instance } from "./axios_config";
 
 const API_PATH = '/news'
-export const fetchArticles = async () => {
+export const fetchArticles = async (params) => {
+    const {page, limit} = params
     try {
-        const response = await axios_instance.get(`${API_PATH}`);
+        let url = `${API_PATH}?page=${page}&limit=${limit}`
+        const response = await axios_instance.get(url);
         return response.data;
     } catch (error) {
         return error(error);

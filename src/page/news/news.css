@@ -24,14 +24,26 @@
 }
 
 .author-and-date {
+  padding: 5px 0 5px 0;
   margin: 0 5px 0 5px;
   display: flex;
   justify-content: space-between;
 }
 
-.description-news,
-.news-title {
+
+.news-title{
+    padding: 5px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.description-news{
   padding: 5px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
 .news-image {

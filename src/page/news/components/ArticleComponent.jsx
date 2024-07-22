@@ -10,7 +10,6 @@ import LoadingModal from "../../../modal/loadingModal";
 const ArticleComponent = ({ viewType }) => {
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
-    const articlesStatus = useSelector(selectLoadingState);
     const articles = useSelector(selectArticles);
 
     useEffect(() => {

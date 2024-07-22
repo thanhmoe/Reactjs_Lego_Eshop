@@ -23,23 +23,28 @@ h2:hover {
     margin-bottom: 20px;
 }
 
-/* .carousel-item h2 {
-    width: 600px;
-    font-size: 1.5rem;
-    margin: 10px 0;
+.carousel-item h2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
-.carousel-item .author-and-date {
+/* .carousel-item .author-and-date {
     display: flex;
     width: 300px;
     justify-content: space-between;
     margin: 0;
-}
+} */
 
 .carousel-item .description-news {
-    width: 600px;
-    margin: 10px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 } 
+
+
 /* Custom styles for carousel buttons */
 .articles-carousel .ant-carousel .slick-prev,
 .articles-carousel .ant-carousel .slick-next {

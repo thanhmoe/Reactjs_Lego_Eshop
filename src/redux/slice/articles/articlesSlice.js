@@ -3,9 +3,9 @@ import { fetchArticles, fetchNewsById } from "../../../services/news_service";
 
 export const fetchArticle = createAsyncThunk(
     'articleList/fetchArticle',
-    async () => {
-        const res = await fetchArticles();
-        return res.news;
+    async (params) => {
+        const res = await fetchArticles(params);
+        return res;
     });
 
 export const fetchNewsDetail = createAsyncThunk(
@@ -21,6 +21,7 @@ const articleSlice = createSlice({
         items: [],
         status: 'ide',
         hasError: null,
+        totalItems: [],
         selectedNews: null,
         newsDetailStatus: 'idle',
         newsDetailError: null,
@@ -36,7 +37,8 @@ const articleSlice = createSlice({
                 state.hasError = null;
             })
             .addCase(fetchArticle.fulfilled, (state, action) => {
-                state.items = action.payload;
+                state.items = action.payload.news;
+                state.totalItems = action.payload.total;
                 state.status = 'succeeded';
                 state.hasError = null
             })

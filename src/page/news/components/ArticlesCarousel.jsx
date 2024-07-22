@@ -22,7 +22,7 @@ const ArticlesCarousel = ({ articles }) => {
                 <h2 onClick={() => linkToDetail(article.id)}>{article.title}</h2>
                 <div className="author-and-date">
                     <p>{article.category}</p>
-                    <p>{new Date(article.create_at).toLocaleDateString()}</p>
+                    {/* <p>{new Date(article.create_at).toLocaleDateString()}</p> */}
                 </div>
                 <p className="description-news">{article.descriptions}</p>
             </div>

@@ -1,23 +1,40 @@
-import React, { useState } from "react";
-import { Skeleton, Empty } from "antd";
+import React, { useEffect, useState } from "react";
+
+import { Skeleton, Empty,Pagination } from "antd";
+
 import { useNavigate } from "react-router-dom";
 
-const ArticlesList = ({ articles }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { fetchArticle,selectArticles } from "../../../redux/slice/articles/articlesSlice";
+
+
+const ArticlesList = () => {
     const navigate = useNavigate();
+    const [itemsPerPage,setItemsPerPage] = useState(6)
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const dispatch = useDispatch();
+    const articles = useSelector(selectArticles);
+    const totalItems = useSelector((state)=>state.articleList.totalItems);
 
     const linkToDetail = (id) => {
         navigate(`/news/${id}`);
     };
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        setItemsPerPage(itemsPerPage);
+    }
+    useEffect(() => {
+        dispatch(fetchArticle({
+            page: currentPage,
+            limit: itemsPerPage
+        }));
+    }, [currentPage,itemsPerPage]);
 
     const Article = ({ article }) => {
-        const [isLoadedImg, setIsLoadedImg] = useState(false);
-        const handleImageLoad = () => {
-            setIsLoadedImg(true);
-        };
         return (
             <div className="articles" key={article.id} onClick={() => linkToDetail(article.id)}>
-                {!isLoadedImg && <Skeleton active />}
-                <img className="news-image" src={article.image_thumb} onLoad={handleImageLoad} alt={article.title} />
+                <img className="news-image" src={article.image_thumb} alt={article.title} />
                 <h2 className="news-title">{article.title}</h2>
                 <div className="author-and-date">
                     <p>{article.category}</p>
@@ -31,12 +48,22 @@ const ArticlesList = ({ articles }) => {
     return (
         <>
             {articles.length !== 0 ? (
-                articles.map((article) => (
+                <div className="news">
+               {articles.map((article) => (
                     <Article key={article.id} article={article} />
-                ))
+                ))}
+                </div>
             ) : (
                 <Empty />
             )}
+            <div className="pagination-product">
+            <Pagination
+                    current={currentPage}
+                    pageSize={itemsPerPage}
+                    total={totalItems}
+                    onChange={handlePageChange}
+                />
+            </div>
         </>
     );
 };
