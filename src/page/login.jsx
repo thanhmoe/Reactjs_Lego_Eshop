@@ -1,136 +1,115 @@
+// File: /src/components/Login.js
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Form, Input, Button, Checkbox, notification, Space } from 'antd';
 import backgroundImage from '../../public/assets/bg.jpg';
-import { notify } from '../main';
 import './login.css';
 import { fetchCustomers } from '../services/customer_services';
 import { setToken, getTokenToRedirect, removeTokenToRedirect, setTokenForRememberUser, getTokenForRememberUser, removeTokenForRememberUser } from '../utils/token_utils';
 
 const Login = () => {
-    const [user, setUser] = useState({
-        email: '',
-        password: ''
-    });
-    const [isCheck, setIsCheck] = useState(false);
-    const [errors, setErrors] = useState({
-        email: '',
-        password: '',
-        general: ''
-    });
-
     const navigate = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false);
+    const [isCheck, setIsCheck] = useState(false);
+
     useEffect(() => {
-        // Load email from localStorage if it exists
         const rememberedEmail = getTokenForRememberUser();
         if (rememberedEmail) {
-            setUser((prevUser) => ({
-                ...prevUser,
-                email: rememberedEmail
-            }));
+            form.setFieldsValue({ email: rememberedEmail });
             setIsCheck(true);
         }
         if (location.state && location.state.email) {
-            setUser((prevUser) => ({
-                ...prevUser,
-                email: location.state.email
-            }));
+            form.setFieldsValue({ email: location.state.email });
         }
-    }, [location.state]);
+    }, [location.state, form]);
 
-
-    const validate = () => {
-        let tempErrors = { email: '', password: '', general: '' };
-        let isValid = true;
-        if (!user.email) {
-            tempErrors.email = 'Email is required';
-            isValid = false;
-        }
-        if (!user.password) {
-            tempErrors.password = 'Password is required';
-            isValid = false;
-        }
-        setErrors(tempErrors);
-        return isValid;
-    };
-    const handleChange = (type, value) => {
-        setUser({
-            ...user,
-            [type]: value
-        });
-        setErrors({
-            ...errors,
-            [type]: ''
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (validate()) {
-            const response = await fetchCustomers(user);
-            if (response.success) {
-                setToken(response.data.auth_token);
-                const url = getTokenToRedirect();
-                removeTokenToRedirect();
-                if (isCheck) {
-                    setTokenForRememberUser(user.email)
-                } else {
-                    removeTokenForRememberUser();
-                }
-                navigate(url);
+    const handleLogin = async (values) => {
+        setLoading(true);
+        const response = await fetchCustomers(values);
+        setLoading(false);
+        if (response.success) {
+            setToken(response.data.auth_token);
+            const url = getTokenToRedirect();
+            removeTokenToRedirect();
+            if (isCheck) {
+                setTokenForRememberUser(values.email);
             } else {
-                setErrors({
-                    ...errors,
-                    general: 'Incorrect email or password'
-                });
+                removeTokenForRememberUser();
             }
+            navigate(url);
+        } else {
+            notification.error({
+                message: 'Error',
+                description: 'Incorrect email or password',
+            });
         }
     };
 
     return (
-        <div className='container'>
-            <img className='backgroundImage' src={backgroundImage} alt="" />
-            <div className='formLogin'>
-                <h2 className='decs'>LOGIN TO X</h2>
-                <p className='decs'>Become a W3Schooler</p>
-                <div className='form-group-login'>
-                    <input
-                        className='forminput-login'
-                        placeholder='Your Email'
-                        type="text"
-                        value={user.email}
-                        onChange={(e) => handleChange('email', e.target.value)}
-                    />
-                    {errors.email && <span className='form-message'>{errors.email}</span>}
-                    <input
-                        className='forminput-login'
-                        type="password"
-                        placeholder='Your Password'
-                        value={user.password}
-                        onChange={(e) => handleChange('password', e.target.value)}
-                    />
-                    {errors.password && <span className='form-message'>{errors.password}</span>}
-                    {errors.general && <span className='form-message'>{errors.general}</span>}
-                    <div>
-                        <input
-                            type='checkbox'
+        <div className='container-login'>
+            <div className='form-login'>
+                <h3 className='label-login'>LOGIN</h3>
+                <Form
+                    form={form}
+                    layout="vertical"
+                    onFinish={handleLogin}
+                >
+                    <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your email!',
+                            },
+                            {
+                                type: 'email',
+                                message: 'The input is not valid E-mail!',
+                            },
+                        ]}
+                    >
+                        <Input placeholder="Email" />
+                    </Form.Item>
+                    <Form.Item
+                        name="password"
+                        label="Password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                        ]}
+                    >
+                        <Input.Password placeholder="Password" />
+                    </Form.Item>
+                    <Form.Item>
+                        <Checkbox
                             checked={isCheck}
                             onChange={(e) => setIsCheck(e.target.checked)}
-                        />
-                        <label htmlFor="checkbox"> Remember Me</label>
-                    </div>
-                    <div className='btn-group-login'>
-                        <button className='btnLogin' onClick={handleSubmit}>Login
-                        </button>
-                        <button onClick={() => navigate('/forgot-password')} className='btn-forgot'>Forgot Password?</button>
-                    </div>
+                        >
+                            Remember Me
+                        </Checkbox>
+                    </Form.Item>
+                    <Form.Item className='signin-button-container'>
+                        <Space>
+                            <Button type="primary" htmlType="submit" loading={loading} className='btn-login'>
+                                {loading ? 'Logging In...' : 'Login'}
+                            </Button>
+                            <Button onClick={() => navigate('/forgot-password')} className='btn-forgot'>
+                                Forgot Password?
+                            </Button>
+                        </Space>
+                    </Form.Item>
                     <div className='login-text'>
-                        <p>Don't have an account? <a className='signup-text' onClick={() => navigate('/signup')}>Sign Up</a></p>
+                        <p>Don't have an account? <a onClick={() => navigate('/signup')}>Sign Up</a></p>
                     </div>
-                </div>
+                </Form>
             </div>
         </div>
     );
-}
+};
 
 export default Login;

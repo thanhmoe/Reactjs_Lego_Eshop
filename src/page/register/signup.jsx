@@ -1,148 +1,159 @@
+// src/components/Signup.js
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Form, Input, Select, DatePicker, Button, notification } from 'antd';
 import './signup.css';
 import { SELECTGENDER, VALIDEMAIL, REGNUMBER } from '../../utils/constants';
 import { registerUser } from '../../services/customer_services';
-import { notify } from '../../main';
+
+const { Option } = Select;
 
 const Signup = () => {
     const navigate = useNavigate();
+    const [form] = Form.useForm();
 
-    const [formData, setFormData] = useState({
-        email: '',
-        phone_number: '',
-        gender: '',
-        dob: '',
-        password: '',
-        confirm_password: ''
-    });
+    const [loading, setLoading] = useState(false);
 
-    const [errors, setErrors] = useState({});
-    const validateEmail = (email) => VALIDEMAIL.test(email);
-    const validatePhoneNumber = (phone_number) => REGNUMBER.test(phone_number);
-    const validatePassword = (password) => password.length >= 8;
-    const validateConfirmPassword = (password, confirm_password) => password === confirm_password;
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
-
-    const handleSignUp = async (e) => {
-        e.preventDefault();
-        const newErrors = {};
-        if (!validateEmail(formData.email)) newErrors.email = 'Invalid email address';
-        if (!validatePhoneNumber(formData.phone_number)) newErrors.phone_number = 'Invalid phone number';
-        if (!formData.gender) newErrors.gender = 'Select a gender';
-        if (!formData.dob) newErrors.dob = 'Please select a birthday';
-        if (!validatePassword(formData.password)) newErrors.password = 'Password must be at least 8 characters';
-        if (!validateConfirmPassword(formData.password, formData.confirm_password)) newErrors.confirm_password = 'Passwords do not match';
-        setErrors(newErrors);
-        if (Object.keys(newErrors).length === 0) {
-            const response = await registerUser(formData);
-            if (response.success) {
-                navigate('/login', { state: { email: formData.email } });
-                notify('success', response.message);
-            } else {
-                notify('error', response.message);
-            }
+    const handleSignUp = async (values) => {
+        setLoading(true);
+        const response = await registerUser(values);
+        setLoading(false);
+        if (response.success) {
+            navigate('/login', { state: { email: values.email } });
+            notification.success({
+                message: 'Success',
+                description: response.message,
+            });
+        } else {
+            notification.error({
+                message: 'Error',
+                description: response.message,
+            });
         }
     };
 
     return (
-        <div>
-            <div className='container-signup'>
-                <div className='form-signup'>
-                    <h3 className='label-signup'>SIGN UP</h3>
-                    <div className='form-group-signup'>
-                        <div>
-                            <input
-                                className='forminput-signup'
-                                placeholder='Email'
-                                type="text"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                            />
-                            {errors.email && <span className='error'>{errors.email}</span>}
-                        </div>
-                        <div>
-                            <input
-                                className='forminput-signup'
-                                placeholder='Phone Number'
-                                type="tel"
-                                name="phone_number"
-                                value={formData.phone_number}
-                                onChange={handleInputChange}
-                            />
-                            {errors.phone_number && <span className='error'>{errors.phone_number}</span>}
-                        </div>
-                        <div className='forminput-other'>
-                            <div className='gender-div'>
-                                <select
-                                    className='forminput-gender'
-                                    name="gender"
-                                    value={formData.gender}
-                                    onChange={handleInputChange}
-                                >
-                                    <option value=''>Gender</option>
-                                    {SELECTGENDER.map(gender => (
-                                        <option key={gender.id} value={gender.gender}>
-                                            {gender.gender}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errors.gender && <span className='error'>{errors.gender}</span>}
-                            </div>
-                            <div className='birthday-div'>
-                                <input
-                                    type="date"
-                                    id="birthday"
-                                    className="birthday"
-                                    name="dob"
-                                    value={formData.dob}
-                                    onChange={handleInputChange}
-                                />
-                                {errors.dob && <span className='error'>{errors.dob}</span>}
-                            </div>
-                        </div>
-                        <div>
-                            <input
-                                className='forminput-signup'
-                                type="password"
-                                placeholder='Password'
-                                name="password"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                            />
-                            {errors.password && <span className='error'>{errors.password}</span>}
-                        </div>
-                        <div>
-                            <input
-                                className='forminput-signup'
-                                type="password"
-                                placeholder='Confirm Password'
-                                name="confirm_password"
-                                value={formData.confirm_password}
-                                onChange={handleInputChange}
-                            />
-                            {errors.confirm_password && <span className='error'>{errors.confirm_password}</span>}
-                        </div>
-                        <div className='signup-text'>
-                            <p>By signing up you agree to our <a>Terms of Service and Privacy Policy</a></p>
-                        </div>
-                        <div className='btn-group-signup'>
-                            <button className='btn-signup' onClick={handleSignUp} disabled={status === 'loading'}>
-                                {status === 'loading' ? 'Signing Up...' : 'Sign Up'}</button>
-                        </div>
-                        <div className='signup-text'>
-                            <p>Already have an account? <a onClick={() => navigate('/login')}>Sign In</a></p>
-                        </div>
+        <div className='container-signup'>
+            <div className='form-signup'>
+                <h3 className='label-signup'>SIGN UP</h3>
+                <Form
+                    form={form}
+                    layout="vertical"
+                    onFinish={handleSignUp}
+                >
+                    <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your email!',
+                            },
+                            {
+                                type: 'email',
+                                message: 'The input is not valid E-mail!',
+                            },
+                        ]}
+                    >
+                        <Input placeholder="Email" />
+                    </Form.Item>
+                    <Form.Item
+                        name="phone_number"
+                        label="Phone Number"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your phone number!',
+                            },
+                            {
+                                pattern: REGNUMBER,
+                                message: 'The input is not valid phone number!',
+                            },
+                        ]}
+                    >
+                        <Input placeholder="Phone Number" />
+                    </Form.Item>
+                    <Form.Item
+                        name="gender"
+                        label="Gender"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please select your gender!',
+                            },
+                        ]}
+                    >
+                        <Select placeholder="Select a gender">
+                            {SELECTGENDER.map(gender => (
+                                <Option key={gender.id} value={gender.gender}>
+                                    {gender.gender}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        name="dob"
+                        label="Date of Birth"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please select your date of birth!',
+                            },
+                        ]}
+                    >
+                        <DatePicker style={{ width: '100%' }} />
+                    </Form.Item>
+                    <Form.Item
+                        name="password"
+                        label="Password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                            {
+                                min: 8,
+                                message: 'Password must be at least 8 characters!',
+                            },
+                        ]}
+                    >
+                        <Input.Password placeholder="Password" />
+                    </Form.Item>
+                    <Form.Item
+                        name="confirm_password"
+                        label="Confirm Password"
+                        dependencies={['password']}
+                        hasFeedback
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password placeholder="Confirm Password" />
+                    </Form.Item>
+                    <div className='signup-text'>
+                        <p>By signing up you agree to our <a>Terms of Service and Privacy Policy</a></p>
                     </div>
-                </div>
+                    <Form.Item className="signup-button-container">
+                        <Button type="primary" htmlType="submit" loading={loading} className='btn-signup'>
+                            {loading ? 'Signing Up...' : 'Sign Up'}
+                        </Button>
+                    </Form.Item>
+                    <div className='signup-text'>
+                        <p>Already have an account? <a onClick={() => navigate('/login')}>Sign In</a></p>
+                    </div>
+                </Form>
             </div>
         </div>
     );

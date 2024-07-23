@@ -12,7 +12,7 @@ import { getTotalProductInCart } from "../../redux/slice/carts/cartsSlice.js";
 import './productsDetail.css';
 import CartIcon from '/src/assets/icons/cart.svg?react';
 
-import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button, FloatButton, Drawer } from "antd";
+import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button, FloatButton, Drawer, Empty } from "antd";
 import { notify } from "../../main.jsx";
 import { getToken } from "../../utils/token_utils.js";
 
@@ -102,7 +102,7 @@ export default function ProductsDetail() {
     return (
         <>
             {!product
-                ? <Skeleton active />
+                ? <Empty />
                 : <div className="product-detail-container">
                     <div className="detail-container">
                         <div className="productsDetail">

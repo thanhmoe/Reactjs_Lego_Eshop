@@ -1,230 +1,119 @@
+// File: /src/components/Contact.js
+
 import React, { useState } from "react";
-
 import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../../utils/constants";
-
-import { Modal } from "antd";
-
+import { Modal, Form, Input, Select, Button, notification, Space } from "antd";
 import './contact.css';
 
-export default function contact() {
+const { TextArea } = Input;
+const { Option } = Select;
+
+export default function Contact() {
     const [isValid, setIsValid] = useState(false);
-    const [open, setOpen] = useState(false)
-    // form data
-    const [formData, setFormData] = useState({
-        inputName: '',
-        email: '',
-        jobselect: '',
-        phone: '',
-        message: ''
-    });
+    const [open, setOpen] = useState(false);
+    const [form] = Form.useForm();
 
-    //error state
-    const [errorMessage, setErrorMessage] = useState({
-        inputName: '',
-        email: '',
-        phone: '',
-        message: ''
-    });
+    // handle modal
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-
-
-    //handle modal
-    const handleOpen = () => {
-        setOpen(true)
-    }
-    const handleClose = () => {
-        setOpen(false)
-    }
-
-    const handleSubmit = () => {
-        if (handlevalidation()) {
-            handleOpen()
+    const handleSubmit = async () => {
+        try {
+            const values = await form.validateFields();
+            handleOpen();
+        } catch (errorInfo) {
+            console.log('Failed:', errorInfo);
         }
-    }
-
-    //form validation
-    const handlevalidation = () => {
-        if (!formData.inputName) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    inputName: 'Name cannot be empty',
-                }
-            });
-        } else if (formData.inputName.length > 32) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    inputName: 'Limit input name is 32',
-                }
-            });
-        }
-        if (!formData.email) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    email: 'Email cannot be empty',
-                }
-            });
-        } else if (!VALIDEMAIL.test(formData.email)) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    email: 'Email is invalid',
-                }
-            });
-        }
-        if (!formData.phone) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    phone: 'Phone number cannot be empty',
-                }
-            });
-        } else if (!REGNUMBER.test(formData.phone)) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    phone: 'Invalid phone number',
-                }
-            });
-        }
-        if (!formData.message) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    message: 'Message cannot be empty',
-                }
-            });
-        } else if (formData.message.length > 500) {
-            setIsValid(false)
-            setErrorMessage((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    message: 'Limit input message is 500',
-                }
-            });
-        }
-        if (formData.inputName !== '' && formData.phone !== '' && formData.message !== '' && formData.email !== ''
-            && VALIDEMAIL.test(formData.email) && REGNUMBER.test(formData.phone) && formData.inputName.length <= 32 && formData.message.length <= 500) {
-            return true
-        }
-        return isValid;
     };
 
-    //hande change on input
-    const handleChange = (e) => {
-        const { id, value } = e.target
-        setFormData({
-            ...formData,
-            [id]: value
-        })
-        setErrorMessage({
-            ...errorMessage,
-            [id]: ''
-        })
-    };
-
-    //handle clear button
+    // handle clear button
     const onClear = () => {
-        setFormData({
-            inputName: '',
-            email: '',
-            jobselect: '',
-            phone: '',
-            message: ''
-        })
+        form.resetFields();
     };
 
-    return <>
-        <div className="formContact">
-            <h3 className='decs-contact'>Contact Us</h3>
-            <p className='decs-contact'>You are welcome to fill in the form below
-            </p>
-            <div className='form-group'>
-                <div>
-                    <label htmlFor="jobselect">Your's current position</label>
-                    <select id="jobselect"
-                        className="forminput"
-                        defaultValue=""
-                        onChange={handleChange}>
-                        <option value=""> Choose Your Position</option>
-                        {JOBSELECT.map(job => (
-                            <option value={job.jobName} key={job.id}>{job.jobName}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="name"> Your name</label>
-                    <input
-                        id="inputName"
-                        className={`forminput ${errorMessage.inputName ? 'is-error' : ''}`}
-                        placeholder='Enter Your Name Here'
-                        type="text"
-                        value={formData.inputName}
-                        onChange={handleChange}
-                    />
-                    <span className='form-message'>{errorMessage.inputName}</span>
-                </div>
-                <div>
-                    <label htmlFor="email"> Email</label>
-                    <input
-                        id="email"
-                        className={`forminput ${errorMessage.email ? 'is-error' : ''}`}
-                        type="email"
-                        placeholder='Your Email'
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    <span className='form-message'>{errorMessage.email}</span>
-                </div>
-                <div>
-                    <label htmlFor="phone"> Phone</label>
-                    <input
-                        id="phone"
-                        className={`forminput ${errorMessage.phone ? 'is-error' : ''}`}
-                        type="tel"
-                        placeholder='Your Phone Number'
-                        value={formData.phone}
-                        onChange={handleChange}
-                    />
-                    <span className='form-message'>{errorMessage.phone}</span>
-                </div>
-                <div>
-                    <label htmlFor="message">Write Message Here</label>
-                    <div>
-                        <textarea placeholder='Enter Messsage'
-                            type="textarea"
-                            className={`forminput-message ${errorMessage.message ? 'is-error' : ''}`}
-                            id="message"
-                            value={formData.message}
-                            onChange={handleChange}>
-                        </textarea>
-                    </div>
-                    <span className='form-message'>{errorMessage.message}</span>
-                </div>
-                <div className='btn-group-contact'>
-                    <button className='btnSubmit' onClick={handleSubmit}>Confirm</button>
-                    <button className='btnClear' onClick={onClear}>Clear</button>
-                </div>
+    return (
+        <>
+            <div className="formContact">
+                <h3 className='decs-contact'>Contact Us</h3>
+                <p className='decs-contact'>You are welcome to fill in the form below</p>
+                <Form
+                    form={form}
+                    layout="vertical"
+                    onFinish={handleSubmit}
+                >
+                    <Form.Item
+                        name="jobselect"
+                        label="Your's current position"
+                    >
+                        <Select placeholder="Choose Your Position">
+                            {JOBSELECT.map(job => (
+                                <Option value={job.jobName} key={job.id}>{job.jobName}</Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        name="inputName"
+                        label="Your name"
+                        rules={[
+                            { required: true, message: 'Name cannot be empty' },
+                            { max: 32, message: 'Limit input name is 32 characters' },
+                        ]}
+                    >
+                        <Input placeholder='Enter Your Name Here' />
+                    </Form.Item>
+                    <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[
+                            { required: true, message: 'Email cannot be empty' },
+                            { type: 'email', message: 'Email is invalid' },
+                        ]}
+                    >
+                        <Input placeholder='Your Email' />
+                    </Form.Item>
+                    <Form.Item
+                        name="phone"
+                        label="Phone"
+                        rules={[
+                            { required: true, message: 'Phone number cannot be empty' },
+                            { pattern: REGNUMBER, message: 'Invalid phone number' },
+                        ]}
+                    >
+                        <Input placeholder='Your Phone Number' />
+                    </Form.Item>
+                    <Form.Item
+                        name="message"
+                        label="Write Message Here"
+                        rules={[
+                            { required: true, message: 'Message cannot be empty' },
+                            { max: 500, message: 'Limit input message is 500 characters' },
+                        ]}
+                    >
+                        <TextArea placeholder='Enter Message' />
+                    </Form.Item>
+                    <Form.Item className="btn-group-contact ">
+                        <Space>
+                            <Button type="primary" htmlType="submit" className='btnSubmit'>
+                                Confirm
+                            </Button>
+                            <Button onClick={onClear} className='btnClear'>
+                                Clear
+                            </Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
             </div>
-        </div>
-        <Modal
-            open={open}
-            onClose={handleClose}
-            onOk={handleClose}>
-            <h3 className="modal-name">Your name is: {formData.inputName}</h3>
-            <p>Position: {formData.jobselect}</p>
-            <p>Email: {formData.email}</p>
-            <p>Phone: {formData.phone}</p>
-            <p>Message: {formData.message}</p>
-        </Modal >
-    </>
+            <Modal
+                open={open}
+                onOk={handleClose}
+                onCancel={handleClose}
+            >
+                <h3 className="modal-name">Your name is: {form.getFieldValue('inputName')}</h3>
+                <p>Position: {form.getFieldValue('jobselect')}</p>
+                <p>Email: {form.getFieldValue('email')}</p>
+                <p>Phone: {form.getFieldValue('phone')}</p>
+                <p>Message: {form.getFieldValue('message')}</p>
+            </Modal>
+        </>
+    );
 }
