@@ -19,21 +19,21 @@
 .badge-delivered {
     background-color: green;
     color: white;
-    padding: 2px;
+    padding: 3px;
     border-radius: 4px;
 }
 
 .badge-pending {
     background-color: orange;
     color: white;
-    padding: 2px;
+    padding: 3px;
     border-radius: 4px;
 }
 
 .badge-shipping {
     background-color: #1677ff;
     color: white;
-    padding: 2px;
+    padding: 3px;
     border-radius: 4px;
 }
 
@@ -41,6 +41,6 @@
 .badge-default {
     background-color: gray;
     color: white;
-    padding: 2px;
+    padding: 3px;
     border-radius: 4px;
 }

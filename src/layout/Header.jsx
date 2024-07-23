@@ -127,7 +127,7 @@ export default function Header() {
         <div className="hamburger"></div>
       </div>
       <div className="user-icon">
-        {token ? <a onClick={showDrawer} className="icon-header"><UserIcon />{t('User')}</a>
+        {token ? <a onClick={showDrawer} className="icon-header"><UserIcon /> {t('User')}</a>
           : <a className="icon-header" onClick={() => navigate('/login')}><UserIcon /> {t('User-no-token')}</a>}
       </div>
       <Drawer title="User" onClose={onClose} open={open} footer={

@@ -17,7 +17,7 @@ const OrderList = ({ orders }) => {
                     <p><strong>Address:</strong> {order.address_detail}, {order.commune_ward}, {order.district}, {order.province_city}</p>
                     <p><strong>Phone Number:</strong> {order.phone_number}</p>
                     <p><strong>Total Amount:</strong> ${order.total_amount}</p>
-                    <p><strong>Status:</strong>
+                    <p><strong>Status: </strong>
                         <span className={STATUSCOLORS[order.status] || 'badge-default'}>
                             {order.status}
                         </span></p>
