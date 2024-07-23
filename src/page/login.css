@@ -55,10 +55,6 @@ label {
     background-color: rgb(172, 4, 18)
 }
 
-.btn-forgot {
-    flex: 1;
-    color: white;
-}
 
 .decs {
     display: flex;

@@ -27,9 +27,9 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  color: black;
-  background-color: #ffffff;
   cursor: pointer;
+  color: #484848;
+  background-color: white;
   transition: border-color 0.25s;
 }
 
