@@ -29,7 +29,7 @@ export default function news() {
     return <>
         <div className="container-news">
             <h2 className="news-label">BROWSER NEWSLETTER</h2>
-            <div className="filter-news">
+            {/* <div className="filter-news">
                 <Space>
                     <Search className="searchbar"
                         placeholder="input search text"
@@ -44,7 +44,7 @@ export default function news() {
                         </Select>
                     </div>
                 </Space>
-            </div>
+            </div> */}
             <div >
                 <ArticlesList searchQuery={searchQuery} sortOption={sortOption} />
             </div>

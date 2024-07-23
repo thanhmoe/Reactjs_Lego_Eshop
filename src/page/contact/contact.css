@@ -79,6 +79,9 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+.btnClear{
+    color: white;
+}
 
 .forminput-message {
     width: 100%;
