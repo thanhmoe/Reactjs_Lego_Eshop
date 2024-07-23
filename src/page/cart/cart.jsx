@@ -237,7 +237,7 @@ const CartComponent = () => {
                             {cartItems.map(item => (
                                 <div key={item.id} className="cart-item">
                                     <Image style={{ width: '150px' }} src={item.image_path} alt={item.name} className="cart-item-image" />
-                                    <p className="product-name">{item.name}</p>
+                                    <p className="cart-product-name">{item.name}</p>
                                     <div className="cart-item-details">
                                         <div className="quantity-selector">
                                             <button className="quantity-button quantity-button-decrement"

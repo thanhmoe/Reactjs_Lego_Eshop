@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-import { Skeleton, Empty,Pagination } from "antd";
+import { Skeleton, Empty, Pagination } from "antd";
 
 import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchArticle,selectArticles } from "../../../redux/slice/articles/articlesSlice";
+import { fetchArticle, selectArticles } from "../../../redux/slice/articles/articlesSlice";
 
 
 const ArticlesList = () => {
     const navigate = useNavigate();
-    const [itemsPerPage,setItemsPerPage] = useState(6)
+    const [itemsPerPage, setItemsPerPage] = useState(6)
     const [currentPage, setCurrentPage] = useState(1);
 
     const dispatch = useDispatch();
     const articles = useSelector(selectArticles);
-    const totalItems = useSelector((state)=>state.articleList.totalItems);
+    const totalItems = useSelector((state) => state.articleList.totalItems);
 
     const linkToDetail = (id) => {
         navigate(`/news/${id}`);
@@ -29,7 +29,7 @@ const ArticlesList = () => {
             page: currentPage,
             limit: itemsPerPage
         }));
-    }, [currentPage,itemsPerPage]);
+    }, [currentPage, itemsPerPage]);
 
     const Article = ({ article }) => {
         return (
@@ -49,15 +49,15 @@ const ArticlesList = () => {
         <>
             {articles.length !== 0 ? (
                 <div className="news">
-               {articles.map((article) => (
-                    <Article key={article.id} article={article} />
-                ))}
+                    {articles.map((article) => (
+                        <Article key={article.id} article={article} />
+                    ))}
                 </div>
             ) : (
                 <Empty />
             )}
             <div className="pagination-product">
-            <Pagination
+                <Pagination
                     current={currentPage}
                     pageSize={itemsPerPage}
                     total={totalItems}

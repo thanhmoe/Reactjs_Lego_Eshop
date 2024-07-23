@@ -58,7 +58,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     }, [])
     useEffect(() => {
         getListProduct();
-    }, [searchQuery, sortOption, currentPage,itemsPerPage, selectedCategory]);
+    }, [searchQuery, sortOption, currentPage, itemsPerPage, selectedCategory]);
 
     const Product = ({ product }) => {
         const [isLoadedImg, setIsLoadedImg] = useState(false);
@@ -110,7 +110,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                         }
                     </div>
                 </div>
-                {products ?
+                {products.length !== 0 ?
                     <div className="products-list">
                         {products.map((product) => (
                             <Product key={product.id} product={product} />

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import './news.css'
-import ArticleComponent from "./components/ArticleComponent";
 import ArticlesList from "./components/ArticlesList";
 import { Input, Space, Select, FloatButton } from 'antd';
 const { Search } = Input;

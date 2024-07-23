@@ -56,7 +56,7 @@
     align-items: center;
 }
 
-.product-name {
+.cart-product-name {
     color: rgb(72, 72, 72);
     overflow: hidden;
     display: -webkit-box;
@@ -173,14 +173,15 @@
     .product-name {
         text-align: left;
     }
+
     .order-summary {
-    margin: 2rem 0 0 2rem;
-        
+        margin: 2rem 0 0 2rem;
+
     }
 }
 
 @media (max-width: 480px) {
     .order-summary {
-        margin: 2rem;   
+        margin: 2rem;
     }
 }
