@@ -12,7 +12,7 @@ const Orders = () => {
     const [itemsPerPage, setItemsPerPage] = useState(10)
     const [orders, setOrders] = useState([]);
     const [activeTab, setActiveTab] = useState('1');
-    const [orderStatus, setOrdersStatus] = useState('pending')
+    const [orderStatus, setOrdersStatus] = useState('')
     const token = getToken()
     const naigate = useNavigate()
 
@@ -43,36 +43,43 @@ const Orders = () => {
     const getStatusFromTabKey = (key) => {
         switch (key) {
             case '1':
-                return 'pending';
+                return '';
             case '2':
-                return 'shipping';
+                return 'pending';
             case '3':
-                return 'delivered';
+                return 'shipping';
             case '4':
+                return 'delivered';
+            case '5':
                 return 'cancel';
             default:
-                return 'pending';
+                return null;
         }
     };
 
     const items = [
         {
             key: '1',
-            label: 'Pending',
+            label: 'Your orders',
             children: <OrderList orders={orders} />,
         },
         {
             key: '2',
-            label: 'Shipping',
+            label: 'Pending',
             children: <OrderList orders={orders} />,
         },
         {
             key: '3',
-            label: 'Delivered',
+            label: 'Shipping',
             children: <OrderList orders={orders} />,
         },
         {
             key: '4',
+            label: 'Delivered',
+            children: <OrderList orders={orders} />,
+        },
+        {
+            key: '5',
             label: 'Cancelled',
             children: <OrderList orders={orders} />,
         },
