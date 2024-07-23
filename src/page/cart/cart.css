@@ -100,7 +100,6 @@
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 10px;
-    margin: 2rem 0 0 2rem;
 }
 
 .order-summary h2 {
@@ -136,6 +135,7 @@
     font-size: 1.2em;
     margin-top: 20px;
     color: white;
+    font-weight: 700;
 }
 
 .payment-methods {
@@ -174,7 +174,8 @@
         text-align: left;
     }
     .order-summary {
-        margin: 0;
+    margin: 2rem 0 0 2rem;
+        
     }
 }
 
