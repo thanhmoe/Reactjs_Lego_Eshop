@@ -37,7 +37,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 textQuery: searchQuery,
                 sortBy: FILTER_PRODUCTS_OPTIONS[sortOption].sortBy,
                 sortOrder: FILTER_PRODUCTS_OPTIONS[sortOption].sortOrder,
-                categories: selectedCategories // Send the array of selected categories
+                category: selectedCategories // Send the array of selected categories
             })
         );
     };
