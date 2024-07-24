@@ -81,6 +81,7 @@ h2 {
     width: 100px;
     justify-content: space-between;
     border-radius: 10px;
+    background-color: white;
 }
 
 .quantity-button {
@@ -192,7 +193,8 @@ h2 {
 .btn-buy:hover {
     background-color: #c9302c;
 }
-.btn-continue{
+
+.btn-continue {
     color: #484848;
     background-color: white;
 }
