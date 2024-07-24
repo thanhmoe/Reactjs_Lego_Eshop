@@ -1,3 +1,21 @@
 {
-    "productName": "Product Name"
+    "Product_page_label": "LEGO Products",
+    "input_search_text": "input search text",
+    "Name_A_to_Z": "Name A to Z",
+    "Name_Z_to_A": "Name Z to A",
+    "Price_Low_to_High": "Price Low to High",
+    "Price_High_to_Low": "Price High to Low",
+    "Products_Clear_All_Btn": "Clear All",
+    "Best_Seller": "Best Seller",
+    "Sold_Out_Btn": "Sold Out",
+    "Sold_Out_info": "This item is currently unavailable. Please check back soon.",
+    "Shipping_Label": "This item will be shipped to your address.",
+    "Product_Information": "Product Information",
+    "Recommend_For_You": "Recommend For You",
+    "Add_To_Cart": "Add To Cart",
+    "Added_To_Cart": "Added to cart",
+    "View_Cart_And_Checkout": "View Cart And Checkout",
+    "Continue_Shopping": "Continue Shopping"
+
+
 }

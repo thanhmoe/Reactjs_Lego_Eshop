@@ -3,12 +3,14 @@
 import React, { useState } from "react";
 import { JOBSELECT, VALIDEMAIL, REGNUMBER } from "../../utils/constants";
 import { Modal, Form, Input, Select, Button, notification, Space } from "antd";
+import { useTranslation } from "react-i18next";
 import './contact.css';
 
 const { TextArea } = Input;
 const { Option } = Select;
 
 export default function Contact() {
+    const { t } = useTranslation(['contact'])
     const [isValid, setIsValid] = useState(false);
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
@@ -34,8 +36,8 @@ export default function Contact() {
     return (
         <>
             <div className="formContact">
-                <h3 className='decs-contact'>Contact Us</h3>
-                <p className='decs-contact'>You are welcome to fill in the form below</p>
+                <h3 className='decs-contact'>{t('Contact_Us')}</h3>
+                <p className='decs-contact'>{t('You_Are_Welcome_To_Fill_In_The_Form_Below')}</p>
                 <Form
                     form={form}
                     layout="vertical"
@@ -43,61 +45,61 @@ export default function Contact() {
                 >
                     <Form.Item
                         name="jobselect"
-                        label="Your's current position"
+                        label={t('Your_Current_Position')}
                     >
-                        <Select placeholder="Choose Your Position">
+                        <Select placeholder={t('Choose_Your_Position')}>
                             {JOBSELECT.map(job => (
-                                <Option value={job.jobName} key={job.id}>{job.jobName}</Option>
+                                <Option value={job.jobName} key={job.id}>{t(job.jobName)}</Option>
                             ))}
                         </Select>
                     </Form.Item>
                     <Form.Item
                         name="inputName"
-                        label="Your name"
+                        label={t('Your_Name')}
                         rules={[
                             { required: true, message: 'Name cannot be empty' },
                             { max: 32, message: 'Limit input name is 32 characters' },
                         ]}
                     >
-                        <Input placeholder='Enter Your Name Here' />
+                        <Input placeholder={t('Enter_Your_Name_Here')} />
                     </Form.Item>
                     <Form.Item
                         name="email"
-                        label="Email"
+                        label={t('Email')}
                         rules={[
                             { required: true, message: 'Email cannot be empty' },
                             { type: 'email', message: 'Email is invalid' },
                         ]}
                     >
-                        <Input placeholder='Your Email' />
+                        <Input placeholder={t('Your_Email')} />
                     </Form.Item>
                     <Form.Item
                         name="phone"
-                        label="Phone"
+                        label={t('Phone')}
                         rules={[
                             { required: true, message: 'Phone number cannot be empty' },
                             { pattern: REGNUMBER, message: 'Invalid phone number' },
                         ]}
                     >
-                        <Input placeholder='Your Phone Number' />
+                        <Input placeholder={t('Your_Phone_Number')} />
                     </Form.Item>
                     <Form.Item
                         name="message"
-                        label="Write Message Here"
+                        label={t('Write_Message_Here')}
                         rules={[
                             { required: true, message: 'Message cannot be empty' },
                             { max: 500, message: 'Limit input message is 500 characters' },
                         ]}
                     >
-                        <TextArea placeholder='Enter Message' />
+                        <TextArea placeholder={t('Enter_Message')} />
                     </Form.Item>
                     <Form.Item className="btn-group-contact ">
                         <Space>
                             <Button type="primary" htmlType="submit" className='btnSubmit'>
-                                Confirm
+                                {t('Confirm')}
                             </Button>
                             <Button onClick={onClear} className='btnClear'>
-                                Clear
+                                {t('Clear')}
                             </Button>
                         </Space>
                     </Form.Item>
@@ -108,11 +110,11 @@ export default function Contact() {
                 onOk={handleClose}
                 onCancel={handleClose}
             >
-                <h3 className="modal-name">Your name is: {form.getFieldValue('inputName')}</h3>
-                <p>Position: {form.getFieldValue('jobselect')}</p>
-                <p>Email: {form.getFieldValue('email')}</p>
-                <p>Phone: {form.getFieldValue('phone')}</p>
-                <p>Message: {form.getFieldValue('message')}</p>
+                <h3 className="modal-name">{t('Your_Name_Is')}: {form.getFieldValue('inputName')}</h3>
+                <p>{t('Position')}: {form.getFieldValue('jobselect')}</p>
+                <p>{t('Email')}: {form.getFieldValue('email')}</p>
+                <p>{t('Phone')}: {form.getFieldValue('phone')}</p>
+                <p>{t('Message')}: {form.getFieldValue('message')}</p>
             </Modal>
         </>
     );

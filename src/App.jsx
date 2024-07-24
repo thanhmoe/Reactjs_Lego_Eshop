@@ -19,16 +19,16 @@ function App() {
       <div className='app-container'>
         <div className='banner'>
           <div className='label-banner'>
-            <h2>A model of Italian perfection</h2>
-            <p>The new LEGO® Icons Lamborghini Countach 5000 Quattrovalvole has arrived.</p>
-            <Button onClick={() => navigate('/products/68')} style={{ height: '40px', marginTop: '5rem', }}>Shop Now {<RightOutlined />}</Button>
+            <h2>{t("Banner_label1")}</h2>
+            <p>{t('Banner_text1')}</p>
+            <Button onClick={() => navigate('/products/68')} style={{ height: '40px', marginTop: '5rem', }}>{t('Shop_Now')} {<RightOutlined />}</Button>
           </div>
           <img className='image-banner' src={banner1} alt="banner1" />
         </div>
         <div className='top-selling-products-container'>
           <TopSellingProducts />
         </div>
-        <h2 className='news-label'>Lego News</h2>
+        <h2 className='news-label'>{t('Lego_News')}</h2>
         <div className='container-news'>
           <div>
             <ArticlesCarousel />

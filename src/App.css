@@ -64,7 +64,7 @@ p {
 @media (max-width: 1400px) {
   .label-banner {
     left: 4rem;
-    max-width: 45%;
+    max-width: 35%;
   }
 
   .label-banner h2 {

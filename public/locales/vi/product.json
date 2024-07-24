@@ -1,3 +1,21 @@
 {
-    "productName": "Ten San Pham"
-}
+    "Product_page_label": "Đồ Chơi LEGO!!",
+    "input_search_text": "Tìm kiếm sản phẩm",
+    "Name_A_to_Z": "Tên theo thứ tự tăng dần",
+    "Name_Z_to_A": "Tên theo thứ tự giảm dần",
+    "Price_Low_to_High": "Giá tăng dần",
+    "Price_High_to_Low": "Giá giảm dần",
+    "Products_Clear_All_Btn": "Bỏ Chọn Tất Cả",
+    "Best_Seller": "Sản Phẩm Bán Chạy",
+    "Sold_Out_Btn": "Hết Hàng",
+    "Sold_Out_info": "Sản phẩm đang tạm thời hết hàng. Xin khách hàng thông cảm!",
+    "Shipping_Label": "Giao Hàng Tận Nơi.",
+    "Product_Information": "Thông Tin Về Sản Phẩm",
+    "Recommend_For_You": "Các Sản Phẩm Đề Xuất",
+    "Add_To_Cart": "Thêm Vào Giỏ Hàng",
+    "Added_To_Cart": "Đã Thêm Vào Giỏ Hàng",
+    "View_Cart_And_Checkout": "Xem Giỏ Hàng Và Thanh Toán",
+    "Continue_Shopping": "Tiếp Tục Mua Sắm"
+
+
+}   

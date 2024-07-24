@@ -6,6 +6,8 @@ import LoadingModal from "../modal/loadingModal";
 
 import { useNavigate } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 import { saveSession, loadSession, clearSession } from "../utils/session_util";
 import { FILTER_PRODUCTS_OPTIONS } from "../utils/constants";
 
@@ -18,6 +20,7 @@ import {
 } from "../redux/slice/products/productsSlice";
 
 const ProductComponent = ({ searchQuery, sortOption }) => {
+    const { t } = useTranslation(['product'])
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
@@ -124,7 +127,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                     <div className="aside-product-clear-div">
                         <Button className="aside-product-clear-btn" type="text"
                             onClick={handleUncheck}
-                        ><CloseCircleFilled /> Clear All</Button>
+                        ><CloseCircleFilled />{t('Products_Clear_All_Btn')}</Button>
                     </div>
                     <div className="select-category">
                         {categories.length > 0 &&

@@ -1,4 +1,3 @@
-
 export const VALIDEMAIL = new RegExp(
     '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
 );
@@ -25,25 +24,25 @@ export const FILTER_PRODUCTS_OPTIONS = [
         id: 0,
         sortOrder: 'asc',
         sortBy: 'name',
-        name: 'Name A - Z'
+        name: 'Name_A_to_Z'
     },
     {
         id: 1,
         sortOrder: 'desc',
         sortBy: 'name',
-        name: 'Name Z - A'
+        name: 'Name_Z_to_A'
     },
     {
         id: 2,
         sortOrder: 'asc',
         sortBy: 'price',
-        name: 'Price Low to High'
+        name: 'Price_Low_to_High'
     },
     {
         id: 3,
         sortOrder: 'desc',
         sortBy: 'price',
-        name: 'Price High to Low'
+        name: 'Price_High_to_Low'
     },
 ]
 

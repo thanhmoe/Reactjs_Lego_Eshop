@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { fetchTopProduct } from '../redux/slice/products/productsSlice';
 import { useDispatch, useSelector } from "react-redux";
 import '../page/product/products.css';
+import { useTranslation } from "react-i18next";
 
 const topSellingProducts = () => {
+    const { t } = useTranslation(['product'])
+
     const navigate = useNavigate()
     const [limit, setLimit] = useState(4);
     const dispatch = useDispatch()
@@ -27,7 +30,7 @@ const topSellingProducts = () => {
     }, [])
     return (
         <div className='top-product-container'>
-            <h2>Best Seller</h2>
+            <h2>{t('Best_Seller')}</h2>
             <div className='top-product-list'>
                 {topProducts
                     ? topProducts.map((product) => (

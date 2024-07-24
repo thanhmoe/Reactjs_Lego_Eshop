@@ -2,6 +2,7 @@
 import { FloatButton, Input, Select, Space } from 'antd';
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import ProductComponent from "../../components/ProductComponent";
 import { FILTER_PRODUCTS_OPTIONS } from "../../utils/constants";
 import './products.css';
@@ -10,6 +11,8 @@ const { Search } = Input;
 const { Option } = Select;
 
 export default function Products() {
+    const { t } = useTranslation(['product']);
+
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOption, setSortOption] = useState(0);
     const dispatch = useDispatch();
@@ -35,19 +38,19 @@ export default function Products() {
 
     return (
         <div className="container-product">
-            <h2 className="products-label">PRODUCTS</h2>
+            <h2 className="products-label">{t('Product_page_label')}</h2>
             <div className="filter-product">
                 <Space>
                     <Search
                         className="searchbar"
-                        placeholder="input search text"
+                        placeholder={t("input_search_text")}
                         onSearch={(value) => onSearch(value)}
                         onChange={handleSearchChange}
                     />
                     <div>
-                        <Select defaultValue={FILTER_PRODUCTS_OPTIONS[0].name} style={{ width: 200 }} onChange={handleSortChange}>
+                        <Select defaultValue={t(FILTER_PRODUCTS_OPTIONS[0].name)} style={{ width: 200 }} onChange={handleSortChange}>
                             {FILTER_PRODUCTS_OPTIONS.map(option => (
-                                <Option key={option.id} value={option.id}>{option.name}</Option>
+                                <Option key={option.id} value={option.id}>{t(option.name)}</Option>
                             ))}
                         </Select>
                     </div>
@@ -57,7 +60,6 @@ export default function Products() {
                 <ProductComponent searchQuery={searchQuery} sortOption={sortOption} />
             </div>
             <FloatButton.BackTop />
-
         </div>
     );
 }

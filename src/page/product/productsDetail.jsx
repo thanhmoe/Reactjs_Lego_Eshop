@@ -4,6 +4,8 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import LoadingModal from "../../modal/loadingModal.jsx";
 import TopSellingProducts from "../../components/TopSellingProducts.jsx";
 
+import { useTranslation } from "react-i18next";
+
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProduct, fetchProductDetail, fetchRelatedProduct, selectProductDetail, selectRelatedProducts } from "../../redux/slice/products/productsSlice.js";
 import { addProductToCart } from "../../services/cart_serviced.js";
@@ -18,6 +20,8 @@ import { getToken } from "../../utils/token_utils.js";
 
 
 export default function ProductsDetail() {
+    const { t } = useTranslation(['product']);
+
     const { productId } = useParams();
     const token = getToken();
     const [currentPage, setCurrentPage] = useState(1);
@@ -132,8 +136,8 @@ export default function ProductsDetail() {
                                 {product.quantity === 0
                                     ?
                                     <div>
-                                        <button className="btn-soldout" disabled>Sold Out</button>
-                                        <p className="addinfor">This item is currently unavailable. Please check back soon.</p>
+                                        <button className="btn-soldout" disabled>{t('Sold_Out_Btn')}</button>
+                                        <p className="addinfor">{t('Sold_Out_info')}</p>
                                     </div>
                                     :
                                     <div>
@@ -149,16 +153,16 @@ export default function ProductsDetail() {
                                                 </div>
                                                 <button onClick={incrementQuantity} disabled={quantity >= product.quantity} className="quantity-button quantity-button-increment">+</button>
                                             </div>
-                                            <button onClick={() => handleAddToCart(productId)} className="btn-buy"><CartIcon />Add to cart</button>
+                                            <button onClick={() => handleAddToCart(productId)} className="btn-buy"><CartIcon />{t("Add_To_Cart")}</button>
                                         </div>
-                                        <p className="addinfor">This item will be shipped to your address.</p>
+                                        <p className="addinfor">{t('Shipping_Label')}</p>
                                     </div>
                                 }
                             </div>
                         </div>
                     </div>
                     <div className="product-detail-description">
-                        <h2>Product Information!</h2>
+                        <h2>{t("Product_Information")}</h2>
                         <h3 className="productName">{product.name}</h3>
                         <p>Brand: Lego</p>
                         {product.categories.map((category) => (
@@ -168,7 +172,7 @@ export default function ProductsDetail() {
                         ))}
                         <p>{product.description}</p>
                     </div>
-                    <h2>Recommend For You!</h2>
+                    <h2>{t("Recommend_For_You")}</h2>
                     <div className="related-products-list">
                         {relatedProducts.length > 0 &&
                             relatedProducts.map((product) => (
@@ -190,14 +194,14 @@ export default function ProductsDetail() {
                     <div>
                         <TopSellingProducts />
                     </div>
-                    <Drawer title="Added to cart" onClose={handleCancel} open={isModalOpen}>
+                    <Drawer title={t("Added_To_Cart")} onClose={handleCancel} open={isModalOpen}>
                         <Image src={product.image_path} />
                         <p >{product.name}</p>
                         <p>qty:{quantity}</p>
                         <p>${product.price}</p>
                         <div className="product-control-cart">
-                            <button onClick={() => handleOk()} className="btn-buy">View Cart And Checkout</button>
-                            <button onClick={() => handleCancel()} className="btn-continue">Continue Shopping</button>
+                            <button onClick={() => handleOk()} className="btn-buy">{t("View_Cart_And_Checkout")}</button>
+                            <button onClick={() => handleCancel()} className="btn-continue">{t("Continue_Shopping")}</button>
                         </div>
                     </Drawer>
                     <FloatButton.BackTop />
