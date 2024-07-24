@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 import { requestRecoverPassword, sendVerfyOTP, resetPassword } from "../../services/account_services";
 
-import { Form, Input, Button, message, Space } from "antd";
+import { Form, Input, Button, message, Space, Result } from "antd";
 import Logo from '../../assets/icons/nintendo.svg';
 import "./password.css";
 
 export default function PasswordRecover() {
     const navigate = useNavigate();
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(4);
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [resendOtpTimeout, setResendOtpTimeout] = useState(0);
@@ -68,8 +68,7 @@ export default function PasswordRecover() {
         const response = await resetPassword(newPassword)
         setIsLoading(false)
         if (response.success) {
-            message.success('Password reset successful');
-            navigate('/login');
+            setStep(4);
         } else {
             message.error('Failed to reset password');
         }
@@ -94,6 +93,16 @@ export default function PasswordRecover() {
         },
     });
 
+    const FirstPageInfo = () => {
+        return (
+            <div>
+                <h2>Reset password</h2>
+                <p className="password-label">Please enter the e-mail address registered to your account, and then select Submit.
+                    <br /> An e-mail will be sent to that address containing a OTP to reset your password.</p>
+            </div>
+        )
+    }
+
     return (
         <>
             <header className="header-password">
@@ -105,74 +114,109 @@ export default function PasswordRecover() {
                 <p className="text-header">Nintendo Account</p>
             </header>
             <div className="password-container">
-                <h2>Reset password</h2>
-                <p className="password-label">Please enter the e-mail address registered to your account, and then select Submit.
-                    <br /> An e-mail will be sent to that address containing a OTP to reset your password.</p>
                 {step === 1 && (
-                    <Form className="form-pass" layout="vertical" onFinish={handleEmailSubmit}>
-                        <Form.Item
-                            label="Email"
-                            name="email"
-                            rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Please enter a valid email!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button loading={isLoading} type="primary" htmlType="submit">
-                                Submit
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                )}
-                {step === 2 && (
-                    <Form className="form-pass-otp" layout="vertical" onFinish={handleOtpSubmit}>
-                        <Form.Item
-                            label="OTP"
-                            name="otp"
-                            rules={[{ required: true, message: 'Please input the OTP sent to your email!' }]}
-                        >
-                            <Input.OTP />
-                        </Form.Item>
-                        <Form.Item>
-                            <Space>
+                    <>
+                        <FirstPageInfo />
+                        <Form className="form-pass" layout="vertical" onFinish={handleEmailSubmit}>
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Please enter a valid email!' }]}
+                            >
+                                <Input />
+                            </Form.Item>
+                            <Form.Item>
                                 <Button loading={isLoading} type="primary" htmlType="submit">
                                     Submit
                                 </Button>
-                                <Button
-                                    onClick={handleResendOtp}
-                                    disabled={resendOtpTimeout > 0}
-                                >{resendOtpTimeout > 0 ? `Resend OTP in ${resendOtpTimeout}s` : 'Resend OTP'}
-                                </Button>
-                            </Space>
-                        </Form.Item>
-                    </Form>
+                            </Form.Item>
+                        </Form>
+                    </>
                 )}
+                {step === 2 && (
+                    <>
+                        <Result
+                            status="info"
+                            title="Check your Email!"
+                            subTitle={
+                                <div>
+                                    <p>We've sent a OTP to your email, please check your inbox at</p>
+                                    <p style={{ fontWeight: 'bold' }}>{email}</p>
+                                </div>
+                            }
+                        />
+                        <Form className="form-pass-otp" layout="vertical" onFinish={handleOtpSubmit}>
+                            <Form.Item
+                                label="OTP"
+                                name="otp"
+                                rules={[{ required: true, message: 'Please input the OTP sent to your email!' }]}
+                            >
+                                <Input.OTP />
+                            </Form.Item>
+                            <Form.Item>
+                                <Space>
+                                    <Button loading={isLoading} type="primary" htmlType="submit">
+                                        Submit
+                                    </Button>
+                                    <Button
+                                        onClick={handleResendOtp}
+                                        disabled={resendOtpTimeout > 0}
+                                    >{resendOtpTimeout > 0 ? `Resend OTP in ${resendOtpTimeout}s` : 'Resend OTP'}
+                                    </Button>
+                                </Space>
+                            </Form.Item>
+                        </Form>
+                    </>)}
                 {step === 3 && (
-                    <Form className="form-pass" layout="vertical" onFinish={handlePasswordSubmit}>
-                        <Form.Item
-                            label="New Password"
-                            name="password"
-                            rules={[{ required: true, message: 'Please input your new password!' }]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-                        <Form.Item
-                            label="Confirm Password"
-                            name="confirmPassword"
-                            dependencies={['password']}
-                            rules={[
-                                { required: true, message: 'Please confirm your new password!' },
-                                validatePasswords
+                    <>
+                        <p className="password-label">Set your new password!</p>
+                        <Form className="form-pass" layout="vertical" onFinish={handlePasswordSubmit}>
+                            <Form.Item
+                                label="New Password"
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true, message: 'Please input your new password!'
+                                    },
+                                    {
+                                        min: 8,
+                                        message: 'Password must be at least 8 characters!'
+                                    }
+                                ]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+                            <Form.Item
+                                label="Confirm Password"
+                                name="confirmPassword"
+                                dependencies={['password']}
+                                rules={[
+                                    { required: true, message: 'Please confirm your new password!' },
+                                    validatePasswords
+                                ]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button loading={isLoading} type="primary" htmlType="submit">
+                                    Submit
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </>
+                )}
+                {step === 4 && (
+                    <>
+                        <Result
+                            status="success"
+                            title="Your Password have been reset!"
+                            extra={[
+                                <Button onClick={() => navigate('/login')} type="primary">
+                                    Go To Login
+                                </Button>
                             ]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button loading={isLoading} type="primary" htmlType="submit">
-                                Submit
-                            </Button>
-                        </Form.Item>
-                    </Form>
+                        />
+                    </>
                 )}
             </div>
         </>
