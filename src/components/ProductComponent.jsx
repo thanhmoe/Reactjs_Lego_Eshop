@@ -15,13 +15,13 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const productsStatus = useSelector(selectLoadingState);
     const products = useSelector((state) => state.productsSlice.items);
     const categories = useSelector((state) => state.productsSlice.categories) || [];
     const totalItems = useSelector(selectTotalItems);
 
-    const [itemsPerPage, setItemsPerPage] = useState(12); // Define the number of items per page
+    const [itemsPerPage, setItemsPerPage] = useState(12);
 
     const getListProduct = async () => {
         dispatch(
@@ -31,7 +31,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 textQuery: searchQuery,
                 sortBy: FILTER_PRODUCTS_OPTIONS[sortOption].sortBy,
                 sortOrder: FILTER_PRODUCTS_OPTIONS[sortOption].sortOrder,
-                category: selectedCategory
+                categories: selectedCategories // Send the array of selected categories
             })
         );
     };
@@ -42,23 +42,27 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
 
     const handleCategoryChange = (e) => {
         const categoryId = e.target.value;
-        setSelectedCategory((prevSelectedCategory) =>
-            prevSelectedCategory === categoryId ? null : categoryId
+        setSelectedCategories((prevSelectedCategories) =>
+            prevSelectedCategories.includes(categoryId)
+                ? prevSelectedCategories.filter(id => id !== categoryId)
+                : [...prevSelectedCategories, categoryId]
         );
         setCurrentPage(1);
+        console.log(selectedCategories);
     };
 
     const linkToDetail = (id) => {
         navigate(`/products/${id}`);
-        // window.location.reload();
         window.scrollTo(0, 0);
     };
+
     useEffect(() => {
         getListCategories();
-    }, [])
+    }, []);
+
     useEffect(() => {
         getListProduct();
-    }, [searchQuery, sortOption, currentPage, itemsPerPage, selectedCategory]);
+    }, [searchQuery, sortOption, currentPage, itemsPerPage, selectedCategories]);
 
     const Product = ({ product }) => {
         const [isLoadedImg, setIsLoadedImg] = useState(false);
@@ -81,7 +85,6 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 {product.quantity === 0 ? <p className="sold-out-label">Sold out</p> : null}
                 <p className="product-price">${product.price}</p>
             </div>
-
         );
     };
 
@@ -89,6 +92,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         setCurrentPage(page);
         setItemsPerPage(pageSize);
     }
+
     return (
         <>
             {productsStatus === "loading" && <LoadingModal />}
@@ -101,7 +105,7 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                                 <Checkbox
                                     key={category.id}
                                     value={category.id}
-                                    checked={selectedCategory === category.id}
+                                    checked={selectedCategories.includes(category.id)}
                                     onChange={handleCategoryChange}
                                 >
                                     {category.name} {`(${category.total_products})`}

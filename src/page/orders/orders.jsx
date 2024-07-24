@@ -9,7 +9,7 @@ import { getToken } from "../../utils/token_utils";
 
 const Orders = () => {
     const [page, setPage] = useState(1)
-    const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [itemsPerPage, setItemsPerPage] = useState(20)
     const [orders, setOrders] = useState([]);
     const [activeTab, setActiveTab] = useState('1');
     const [orderStatus, setOrdersStatus] = useState('')
