@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
+
 import { Checkbox, Pagination, Skeleton, Empty, Spin, Button } from "antd";
 import { CloseCircleFilled } from '@ant-design/icons';
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { FILTER_PRODUCTS_OPTIONS } from "../utils/constants";
 import LoadingModal from "../modal/loadingModal";
+
+import { useNavigate } from "react-router-dom";
+
+import { saveSession, loadSession, clearSession } from "../utils/session_util";
+import { FILTER_PRODUCTS_OPTIONS } from "../utils/constants";
+
+import { useDispatch, useSelector } from "react-redux";
 import {
     fetchProduct,
     fetCategories,
@@ -52,17 +57,12 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     };
 
     const linkToDetail = (id) => {
+        // Save current state before navigating
+        saveSession('selectedCategories', selectedCategories);
+        saveSession('currentPage', currentPage);
         navigate(`/products/${id}`);
         window.scrollTo(0, 0);
     };
-
-    useEffect(() => {
-        getListCategories();
-    }, []);
-
-    useEffect(() => {
-        getListProduct();
-    }, [searchQuery, sortOption, currentPage, itemsPerPage, selectedCategories]);
 
     const Product = ({ product }) => {
         const [isLoadedImg, setIsLoadedImg] = useState(false);
@@ -96,7 +96,25 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
     const handleUncheck = () => {
         setSelectedCategories([]);
         setCurrentPage(1)
+        clearSession('selectedCategories');
+        clearSession('currentPage');
     }
+
+    // Load saved state from sessionStorage
+    useEffect(() => {
+        const savedCategories = loadSession('selectedCategories') || [];
+        const savedPage = loadSession('currentPage') || 1;
+        setSelectedCategories(savedCategories);
+        setCurrentPage(savedPage);
+    }, []);
+
+    useEffect(() => {
+        getListCategories();
+    }, []);
+
+    useEffect(() => {
+        getListProduct();
+    }, [searchQuery, sortOption, currentPage, itemsPerPage, selectedCategories]);
 
     return (
         <>
