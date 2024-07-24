@@ -17,7 +17,7 @@
     height: calc(-1rem + 100vh);
     overflow: auto;
     padding: 1rem;
-    background-color: white;
+    background-color: #EFEFEF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 2rem 0px 2rem 0px;
 }
@@ -27,10 +27,23 @@
     border-bottom: 1px solid #eee;
 }
 
+.aside-product-clear-div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.aside-product-clear-btn {
+    color: #C8C8C8 !important;
+}
+
 .select-category {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background-color: #FFFFFF;
 }
 
 .no-result-found {

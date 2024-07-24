@@ -1,5 +1,6 @@
-import { Checkbox, Pagination, Skeleton, Empty, Spin } from "antd";
 import React, { useEffect, useState } from "react";
+import { Checkbox, Pagination, Skeleton, Empty, Spin, Button } from "antd";
+import { CloseCircleFilled } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FILTER_PRODUCTS_OPTIONS } from "../utils/constants";
@@ -48,7 +49,6 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
                 : [...prevSelectedCategories, categoryId]
         );
         setCurrentPage(1);
-        console.log(selectedCategories);
     };
 
     const linkToDetail = (id) => {
@@ -93,13 +93,22 @@ const ProductComponent = ({ searchQuery, sortOption }) => {
         setItemsPerPage(pageSize);
     }
 
+    const handleUncheck = () => {
+        setSelectedCategories([]);
+        setCurrentPage(1)
+    }
+
     return (
         <>
             {productsStatus === "loading" && <LoadingModal />}
             <div className="content-product">
                 <div className="aside-product">
+                    <div className="aside-product-clear-div">
+                        <Button className="aside-product-clear-btn" type="text"
+                            onClick={handleUncheck}
+                        ><CloseCircleFilled /> Clear All</Button>
+                    </div>
                     <div className="select-category">
-                        <h3>Categories</h3>
                         {categories.length > 0 &&
                             categories.map((category) => (
                                 <Checkbox
