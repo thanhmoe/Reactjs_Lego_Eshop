@@ -16,7 +16,7 @@ import CartIcon from '/src/assets/icons/cart.svg?react';
 
 import { Image, Skeleton, message, InputNumber, Breadcrumb, Modal, Button, FloatButton, Drawer, Empty } from "antd";
 import { notify } from "../../main.jsx";
-import { getToken } from "../../utils/token_utils.js";
+import { getToken, setTokenToRedirect } from "../../utils/token_utils.js";
 
 
 export default function ProductsDetail() {
@@ -68,6 +68,7 @@ export default function ProductsDetail() {
 
     const handleAddToCart = async () => {
         if (!token) {
+            setTokenToRedirect()
             navigate('/login')
             notify('info', 'Login to continues shopping with us!')
         }
