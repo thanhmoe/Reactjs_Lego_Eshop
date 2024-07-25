@@ -26,21 +26,31 @@ import AddAddressModal from "./components/AddAddressModal";
 import "./cart.css";
 
 const CartComponent = () => {
-    const { t } = useTranslation(['cart'])
+    const { t } = useTranslation(['cart'], ['common'])
 
     const navigate = useNavigate();
 
+    const [confirmDeleteItemId, setConfirmDeleteItemId] = useState(null);
+    const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
+
     const [cartItems, setCartItems] = useState([]);
+
     const [loading, setLoading] = useState(false);
+
     const [error, setError] = useState(null);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const [addresses, setAddresses] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
+
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
+
     const dispatch = useDispatch();
+
     const [newAddress, setNewAddress] = useState({
         name: '',
         phone_number: '',
@@ -121,10 +131,26 @@ const CartComponent = () => {
     const handleQuantityDecrease = async (id) => {
         const item = cartItems.find(item => item.id === id);
         if (item.quantity === 1) {
-            await handleRemoveItem(id);
+            // Show confirmation dialog
+            setConfirmDeleteItemId(id); // Set the item ID to confirm delete
+            setIsConfirmDeleteVisible(true); // Show confirmation dialog
         } else {
             handleQuantityChange(id, 0);
         }
+    };
+    // Function to confirm delete
+    const confirmDelete = async () => {
+        if (confirmDeleteItemId) {
+            await handleRemoveItem(confirmDeleteItemId);
+            setConfirmDeleteItemId(null); // Clear the ID after deletion
+            setIsConfirmDeleteVisible(false); // Hide the confirmation dialog
+        }
+    };
+
+    // Function to cancel delete
+    const cancelDelete = () => {
+        setConfirmDeleteItemId(null); // Clear the ID
+        setIsConfirmDeleteVisible(false); // Hide the confirmation dialog
     };
 
     const handleQuantityIncrease = (id) => {
@@ -228,9 +254,9 @@ const CartComponent = () => {
                     <div className="cart-header">
                         <h2>{t('Cart_Header')}</h2>
                         <Breadcrumb className="breadcrumb">
-                            <Breadcrumb.Item onClick={() => navigate('/')}>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item onClick={() => navigate('/products')}>Products</Breadcrumb.Item>
-                            <Breadcrumb.Item>Shopping Cart</Breadcrumb.Item>
+                            <Breadcrumb.Item onClick={() => navigate('/')}>{t('Home', { ns: 'common' })}</Breadcrumb.Item>
+                            <Breadcrumb.Item onClick={() => navigate('/products')}>{t('Products', { ns: 'common' })}</Breadcrumb.Item>
+                            <Breadcrumb.Item>{t('Cart_Header')}</Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
                     <div className="cart-body">
@@ -244,8 +270,17 @@ const CartComponent = () => {
                                     <p className="cart-product-name">{item.name}</p>
                                     <div className="cart-item-details">
                                         <div className="quantity-selector">
-                                            <button className="quantity-button quantity-button-decrement"
-                                                onClick={() => handleQuantityDecrease(item.id)} disabled={loading}>-</button>
+                                            <Popconfirm
+                                                title={t('Remove_Product_Confirmation_Title')}
+                                                open={isConfirmDeleteVisible && confirmDeleteItemId === item.id}
+                                                onConfirm={confirmDelete}
+                                                onCancel={cancelDelete}
+                                                okText={t('Yes_Btn')}
+                                                cancelText={t('No_Btn')}
+                                            >
+                                                <button className="quantity-button quantity-button-decrement"
+                                                    onClick={() => handleQuantityDecrease(item.id)} disabled={loading}>-</button>
+                                            </Popconfirm>
                                             <div className="quantity-input-div">
                                                 <input className="quantity-input" value={item.quantity} readOnly></input>
                                             </div>
