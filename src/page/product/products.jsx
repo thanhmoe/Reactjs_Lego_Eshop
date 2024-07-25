@@ -16,7 +16,6 @@ export default function Products() {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOption, setSortOption] = useState(0);
     const dispatch = useDispatch();
-    const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
     // Debounce search input
@@ -35,6 +34,10 @@ export default function Products() {
     const onSearch = (value) => {
         setSearchQuery(value)
     }
+
+    useEffect(() => {
+        setCurrentPage(1); // Reset to page 1 when search query changes
+    }, [searchQuery]);
 
     return (
         <div className="container-product">
@@ -57,7 +60,7 @@ export default function Products() {
                 </Space>
             </div>
             <div>
-                <ProductComponent searchQuery={searchQuery} sortOption={sortOption} />
+                <ProductComponent searchQuery={searchQuery} sortOption={sortOption} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
             <FloatButton.BackTop />
         </div>
