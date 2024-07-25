@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { notify } from "../../main";
 
+import { useTranslation } from "react-i18next";
+
 import { Breadcrumb, Alert, Button, Image, FloatButton, Popconfirm, Result } from "antd";
 import { ShoppingCartOutlined } from '@ant-design/icons';
 
@@ -24,6 +26,8 @@ import AddAddressModal from "./components/AddAddressModal";
 import "./cart.css";
 
 const CartComponent = () => {
+    const { t } = useTranslation(['cart'])
+
     const navigate = useNavigate();
 
     const [cartItems, setCartItems] = useState([]);
@@ -214,15 +218,15 @@ const CartComponent = () => {
                 ? <div>
                     <Result
                         icon={<ShoppingCartOutlined style={{ color: '#484848' }} />}
-                        title="Your cart look lonely, Why not add something fun?"
-                        extra={<Button onClick={() => navigate('/products')} type="primary">Go Shopping</Button>}
+                        title={t('Cart_Empty_Title')}
+                        extra={<Button onClick={() => navigate('/products')} type="primary">{t('Cart_Empty_Button')}</Button>}
                     />
                     <TopSellingProducts />
                 </div>
                 :
                 <div className="shopping-cart">
                     <div className="cart-header">
-                        <h2>Shopping cart</h2>
+                        <h2>{t('Cart_Header')}</h2>
                         <Breadcrumb className="breadcrumb">
                             <Breadcrumb.Item onClick={() => navigate('/')}>Home</Breadcrumb.Item>
                             <Breadcrumb.Item onClick={() => navigate('/products')}>Products</Breadcrumb.Item>
@@ -232,7 +236,7 @@ const CartComponent = () => {
                     <div className="cart-body">
                         <div className="cart-items">
                             <div className="free-shipping-message">
-                                <Alert style={{ width: '100%', margin: '2rem 0 2rem 0', textAlign: 'center' }} message="Congratulations you've qualified for free shipping!" type="info" />
+                                <Alert style={{ width: '100%', margin: '2rem 0 2rem 0', textAlign: 'center' }} message={t('Free_Shipping_Message')} type="info" />
                             </div>
                             {cartItems.map(item => (
                                 <div key={item.id} className="cart-item">
@@ -252,41 +256,40 @@ const CartComponent = () => {
                                     <div className="remove-and-price">
                                         <span className="cart-item-price">${calculateItemTotal(item)}</span>
                                         <Popconfirm
-                                            title="Remove the products"
-                                            description="Are you sure to remove this products from cart?"
+                                            title={t('Remove_Product_Confirmation_Title')}
+                                            description={t('Remove_Product_Confirmation_Description')}
                                             onConfirm={() => handleRemoveItem(item.id)}
-                                            okText="Yes"
-                                            cancelText="No"
+                                            okText={t('Yes_Btn')}
+                                            cancelText={t('No_Btn')}
                                         >
-                                            <Button danger>Delete</Button>
+                                            <Button danger>{t('Delete_Button')}</Button>
                                         </Popconfirm>
-                                        {/* <Button onClick={() => handleRemoveItem(item.id)} danger>Remove</Button> */}
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <div className="order-summary">
-                            <h2>Order summary</h2>
+                            <h2>{t('Order_Summary')}</h2>
                             <div className="summary-details">
                                 <div className="summary-row">
-                                    <span>Item(s) subtotal</span>
+                                    <span>{t('Item_Subtotal')}</span>
                                     <span>${calculateTotal()}</span>
                                 </div>
                                 <div className="summary-row">
-                                    <span>Shipping</span>
+                                    <span>{t('Shipping')}</span>
                                     <span>Free</span>
                                 </div>
                                 <div className="summary-row">
-                                    <span>Estimated tax</span>
+                                    <span>{t('Estimated_Tax')}</span>
                                     <span>$0.00</span>
                                 </div>
                             </div>
                             <div className="summary-total">
-                                <span>Estimated total</span>
+                                <span>{t('Estimated_Total')}</span>
                                 <span>${calculateTotal()}</span>
                             </div>
-                            <button onClick={() => setIsModalOpen(true)} className="checkout-button">Checkout</button>
-                            <p className="decs">Payment methods</p>
+                            <button onClick={() => setIsModalOpen(true)} className="checkout-button">{t('Checkout_Button')}</button>
+                            <p className="decs">{t('Payment_Methods')}</p>
                             <div className="payment-methods">
                                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
                                 <FontAwesomeIcon icon={faCcPaypal} size="2x" />

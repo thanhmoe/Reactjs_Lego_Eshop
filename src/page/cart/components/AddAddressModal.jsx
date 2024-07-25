@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Form, Select, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
@@ -8,6 +9,7 @@ const AddAddressModal = ({
     onInputChange, onSave, onClose
 }) => {
     const [form] = Form.useForm();
+    const { t } = useTranslation('cart');
 
     const handleOk = () => {
         form.validateFields()
@@ -21,16 +23,17 @@ const AddAddressModal = ({
 
     return (
         <Modal
-            title="Add New Address"
+            title={t('Add_Address_Title')}
             open={isOpen}
             onOk={handleOk}
             onCancel={onClose}
+            cancelText={t('Cancel_Button')}
         >
             <Form layout="vertical" form={form} initialValues={newAddress}>
                 <Form.Item
-                    label="Name"
+                    label={t('Name_Label')}
                     name="name"
-                    rules={[{ required: true, message: 'Please enter your name' }]}
+                    rules={[{ required: true, message: t('Name_Required_Message') }]}
                 >
                     <Input
                         value={newAddress.name}
@@ -38,9 +41,9 @@ const AddAddressModal = ({
                     />
                 </Form.Item>
                 <Form.Item
-                    label="Phone Number"
+                    label={t('Phone_Number_Label')}
                     name="phone_number"
-                    rules={[{ required: true, message: 'Please enter your phone number' }]}
+                    rules={[{ required: true, message: t('Phone_Number_Required_Message') }]}
                 >
                     <Input
                         value={newAddress.phone_number}
@@ -48,9 +51,9 @@ const AddAddressModal = ({
                     />
                 </Form.Item>
                 <Form.Item
-                    label="Province"
+                    label={t('Province_Label')}
                     name="province"
-                    rules={[{ required: true, message: 'Please select a province' }]}
+                    rules={[{ required: true, message: t('Province_Required_Message') }]}
                 >
                     <Select
                         value={newAddress.province}
@@ -64,9 +67,9 @@ const AddAddressModal = ({
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    label="District"
+                    label={t('District_Label')}
                     name="district"
-                    rules={[{ required: true, message: 'Please select a district' }]}
+                    rules={[{ required: true, message: t('District_Required_Message') }]}
                 >
                     <Select
                         value={newAddress.district}
@@ -79,9 +82,9 @@ const AddAddressModal = ({
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    label="Ward"
+                    label={t('Ward_Label')}
                     name="ward"
-                    rules={[{ required: true, message: 'Please select a ward' }]}
+                    rules={[{ required: true, message: t('Ward_Required_Message') }]}
                 >
                     <Select
                         value={newAddress.ward}
@@ -94,9 +97,9 @@ const AddAddressModal = ({
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    label="Detail Address"
+                    label={t('Detail_Address_Label')}
                     name="detail"
-                    rules={[{ required: true, message: 'Please enter your detail address' }]}
+                    rules={[{ required: true, message: t('Detail_Address_Required_Message') }]}
                 >
                     <Input
                         value={newAddress.detail}
