@@ -15,6 +15,12 @@ const Signup = () => {
 
     const [loading, setLoading] = useState(false);
 
+    const handlePhoneNumberChange = (e) => {
+        const value = e.target.value;
+        const numericValue = value.replace(/\D/g, '');
+        form.setFieldsValue({ phone_number: numericValue });
+    };
+
     const handleSignUp = async (values) => {
         setLoading(true);
         const response = await registerUser(values);
@@ -72,7 +78,7 @@ const Signup = () => {
                             },
                         ]}
                     >
-                        <Input placeholder={t('Phone_Number')} />
+                        <Input placeholder={t('Phone_Number')} onChange={handlePhoneNumberChange} />
                     </Form.Item>
                     <Form.Item
                         name="gender"
