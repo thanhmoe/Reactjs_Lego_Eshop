@@ -20,7 +20,7 @@ import { getToken, setTokenToRedirect } from "../../utils/token_utils.js";
 
 
 export default function ProductsDetail() {
-    const { t } = useTranslation(['product']);
+    const { t } = useTranslation(['product', 'common']);
 
     const { productId } = useParams();
     const token = getToken();
@@ -70,7 +70,7 @@ export default function ProductsDetail() {
         if (!token) {
             setTokenToRedirect()
             navigate('/login')
-            notify('info', 'Login to continues shopping with us!')
+            notify('info', t('Login_to_continues_shopping'))
         }
         if (!product || quantity < 1 || quantity > product.quantity) {
             message.error('Invalid quantity selected.');
@@ -114,8 +114,8 @@ export default function ProductsDetail() {
                             <div className="leftInfo">
                                 <div className="breadcrumb-product">
                                     <Breadcrumb>
-                                        <Breadcrumb.Item onClick={() => navigate('/')}>Home</Breadcrumb.Item>
-                                        <Breadcrumb.Item onClick={() => navigate('/products')}>Products</Breadcrumb.Item>
+                                        <Breadcrumb.Item onClick={() => navigate('/')}>{t('Home', { ns: 'common' })}</Breadcrumb.Item>
+                                        <Breadcrumb.Item onClick={() => navigate('/products')}>{t('Products', { ns: 'common' })}</Breadcrumb.Item>
                                         <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
                                     </Breadcrumb>
                                 </div>
