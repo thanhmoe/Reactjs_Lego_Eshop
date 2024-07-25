@@ -1,14 +1,22 @@
-// File: /src/components/Login.js
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
 import { Form, Input, Button, Checkbox, notification, Space } from 'antd';
-import backgroundImage from '../../public/assets/bg.jpg';
 import './login.css';
+
+import { useTranslation } from 'react-i18next';
+
 import { fetchCustomers } from '../services/customer_services';
-import { setToken, getTokenToRedirect, removeTokenToRedirect, setTokenForRememberUser, getTokenForRememberUser, removeTokenForRememberUser } from '../utils/token_utils';
+import {
+    setToken, getTokenToRedirect,
+    removeTokenToRedirect,
+    setTokenForRememberUser,
+    getTokenForRememberUser,
+    removeTokenForRememberUser
+} from '../utils/token_utils';
 
 const Login = () => {
+    const { t } = useTranslation(['login'])
     const navigate = useNavigate();
     const location = useLocation();
     const [form] = Form.useForm();
@@ -42,8 +50,8 @@ const Login = () => {
             navigate(url);
         } else {
             notification.error({
-                message: 'Error',
-                description: 'Incorrect email or password',
+                message: t('Error'),
+                description: t('Incorrect_Email_Or_Password'),
             });
         }
     };
@@ -51,7 +59,7 @@ const Login = () => {
     return (
         <div className='container-login'>
             <div className='form-login'>
-                <h3 className='label-login'>LOGIN</h3>
+                <h3 className='label-login'>{t('LOGIN_Label')}</h3>
                 <Form
                     form={form}
                     layout="vertical"
@@ -59,52 +67,56 @@ const Login = () => {
                 >
                     <Form.Item
                         name="email"
-                        label="Email"
+                        label={t('Email')}
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your email!',
+                                message: t('Please_Input_Your_Email'),
                             },
                             {
                                 type: 'email',
-                                message: 'The input is not valid E-mail!',
+                                message: t('Invalid_Email'),
                             },
                         ]}
                     >
-                        <Input placeholder="Email" />
+                        <Input placeholder={t('Email')} />
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        label="Password"
+                        label={t('Password')}
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your password!',
+                                message: t('Please_Input_Your_Password'),
                             },
+                            {
+                                min: 8,
+                                message: t('Password_At_Least_8_Characters')
+                            }
                         ]}
                     >
-                        <Input.Password placeholder="Password" />
+                        <Input.Password placeholder={t('Password')} />
                     </Form.Item>
                     <Form.Item>
                         <Checkbox
                             checked={isCheck}
                             onChange={(e) => setIsCheck(e.target.checked)}
                         >
-                            Remember Me
+                            {t('Remember_Me')}
                         </Checkbox>
                     </Form.Item>
                     <Form.Item className='signin-button-container'>
                         <Space>
                             <Button type="primary" htmlType="submit" loading={loading} className='btn-login'>
-                                {loading ? 'Logging In...' : 'Login'}
+                                {loading ? t('Logging_In') : t('Login_Button')}
                             </Button>
                             <Button onClick={() => navigate('/forgot-password')} className='btn-forgot'>
-                                Forgot Password?
+                                {t('Forgot_Password')}
                             </Button>
                         </Space>
                     </Form.Item>
                     <div className='login-text'>
-                        <p>Don't have an account? <a onClick={() => navigate('/signup')}>Sign Up</a></p>
+                        <p>{t('Dont_Have_An_Account')} <a onClick={() => navigate('/signup')}>{t('Sign_Up')}</a></p>
                     </div>
                 </Form>
             </div>

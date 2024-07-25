@@ -1,0 +1,17 @@
+{
+    "LOGIN_Label": "LOGIN",
+    "Email": "Email",
+    "Password": "Password",
+    "Remember_Me": "Remember Me",
+    "Login_Button": "Login",
+    "Forgot_Password": "Forgot Password?",
+    "Dont_Have_An_Account": "Don't have an account?",
+    "Sign_Up": "Sign Up",
+    "Please_Input_Your_Email": "Please input your email!",
+    "Please_Input_Your_Password": "Please input your password!",
+    "Password_At_Least_8_Characters": "Password must be at least 8 characters!",
+    "Invalid_Email": "The input is not valid E-mail!",
+    "Logging_In": "Logging In...",
+    "Error": "Error",
+    "Incorrect_Email_Or_Password": "Incorrect email or password!"
+}

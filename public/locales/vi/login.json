@@ -1,0 +1,17 @@
+{
+    "LOGIN_Label": "Đăng Nhập Để Mua Sắm Với LEGO!",
+    "Email": "Email",
+    "Password": "Mật khẩu",
+    "Remember_Me": "Ghi nhớ tôi",
+    "Login_Button": "Đăng nhập",
+    "Forgot_Password": "Quên mật khẩu?",
+    "Dont_Have_An_Account": "Không có tài khoản?",
+    "Sign_Up": "Đăng ký",
+    "Please_Input_Your_Email": "Vui lòng nhập email của bạn!",
+    "Please_Input_Your_Password": "Vui lòng nhập mật khẩu của bạn!",
+    "Password_At_Least_8_Characters": "Mật khẩu phải có ít nhất 8 ký tự!",
+    "Invalid_Email": "Đầu vào không phải là E-mail hợp lệ!",
+    "Logging_In": "Đang đăng nhập...",
+    "Error": "Không thể đăng nhập",
+    "Incorrect_Email_Or_Password": "Email hoặc mật khẩu không đúng!"
+}

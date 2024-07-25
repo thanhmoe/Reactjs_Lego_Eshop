@@ -1,15 +1,15 @@
-// src/components/Signup.js
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Input, Select, DatePicker, Button, notification } from 'antd';
 import './signup.css';
 import { SELECTGENDER, VALIDEMAIL, REGNUMBER } from '../../utils/constants';
 import { registerUser } from '../../services/customer_services';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
 const Signup = () => {
+    const { t } = useTranslation(['signup']);
     const navigate = useNavigate();
     const [form] = Form.useForm();
 
@@ -22,12 +22,12 @@ const Signup = () => {
         if (response.success) {
             navigate('/login', { state: { email: values.email } });
             notification.success({
-                message: 'Success',
+                message: t('Success'),
                 description: response.message,
             });
         } else {
             notification.error({
-                message: 'Error',
+                message: t('Error'),
                 description: response.message,
             });
         }
@@ -36,7 +36,7 @@ const Signup = () => {
     return (
         <div className='container-signup'>
             <div className='form-signup'>
-                <h3 className='label-signup'>SIGN UP</h3>
+                <h3 className='label-signup'>{t('Sign_Up_Label')}</h3>
                 <Form
                     form={form}
                     layout="vertical"
@@ -44,47 +44,47 @@ const Signup = () => {
                 >
                     <Form.Item
                         name="email"
-                        label="Email"
+                        label={t('Email')}
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your email!',
+                                message: t('Please_Input_Your_Email'),
                             },
                             {
                                 type: 'email',
-                                message: 'The input is not valid E-mail!',
+                                message: t('Invalid_Email'),
                             },
                         ]}
                     >
-                        <Input placeholder="Email" />
+                        <Input placeholder={t('Email')} />
                     </Form.Item>
                     <Form.Item
                         name="phone_number"
-                        label="Phone Number"
+                        label={t('Phone_Number')}
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your phone number!',
+                                message: t('Please_Input_Your_Phone_Number'),
                             },
                             {
                                 pattern: REGNUMBER,
-                                message: 'The input is not valid phone number!',
+                                message: t('Invalid_Phone_Number'),
                             },
                         ]}
                     >
-                        <Input placeholder="Phone Number" />
+                        <Input placeholder={t('Phone_Number')} />
                     </Form.Item>
                     <Form.Item
                         name="gender"
-                        label="Gender"
+                        label={t('Gender')}
                         rules={[
                             {
                                 required: true,
-                                message: 'Please select your gender!',
+                                message: t('Please_Select_Your_Gender'),
                             },
                         ]}
                     >
-                        <Select placeholder="Select a gender">
+                        <Select placeholder={t('Gender')}>
                             {SELECTGENDER.map(gender => (
                                 <Option key={gender.id} value={gender.gender}>
                                     {gender.gender}
@@ -94,11 +94,11 @@ const Signup = () => {
                     </Form.Item>
                     <Form.Item
                         name="dob"
-                        label="Date of Birth"
+                        label={t('Date_Of_Birth')}
                         rules={[
                             {
                                 required: true,
-                                message: 'Please select your date of birth!',
+                                message: t('Please_Select_Your_Date_Of_Birth'),
                             },
                         ]}
                     >
@@ -106,52 +106,52 @@ const Signup = () => {
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        label="Password"
+                        label={t('Password')}
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your password!',
+                                message: t('Please_Input_Your_Password'),
                             },
                             {
                                 min: 8,
-                                message: 'Password must be at least 8 characters!',
+                                message: t('Password_At_Least_8_Characters'),
                             },
                         ]}
                     >
-                        <Input.Password placeholder="Password" />
+                        <Input.Password placeholder={t('Password')} />
                     </Form.Item>
                     <Form.Item
                         name="confirm_password"
-                        label="Confirm Password"
+                        label={t('Confirm_Password')}
                         dependencies={['password']}
                         hasFeedback
                         rules={[
                             {
                                 required: true,
-                                message: 'Please confirm your password!',
+                                message: t('Please_Confirm_Your_Password'),
                             },
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
                                     if (!value || getFieldValue('password') === value) {
                                         return Promise.resolve();
                                     }
-                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                    return Promise.reject(new Error(t('Password_Mismatch')));
                                 },
                             }),
                         ]}
                     >
-                        <Input.Password placeholder="Confirm Password" />
+                        <Input.Password placeholder={t('Confirm_Password')} />
                     </Form.Item>
                     <div className='signup-text'>
-                        <p>By signing up you agree to our <a>Terms of Service and Privacy Policy</a></p>
+                        <p>{t('By_Signing_Up_You_Agree')} <a>{t('Terms_Of_Service')}</a> {t('and')} <a>{t('Privacy_Policy')}</a></p>
                     </div>
                     <Form.Item className="signup-button-container">
                         <Button type="primary" htmlType="submit" loading={loading} className='btn-signup'>
-                            {loading ? 'Signing Up...' : 'Sign Up'}
+                            {loading ? t('Signing_Up') : t('Sign_Up_Button')}
                         </Button>
                     </Form.Item>
                     <div className='signup-text'>
-                        <p>Already have an account? <a onClick={() => navigate('/login')}>Sign In</a></p>
+                        <p>{t('Already_Have_An_Account')} <a onClick={() => navigate('/login')}>{t('Sign_In')}</a></p>
                     </div>
                 </Form>
             </div>
