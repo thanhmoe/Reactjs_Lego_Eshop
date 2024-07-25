@@ -2,7 +2,7 @@ import { axios_instance } from "./axios_config";
 const API_PATH = '/products'
 
 export const fetchProductsRefactor = async (params) => {
-    const { page, limit, textQuery, sortBy, sortOrder, product, category } = params
+    const { page, limit, textQuery, sortBy, sortOrder, product, categories } = params
     try {
         // required params
         let url = `${API_PATH}?page=${page}&limit=${limit}`
@@ -14,8 +14,8 @@ export const fetchProductsRefactor = async (params) => {
         if (product) {
             url += `&product=${product}`
         }
-        if (category) {
-            url += `&category=${category}`;
+        if (Array.isArray(categories) && categories.length > 0) {
+            url += `&categories=${categories.join(',')}`;
         }
         if (textQuery) {
             url += `&textQuery=${textQuery}`
