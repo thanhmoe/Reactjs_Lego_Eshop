@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OrderList from "./component/ordersList";
-import "./orders.css"
+import "./orders.css";
 import { Button, Result, Tabs } from "antd";
 import { ShoppingOutlined } from '@ant-design/icons';
 import { getOrders } from "../../services/orders";
 import { getToken } from "../../utils/token_utils";
+import { useTranslation } from 'react-i18next';
 
 const Orders = () => {
-    const [page, setPage] = useState(1)
-    const [itemsPerPage, setItemsPerPage] = useState(20)
+    const { t } = useTranslation(['order']);
+    const [page, setPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
     const [orders, setOrders] = useState([]);
     const [activeTab, setActiveTab] = useState('1');
-    const [orderStatus, setOrdersStatus] = useState('')
-    const token = getToken()
-    const naigate = useNavigate()
+    const [orderStatus, setOrdersStatus] = useState('');
+    const token = getToken();
+    const navigate = useNavigate();
 
     const fetchOrders = async (orderStatus) => {
         try {
@@ -23,7 +25,7 @@ const Orders = () => {
                 setOrders(res.orders);
             }
         } catch (error) {
-            error(error.message);
+            console.error(error.message);
         }
     };
 
@@ -31,13 +33,13 @@ const Orders = () => {
         if (token) {
             fetchOrders(orderStatus);
         }
-    }, []);
+    }, [token, orderStatus]);
 
     const onChange = (key) => {
-        const status = getStatusFromTabKey(key)
-        setActiveTab(key)
-        setOrdersStatus(status)
-        fetchOrders(status)
+        const status = getStatusFromTabKey(key);
+        setActiveTab(key);
+        setOrdersStatus(status);
+        fetchOrders(status);
     };
 
     const getStatusFromTabKey = (key) => {
@@ -60,42 +62,44 @@ const Orders = () => {
     const items = [
         {
             key: '1',
-            label: 'Your orders',
+            label: t('Your_Orders'),
             children: <OrderList orders={orders} />,
         },
         {
             key: '2',
-            label: 'Pending',
+            label: t('Pending'),
             children: <OrderList orders={orders} />,
         },
         {
             key: '3',
-            label: 'Shipping',
+            label: t('Shipping'),
             children: <OrderList orders={orders} />,
         },
         {
             key: '4',
-            label: 'Delivered',
+            label: t('Delivered'),
             children: <OrderList orders={orders} />,
         },
         {
             key: '5',
-            label: 'Cancelled',
+            label: t('Cancelled'),
             children: <OrderList orders={orders} />,
         },
     ];
 
     return (
         <>
-            {token ? <Tabs type="card" size="large"
-                style={{ width: '800px' }}
-                defaultActiveKey="1" items={items} onChange={onChange} />
-                :
+            {token ? (
+                <Tabs type="card" size="large"
+                    style={{ width: '800px' }}
+                    defaultActiveKey="1" items={items} onChange={onChange} />
+            ) : (
                 <Result
                     icon={<ShoppingOutlined style={{ color: '#484848' }} />}
-                    title="Login to see what's in your cart!"
-                    extra={<Button onClick={() => naigate('/login')} type="primary">Login</Button>}
-                />}
+                    title={t('Login_To_View_Orders')}
+                    extra={<Button onClick={() => navigate('/login')} type="primary">{t('Login_Button')}</Button>}
+                />
+            )}
         </>
     );
 };

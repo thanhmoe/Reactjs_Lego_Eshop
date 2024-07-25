@@ -1,0 +1,24 @@
+{
+    "Your_Orders": "Your orders",
+    "Pending": "Pending",
+    "Shipping": "Shipping",
+    "Delivered": "Delivered",
+    "Cancelled": "Cancelled",
+    "Login_To_View_Orders": "Login to see your orders!",
+    "Login_Button": "Login",
+
+    "Order": "Order",
+    "Customer_Name": "Customer Name",
+    "Address": "Address",
+    "Phone_Number": "Phone Number",
+    "Total_Amount": "Total Amount",
+    "Note": "Note",
+    "Status": "Status",
+    "Order_Date": "Order Date",
+    "Quantity": "Quantity",
+    "Price": "Price",
+    "Status_pending": "Pending",
+    "Status_shipping": "Shipping",
+    "Status_delivered": "Delivered",
+    "Status_cancel": "Cancelled"
+}

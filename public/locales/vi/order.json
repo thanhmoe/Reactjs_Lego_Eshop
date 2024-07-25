@@ -1,0 +1,24 @@
+{
+    "Your_Orders": "Đơn hàng của bạn",
+    "Pending": "Đang chờ",
+    "Shipping": "Đang giao",
+    "Delivered": "Đã giao",
+    "Cancelled": "Đã hủy",
+    "Login_To_View_Orders": "Đăng nhập để xem đơn hàng của bạn!",
+    "Login_Button": "Đăng nhập",
+
+    "Order": "Đơn hàng",
+    "Customer_Name": "Tên khách hàng",
+    "Address": "Địa chỉ",
+    "Phone_Number": "Số điện thoại",
+    "Total_Amount": "Tổng số tiền",
+    "Note": "Ghi chú",
+    "Status": "Trạng thái",
+    "Order_Date": "Ngày đặt hàng",
+    "Quantity": "Số lượng",
+    "Price": "Giá",
+    "Status_pending": "Đang chờ",
+    "Status_shipping": "Đang giao",
+    "Status_delivered": "Đã giao",
+    "Status_cancel": "Đã hủy"
+}
