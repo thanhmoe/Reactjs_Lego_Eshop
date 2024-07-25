@@ -231,7 +231,12 @@ const CartComponent = () => {
             notify(error.message);
         }
     };
-
+    const handleOpenChange = (open) => {
+        if (!open) {
+            setIsConfirmDeleteVisible(false);
+            setConfirmDeleteItemId(null);
+        }
+    };
     useEffect(() => {
         getProducts();
         fetchProvinces();
@@ -273,6 +278,7 @@ const CartComponent = () => {
                                             <Popconfirm
                                                 title={t('Remove_Product_Confirmation_Title')}
                                                 open={isConfirmDeleteVisible && confirmDeleteItemId === item.id}
+                                                onOpenChange={handleOpenChange}
                                                 onConfirm={confirmDelete}
                                                 onCancel={cancelDelete}
                                                 okText={t('Yes_Btn')}
