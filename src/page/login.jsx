@@ -40,7 +40,7 @@ const Login = () => {
         setLoading(false);
         if (response.success) {
             setToken(response.data.auth_token);
-            const url = getTokenToRedirect();
+            const url = getTokenToRedirect() || '/';
             removeTokenToRedirect();
             if (isCheck) {
                 setTokenForRememberUser(values.email);

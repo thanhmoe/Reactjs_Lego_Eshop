@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
+
 import OrderList from "./component/ordersList";
+
 import "./orders.css";
 import { Button, Result, Tabs } from "antd";
 import { ShoppingOutlined } from '@ant-design/icons';
+
 import { getOrders } from "../../services/orders";
-import { getToken } from "../../utils/token_utils";
+
+import { getToken, setTokenToRedirect } from "../../utils/token_utils";
+
 import { useTranslation } from 'react-i18next';
 
 const Orders = () => {
@@ -87,6 +93,11 @@ const Orders = () => {
         },
     ];
 
+    const handleLoginRedirect = () => {
+        setTokenToRedirect()
+        navigate('/login')
+    }
+
     return (
         <>
             {token ? (
@@ -97,7 +108,7 @@ const Orders = () => {
                 <Result
                     icon={<ShoppingOutlined style={{ color: '#484848' }} />}
                     title={t('Login_To_View_Orders')}
-                    extra={<Button onClick={() => navigate('/login')} type="primary">{t('Login_Button')}</Button>}
+                    extra={<Button onClick={handleLoginRedirect} type="primary">{t('Login_Button')}</Button>}
                 />
             )}
         </>
