@@ -46,7 +46,7 @@ const topSellingProducts = () => {
                             />
                             <h3 className="product-name">{product.name}</h3>
                             <p className="product-price">${product.price}</p>
-                            <p className='total-sold-label'>Total sold this moth: {product.total_units_sold}</p>
+                            <p className='total-sold-label'>{t('Total_sold_this_month')}: {product.total_units_sold}</p>
                         </div>
                     )) : null}
             </div>
