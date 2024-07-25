@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Form, Select, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { REGNUMBER } from '../../../utils/constants';
 
 const { Option } = Select;
 
@@ -10,6 +11,13 @@ const AddAddressModal = ({
 }) => {
     const [form] = Form.useForm();
     const { t } = useTranslation('cart');
+
+    const handlePhoneNumberChange = (e) => {
+        const value = e.target.value;
+        const numericValue = value.replace(/\D/g, '');
+        form.setFieldsValue({ phone_number: numericValue });
+        onInputChange('phone_number', numericValue);
+    };
 
     const handleOk = () => {
         form.validateFields()
@@ -33,7 +41,9 @@ const AddAddressModal = ({
                 <Form.Item
                     label={t('Name_Label')}
                     name="name"
-                    rules={[{ required: true, message: t('Name_Required_Message') }]}
+                    rules={[
+                        { required: true, message: t('Name_Required_Message') }
+                    ]}
                 >
                     <Input
                         value={newAddress.name}
@@ -43,11 +53,13 @@ const AddAddressModal = ({
                 <Form.Item
                     label={t('Phone_Number_Label')}
                     name="phone_number"
-                    rules={[{ required: true, message: t('Phone_Number_Required_Message') }]}
+                    rules={[{ required: true, message: t('Phone_Number_Required_Message') },
+                    { pattern: REGNUMBER, message: t('Invalid_Phone_Number') }
+                    ]}
                 >
                     <Input
                         value={newAddress.phone_number}
-                        onChange={(e) => onInputChange('phone_number', e.target.value)}
+                        onChange={handlePhoneNumberChange}
                     />
                 </Form.Item>
                 <Form.Item

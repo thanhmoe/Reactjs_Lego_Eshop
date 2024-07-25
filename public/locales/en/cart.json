@@ -35,6 +35,7 @@
     "Name_Required_Message": "Please enter your name",
     "Phone_Number_Label": "Phone Number",
     "Phone_Number_Required_Message": "Please enter your phone number",
+    "Invalid_Phone_Number": "The input is not valid phone number!",
     "Province_Label": "Province",
     "Province_Required_Message": "Please select a province",
     "District_Label": "District",

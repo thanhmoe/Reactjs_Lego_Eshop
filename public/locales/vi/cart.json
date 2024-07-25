@@ -35,6 +35,7 @@
     "Name_Required_Message": "Vui lòng nhập tên của bạn",
     "Phone_Number_Label": "Số Điện Thoại",
     "Phone_Number_Required_Message": "Vui lòng nhập số điện thoại của bạn",
+    "Invalid_Phone_Number": "Đầu vào không phải là số điện thoại hợp lệ!",
     "Province_Label": "Tỉnh/Thành phố",
     "Province_Required_Message": "Vui lòng chọn tỉnh/thành phố",
     "District_Label": "Quận/Huyện",
