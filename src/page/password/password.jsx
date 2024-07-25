@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { requestRecoverPassword, sendVerfyOTP, resetPassword } from "../../services/account_services";
-
 import { Form, Input, Button, message, Space, Result } from "antd";
+import { useTranslation } from 'react-i18next';
 import Logo from '../../assets/icons/nintendo.svg';
 import "./password.css";
 
 export default function PasswordRecover() {
     const navigate = useNavigate();
-    const [step, setStep] = useState(4);
+    const [step, setStep] = useState(1);
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [resendOtpTimeout, setResendOtpTimeout] = useState(0);
     const [isLoading, setIsLoading] = useState(false)
+    const { t } = useTranslation('forgot_password');
 
     useEffect(() => {
         let timer;
@@ -36,10 +35,10 @@ export default function PasswordRecover() {
         setIsLoading(false)
         if (response.success) {
             setStep(2);
-            message.success('OTP sent to your email');
+            message.success(t('otp_sent_success'));
             setResendOtpTimeout(60)
         } else {
-            message.error('Failed to send OTP');
+            message.error(t('otp_sent_failure'));
         }
     };
 
@@ -53,9 +52,9 @@ export default function PasswordRecover() {
         setIsLoading(false)
         if (response.success) {
             setStep(3);
-            message.success('OTP verified');
+            message.success(t('otp_verified'));
         } else {
-            message.error('Invalid OTP');
+            message.error(t('otp_invalid'));
         }
     };
 
@@ -70,17 +69,17 @@ export default function PasswordRecover() {
         if (response.success) {
             setStep(4);
         } else {
-            message.error('Failed to reset password');
+            message.error(t('password_reset_failure'));
         }
     };
 
     const handleResendOtp = async () => {
         const response = await requestRecoverPassword({ email: email });
         if (response.success) {
-            message.success('OTP resent to your email');
+            message.success(t('otp_resent_success'));
             setResendOtpTimeout(60);
         } else {
-            message.error('Failed to resend OTP');
+            message.error(t('otp_resent_failure'));
         }
     };
 
@@ -89,16 +88,15 @@ export default function PasswordRecover() {
             if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
             }
-            return Promise.reject(new Error('The two passwords do not match!'));
+            return Promise.reject(new Error(t('password_mismatch')));
         },
     });
 
     const FirstPageInfo = () => {
         return (
             <div>
-                <h2>Reset password</h2>
-                <p className="password-label">Please enter the e-mail address registered to your account, and then select Submit.
-                    <br /> An e-mail will be sent to that address containing a OTP to reset your password.</p>
+                <h2>{t('reset_password_title')}</h2>
+                <p className="password-label">{t('reset_password_instructions')}</p>
             </div>
         )
     }
@@ -111,7 +109,7 @@ export default function PasswordRecover() {
                         <img className="img-logo" src={Logo} alt="logo" />
                     </div>
                 </div>
-                <p className="text-header">Nintendo Account</p>
+                <p className="text-header">{t('nintendo_account')}</p>
             </header>
             <div className="password-container">
                 {step === 1 && (
@@ -119,15 +117,18 @@ export default function PasswordRecover() {
                         <FirstPageInfo />
                         <Form className="form-pass" layout="vertical" onFinish={handleEmailSubmit}>
                             <Form.Item
-                                label="Email"
+                                label={t('email_label')}
                                 name="email"
-                                rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Please enter a valid email!' }]}
+                                rules={[
+                                    { required: true, message: t('email_required_message') },
+                                    { type: 'email', message: t('email_invalid_message') }
+                                ]}
                             >
                                 <Input />
                             </Form.Item>
                             <Form.Item>
                                 <Button loading={isLoading} type="primary" htmlType="submit">
-                                    Submit
+                                    {t('submit_button')}
                                 </Button>
                             </Form.Item>
                         </Form>
@@ -137,61 +138,58 @@ export default function PasswordRecover() {
                     <>
                         <Result
                             status="info"
-                            title="Check your Email!"
+                            title={t('check_your_email_title')}
                             subTitle={
                                 <div>
-                                    <p>We've sent a OTP to your email, please check your inbox at</p>
+                                    <p>{t('otp_sent_message')}</p>
                                     <p style={{ fontWeight: 'bold' }}>{email}</p>
                                 </div>
                             }
                         />
                         <Form className="form-pass-otp" layout="vertical" onFinish={handleOtpSubmit}>
                             <Form.Item
-                                label="OTP"
+                                label={t('otp_label')}
                                 name="otp"
-                                rules={[{ required: true, message: 'Please input the OTP sent to your email!' }]}
+                                rules={[{ required: true, message: t('otp_required_message') }]}
                             >
-                                <Input.OTP />
+                                <Input />
                             </Form.Item>
                             <Form.Item>
                                 <Space>
                                     <Button loading={isLoading} type="primary" htmlType="submit">
-                                        Submit
+                                        {t('submit_button')}
                                     </Button>
                                     <Button
                                         onClick={handleResendOtp}
                                         disabled={resendOtpTimeout > 0}
-                                    >{resendOtpTimeout > 0 ? `Resend OTP in ${resendOtpTimeout}s` : 'Resend OTP'}
+                                    >
+                                        {resendOtpTimeout > 0 ? `${t('resend_otp_in')} ${resendOtpTimeout}s` : t('resend_otp_button')}
                                     </Button>
                                 </Space>
                             </Form.Item>
                         </Form>
-                    </>)}
+                    </>
+                )}
                 {step === 3 && (
                     <>
-                        <p className="password-label">Set your new password!</p>
+                        <p className="password-label">{t('set_new_password_message')}</p>
                         <Form className="form-pass" layout="vertical" onFinish={handlePasswordSubmit}>
                             <Form.Item
-                                label="New Password"
+                                label={t('new_password_label')}
                                 name="password"
                                 rules={[
-                                    {
-                                        required: true, message: 'Please input your new password!'
-                                    },
-                                    {
-                                        min: 8,
-                                        message: 'Password must be at least 8 characters!'
-                                    }
+                                    { required: true, message: t('new_password_required_message') },
+                                    { min: 8, message: t('password_length_message') }
                                 ]}
                             >
                                 <Input.Password />
                             </Form.Item>
                             <Form.Item
-                                label="Confirm Password"
+                                label={t('confirm_password_label')}
                                 name="confirmPassword"
                                 dependencies={['password']}
                                 rules={[
-                                    { required: true, message: 'Please confirm your new password!' },
+                                    { required: true, message: t('confirm_password_required_message') },
                                     validatePasswords
                                 ]}
                             >
@@ -199,7 +197,7 @@ export default function PasswordRecover() {
                             </Form.Item>
                             <Form.Item>
                                 <Button loading={isLoading} type="primary" htmlType="submit">
-                                    Submit
+                                    {t('submit_button')}
                                 </Button>
                             </Form.Item>
                         </Form>
@@ -209,10 +207,10 @@ export default function PasswordRecover() {
                     <>
                         <Result
                             status="success"
-                            title="Your Password have been reset!"
+                            title={t('password_reset_success_title')}
                             extra={[
                                 <Button onClick={() => navigate('/login')} type="primary">
-                                    Go To Login
+                                    {t('go_to_login_button')}
                                 </Button>
                             ]}
                         />
