@@ -19,18 +19,18 @@ import {
     selectTotalItems,
 } from "../redux/slice/products/productsSlice";
 
-const ProductComponent = ({ searchQuery, sortOption }) => {
+const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage }) => {
     const { t } = useTranslation(['product'])
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const productsStatus = useSelector(selectLoadingState);
     const products = useSelector((state) => state.productsSlice.items);
     const categories = useSelector((state) => state.productsSlice.categories) || [];
     const totalItems = useSelector(selectTotalItems);
 
-    const [itemsPerPage, setItemsPerPage] = useState(12);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
 
     const getListProduct = async () => {
         dispatch(
