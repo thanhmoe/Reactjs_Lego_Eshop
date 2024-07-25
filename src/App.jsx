@@ -28,12 +28,12 @@ function App() {
         <div className='top-selling-products-container'>
           <TopSellingProducts />
         </div>
-        <h2 className='news-label'>{t('Lego_News')}</h2>
+        {/* <h2 className='news-label'>{t('Lego_News')}</h2>
         <div className='container-news'>
           <div>
             <ArticlesCarousel />
           </div>
-        </div>
+        </div> */}
         <FloatButton.BackTop />
       </div >
     </>

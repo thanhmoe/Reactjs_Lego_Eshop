@@ -56,9 +56,9 @@ export default function Header() {
   const headerItems = [
     { name: <><HomeFilled /> {t('Home')}</>, path: '/' },
     { name: <><ProductFilled /> {t('Products')}</>, path: '/products' },
-    { name: <><PhoneFilled /> {t('Contact')}</>, path: '/contact' },
-    { name: <><ReadFilled /> {t('News')}</>, path: '/news' },
-    { name: <><QuestionCircleFilled /> {t('About Us')}</>, path: '/about' },
+    // { name: <><PhoneFilled /> {t('Contact')}</>, path: '/contact' },
+    // { name: <><ReadFilled /> {t('News')}</>, path: '/news' },
+    // { name: <><QuestionCircleFilled /> {t('About Us')}</>, path: '/about' },
   ];
 
   const userMenuItems = [
