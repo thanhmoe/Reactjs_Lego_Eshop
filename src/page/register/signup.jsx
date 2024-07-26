@@ -23,12 +23,12 @@ const Signup = () => {
             navigate('/login', { state: { email: values.email } });
             notification.success({
                 message: t('Success'),
-                description: response.message,
+                description: t(`Signup_Noti_${response.message}`),
             });
         } else {
             notification.error({
                 message: t('Error'),
-                description: response.message,
+                description: t(`Signup_Noti_${response.message}`),
             });
         }
     };

@@ -40,7 +40,7 @@ export default function Header() {
     clearToken();
     setOpen(false);
     navigate('/login');
-    notify('info', `You've been logged out!`);
+    notify('info', t('Log_Out_Success_noti'));
   }
 
   const fetchData = async () => {
