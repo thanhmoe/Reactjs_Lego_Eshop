@@ -26,5 +26,11 @@
     "Sign_In": "Đăng Nhập",
     "Error": "Lỗi Đăng Ký",
     "Success": "Thành công",
-    "Signup_Success_Noti": "Đăng ký tài khoản thành công, hãy đăng nhập bằng tài khoản của bạn!"
+    "Signup_Success_Noti": "Đăng ký tài khoản thành công, hãy đăng nhập bằng tài khoản của bạn!",
+
+    "Signup_Noti_Duplicated email!": "Email đã được sử dụng!",
+    "Signup_Noti_Duplicated phone number!": "Số điện thoại đã được sử dụng",
+    "Signup_Noti_Invalid phone number!": "Số điện thoại không hợp lệ!",
+    "Signup_Noti_New account created successfully, login with the same credential!": "Đăng ký tài khoản mới thành công, hãy đăng nhập với thông tin của bạn!"
+
 }

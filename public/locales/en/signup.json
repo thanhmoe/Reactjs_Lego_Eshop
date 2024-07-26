@@ -26,5 +26,11 @@
     "Sign_In": "Sign In",
     "Error": "Error",
     "Success": "Success",
-    "Signup_Success_Noti": "Signup successfully, now login!"
+    "Signup_Success_Noti": "Signup successfully, now login!",
+
+    "Signup_Noti_Duplicated email!": "Duplicated email!",
+    "Signup_Noti_Duplicated phone number!": "Duplicated phone number!",
+    "Signup_Noti_Invalid phone number!": "Invalid phone number!",
+    "Signup_Noti_New account created successfully, login with the same credential!": "New account created successfully, login with the same credential!"
+
 }
