@@ -51,7 +51,7 @@ export default function Products() {
                         onChange={handleSearchChange}
                     />
                     <div>
-                        <Select defaultValue={t(FILTER_PRODUCTS_OPTIONS[0].name)} style={{ width: 200 }} onChange={handleSortChange}>
+                        <Select placeholder={t('Sort_Option')} style={{ width: 200 }} onChange={handleSortChange}>
                             {FILTER_PRODUCTS_OPTIONS.map(option => (
                                 <Option key={option.id} value={option.id}>{t(option.name)}</Option>
                             ))}
