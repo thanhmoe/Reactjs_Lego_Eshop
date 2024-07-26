@@ -45,7 +45,6 @@ const Orders = () => {
 
     const fetchMoreOrders = () => {
         const nextPage = page + 1;
-        setPage(nextPage);
         fetchOrders(orderStatus, nextPage);
     };
 
