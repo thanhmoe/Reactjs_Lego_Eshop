@@ -51,12 +51,13 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
 
     const handleCategoryChange = (e) => {
         const categoryId = e.target.value;
-        setSelectedCategories((prevSelectedCategories) =>
-            prevSelectedCategories.includes(categoryId)
-                ? prevSelectedCategories.filter(id => id !== categoryId)
-                : [...prevSelectedCategories, categoryId]
-        );
+        const updatedCategories = selectedCategories.includes(categoryId)
+            ? selectedCategories.filter(id => id !== categoryId)
+            : [...selectedCategories, categoryId];
+
+        setSelectedCategories(updatedCategories);
         setCurrentPage(1);
+        saveSession('selectedCategories', updatedCategories);
     };
 
     const linkToDetail = (id) => {
