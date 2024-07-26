@@ -1,6 +1,7 @@
 {
     "Your_Orders": "Your orders",
     "Pending": "Pending",
+    "Processing": "Processing",
     "Shipping": "Shipping",
     "Delivered": "Delivered",
     "Cancelled": "Cancelled",
@@ -18,7 +19,10 @@
     "Quantity": "Quantity",
     "Price": "Price",
     "Status_pending": "Pending",
+    "Status_processing": "Processing",
     "Status_shipping": "Shipping",
     "Status_delivered": "Delivered",
-    "Status_cancel": "Cancelled"
+    "Status_cancel": "Cancelled",
+    "Loading" : "Loading...",
+    "No_More_Orders_Display": "No more orders to display!"
 }

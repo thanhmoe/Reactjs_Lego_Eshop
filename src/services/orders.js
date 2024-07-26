@@ -14,7 +14,10 @@ export const createOrders = async (orderData) => {
 export const getOrders = async (param) => {
     const { page, limit, sortStatus } = param
     try {
-        let url = `${API_PATH}?page=${page}&limit=${limit}&sortStatus=${sortStatus}`
+        let url = `${API_PATH}?page=${page}&limit=${limit}`
+        if (sortStatus) {
+            url += `&sortStatus=${sortStatus}`
+        }
         const response = await axios_instance.get(url);
         return response.data;
     } catch (error) {
