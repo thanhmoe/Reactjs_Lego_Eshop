@@ -40,7 +40,7 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
                 textQuery: searchQuery,
                 sortBy: FILTER_PRODUCTS_OPTIONS[sortOption].sortBy,
                 sortOrder: FILTER_PRODUCTS_OPTIONS[sortOption].sortOrder,
-                category: selectedCategories // Send the array of selected categories
+                categories: selectedCategories // Send the array of selected categories
             })
         );
     };
