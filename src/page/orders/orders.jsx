@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteOrderList from "./component/InfiniteOrdersList";
 import "./orders.css";
-import { Button, Result, Tabs } from "antd";
+import { Button, Result, Tabs, Skeleton } from "antd";
 import { ShoppingOutlined } from '@ant-design/icons';
 import { getOrders } from "../../services/orders";
 import { getToken, setTokenToRedirect } from "../../utils/token_utils";
@@ -45,6 +45,7 @@ const Orders = () => {
 
     const fetchMoreOrders = () => {
         const nextPage = page + 1;
+        setPage(nextPage); // Update the page state
         fetchOrders(orderStatus, nextPage);
     };
 
@@ -54,9 +55,9 @@ const Orders = () => {
         setPage(1); // Reset page to 1
         setOrdersStatus(status);
         setIsLoading(true);
-        await fetchOrders(status, page); // Fetch new orders
-        setIsLoading(false);
+        await fetchOrders(status, 1); // Fetch new orders
         setActiveTab(key); // Change active tab after fetching
+        setIsLoading(false);
     };
 
     const getStatusFromTabKey = (key) => {
@@ -78,72 +79,50 @@ const Orders = () => {
         }
     };
 
+    const renderTabContent = () => {
+        if (isLoading && orders.length === 0) {
+            return <Skeleton active />;
+        }
+
+        return (
+            <InfiniteOrderList
+                orders={orders}
+                fetchMoreOrders={fetchMoreOrders}
+                hasMore={orders.length < totalOrders}
+            />
+        );
+    };
+
     const items = [
         {
             key: '1',
             label: t('Your_Orders'),
-            children: (
-                <InfiniteOrderList
-                    orders={orders}
-                    fetchMoreOrders={fetchMoreOrders}
-                    hasMore={orders.length < totalOrders}
-                />
-            ),
+            children: renderTabContent(),
         },
         {
             key: '2',
             label: t('Pending'),
-            children: (
-                <InfiniteOrderList
-                    orders={orders}
-                    fetchMoreOrders={fetchMoreOrders}
-                    hasMore={orders.length < totalOrders}
-                />
-            ),
+            children: renderTabContent(),
         },
         {
             key: '3',
             label: t('Processing'),
-            children: (
-                <InfiniteOrderList
-                    orders={orders}
-                    fetchMoreOrders={fetchMoreOrders}
-                    hasMore={orders.length < totalOrders}
-                />
-            ),
+            children: renderTabContent(),
         },
         {
             key: '4',
             label: t('Shipping'),
-            children: (
-                <InfiniteOrderList
-                    orders={orders}
-                    fetchMoreOrders={fetchMoreOrders}
-                    hasMore={orders.length < totalOrders}
-                />
-            ),
+            children: renderTabContent(),
         },
         {
             key: '5',
             label: t('Delivered'),
-            children: (
-                <InfiniteOrderList
-                    orders={orders}
-                    fetchMoreOrders={fetchMoreOrders}
-                    hasMore={orders.length < totalOrders}
-                />
-            ),
+            children: renderTabContent(),
         },
         {
             key: '6',
             label: t('Cancelled'),
-            children: (
-                <InfiniteOrderList
-                    orders={orders}
-                    fetchMoreOrders={fetchMoreOrders}
-                    hasMore={orders.length < totalOrders}
-                />
-            ),
+            children: renderTabContent(),
         },
     ];
 
@@ -162,6 +141,7 @@ const Orders = () => {
                     style={{ width: '800px' }}
                     defaultActiveKey="1"
                     items={items}
+                    activeKey={activeTab} // Set active tab
                     onChange={onChange}
                 />
             ) : (
