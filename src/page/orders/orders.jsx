@@ -7,6 +7,7 @@ import { ShoppingOutlined } from '@ant-design/icons';
 import { getOrders } from "../../services/orders";
 import { getToken, setTokenToRedirect } from "../../utils/token_utils";
 import { useTranslation } from 'react-i18next';
+import LoadingModal from "../../modal/loadingModal";
 
 const Orders = () => {
     const { t } = useTranslation(['order']);
@@ -16,10 +17,12 @@ const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [activeTab, setActiveTab] = useState('1');
     const [orderStatus, setOrdersStatus] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const token = getToken();
     const navigate = useNavigate();
 
     const fetchOrders = async (orderStatus, page) => {
+        setIsLoading(true); // Show loading modal
         try {
             const res = await getOrders({ page, limit: itemsPerPage, sortStatus: orderStatus });
             if (res.success) {
@@ -28,6 +31,8 @@ const Orders = () => {
             }
         } catch (error) {
             console.error(error.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -36,7 +41,7 @@ const Orders = () => {
             setOrders([]); // Reset orders on status change
             fetchOrders(orderStatus, 1);
         }
-    }, [token, orderStatus]);
+    }, [token]);
 
     const fetchMoreOrders = () => {
         const nextPage = page + 1;
@@ -44,11 +49,15 @@ const Orders = () => {
         fetchOrders(orderStatus, nextPage);
     };
 
-    const onChange = (key) => {
+    const onChange = async (key) => {
         const status = getStatusFromTabKey(key);
-        setActiveTab(key);
-        setOrdersStatus(status);
+        setOrders([]); // Clear current orders
         setPage(1); // Reset page to 1
+        setOrdersStatus(status);
+        setIsLoading(true);
+        await fetchOrders(status, page); // Fetch new orders
+        setIsLoading(false);
+        setActiveTab(key); // Change active tab after fetching
     };
 
     const getStatusFromTabKey = (key) => {
@@ -146,6 +155,7 @@ const Orders = () => {
 
     return (
         <>
+            {isLoading && <LoadingModal />}
             {token ? (
                 <Tabs
                     type="card"
