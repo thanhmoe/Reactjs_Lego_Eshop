@@ -4,6 +4,7 @@
     "Phone_Number": "Phone Number",
     "Gender": "Gender",
     "Date_Of_Birth": "Date of Birth",
+    "Select_Date" :"Select Date (DD/MM/YYYY)",
     "Password": "Password",
     "Confirm_Password": "Confirm Password",
     "Please_Input_Your_Email": "Please input your email!",

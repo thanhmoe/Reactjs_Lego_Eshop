@@ -4,6 +4,7 @@
     "Phone_Number": "Số điện thoại",
     "Gender": "Giới tính",
     "Date_Of_Birth": "Ngày sinh",
+    "Select_Date" :"Chọn ngày sinh (DD/MM/YYYY)",
     "Password": "Mật khẩu",
     "Confirm_Password": "Xác nhận mật khẩu",
     "Please_Input_Your_Email": "Vui lòng nhập email của bạn!",
