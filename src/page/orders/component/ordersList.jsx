@@ -3,7 +3,7 @@ import { Button, Card, Collapse, List, Modal } from 'antd';
 import { STATUSCOLORS } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 
-const OrderList = ({ orders }) => {
+const OrderList = ({ orders, cancelOrder }) => {
     const { t } = useTranslation(['order']);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
@@ -14,7 +14,7 @@ const OrderList = ({ orders }) => {
     };
 
     const handleCancelOrder = () => {
-        // cancel order logic here
+        cancelOrder(selectedOrder.order_id);
         setIsModalVisible(false);
     };
 
@@ -87,7 +87,7 @@ const OrderList = ({ orders }) => {
             />
             <Modal
                 title={t('Confirm_Cancel_Order')}
-                visible={isModalVisible}
+                open={isModalVisible}
                 onOk={handleCancelOrder}
                 onCancel={handleCancelModal}
                 okText={t('Btn_Yes')}

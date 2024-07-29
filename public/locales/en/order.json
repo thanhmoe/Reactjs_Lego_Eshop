@@ -30,5 +30,7 @@
     "Confirm_Cancel_Order" : "Confirm Cancel Order!",
     "Are_you_sure_you_want_to_cancel_order": "Are you sure want to cancel order: ",
     "Btn_Yes" : "Yes",
-    "Btn_No" : "No"
+    "Btn_No" : "No",
+    "Cancel_Order_Successful": "Cancel Order Successful",
+    "Cancel_Order_Fail": "Fail to cancel order"
 }

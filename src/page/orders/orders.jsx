@@ -4,10 +4,11 @@ import InfiniteOrderList from "./component/InfiniteOrdersList";
 import "./orders.css";
 import { Button, Result, Tabs, Skeleton } from "antd";
 import { ShoppingOutlined } from '@ant-design/icons';
-import { getOrders } from "../../services/orders";
+import { getOrders, cancelOrder } from "../../services/orders";
 import { getToken, setTokenToRedirect } from "../../utils/token_utils";
 import { useTranslation } from 'react-i18next';
 import LoadingModal from "../../modal/loadingModal";
+import { notify } from "../../main";
 
 const Orders = () => {
     const { t } = useTranslation(['order']);
@@ -79,20 +80,39 @@ const Orders = () => {
         }
     };
 
+    const handleCancelOrder = async (orderId) => {
+        try {
+            const response = await cancelOrder(orderId);
+            if (response.success) {
+                notify('success', t('Cancel_Order_Successful'))
+                setOrders([]);
+                fetchOrders(orderStatus, 1);
+            } else {
+                notify('error', t(`Cancel_Order_Fail`))
+            }
+        } catch (error) {
+            return error
+        }
+    };
+
+    const handleLoginRedirect = () => {
+        setTokenToRedirect();
+        navigate('/login');
+    };
+
     const renderTabContent = () => {
         if (isLoading && orders.length === 0) {
             return <Skeleton active />;
         }
-
         return (
             <InfiniteOrderList
                 orders={orders}
                 fetchMoreOrders={fetchMoreOrders}
                 hasMore={orders.length < totalOrders}
+                cancelOrder={handleCancelOrder}
             />
         );
     };
-
     const items = [
         {
             key: '1',
@@ -125,11 +145,6 @@ const Orders = () => {
             children: renderTabContent(),
         },
     ];
-
-    const handleLoginRedirect = () => {
-        setTokenToRedirect();
-        navigate('/login');
-    };
 
     return (
         <>

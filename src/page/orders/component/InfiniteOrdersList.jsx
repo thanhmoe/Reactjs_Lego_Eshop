@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import OrderList from "./ordersList"
 import { useTranslation } from "react-i18next";
 
-const InfiniteOrderList = ({ orders, fetchMoreOrders, hasMore }) => {
+const InfiniteOrderList = ({ orders, fetchMoreOrders, hasMore, cancelOrder }) => {
     const { t } = useTranslation(['order'])
     return (
         <InfiniteScroll
@@ -13,7 +13,7 @@ const InfiniteOrderList = ({ orders, fetchMoreOrders, hasMore }) => {
             loader={<h4>{t('Loading')}</h4>}
             endMessage={<p>{t('No_More_Orders_Display')}</p>}
         >
-            <OrderList orders={orders} />
+            <OrderList orders={orders} cancelOrder={cancelOrder} />
         </InfiniteScroll>
     );
 };

@@ -24,3 +24,12 @@ export const getOrders = async (param) => {
         return error.response.data;
     }
 };
+
+export const cancelOrder = async (orderId) => {
+    try {
+        const response = await axios_instance.patch(`${API_PATH}/cancel/${orderId}`);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
