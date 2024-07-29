@@ -24,5 +24,11 @@
     "Status_delivered": "Delivered",
     "Status_cancel": "Cancelled",
     "Loading" : "Loading...",
-    "No_More_Orders_Display": "No more orders to display!"
+    "No_More_Orders_Display": "No more orders to display!",
+    "More_Products":"More Products...",
+    "Cancel_Ordered_button":"Cancel order",
+    "Confirm_Cancel_Order" : "Confirm Cancel Order!",
+    "Are_you_sure_you_want_to_cancel_order": "Are you sure want to cancel order: ",
+    "Btn_Yes" : "Yes",
+    "Btn_No" : "No"
 }

@@ -24,5 +24,11 @@
     "Status_delivered": "Đã giao",
     "Status_cancel": "Đã hủy",
     "Loading" : "Đang tải thêm...",
-    "No_More_Orders_Display": "Bạn đã xem hết đơn hàng của mình rồi!"
+    "No_More_Orders_Display": "Bạn đã xem hết đơn hàng của mình rồi!",
+    "More_Products":"Xem thêm sản phẩm...",
+    "Cancel_Ordered_button":"Hủy đặt hàng",
+    "Confirm_Cancel_Order" : "Confirm Cancel Order!",
+    "Are_you_sure_you_want_to_cancel_order": "Bạn có chắc chắc muốn hủy đơn hàng: ",
+    "Btn_Yes" : "Xác nhận",
+    "Btn_No" : "Hủy"
 }
