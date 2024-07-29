@@ -13,6 +13,8 @@ const Signup = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
 
+    const dateFormat = 'DD/MM/YYYY'
+
     const [loading, setLoading] = useState(false);
 
     const handlePhoneNumberChange = (e) => {
@@ -108,7 +110,7 @@ const Signup = () => {
                             },
                         ]}
                     >
-                        <DatePicker style={{ width: '100%' }} />
+                        <DatePicker placeholder={t('Select_Date')} format={dateFormat} style={{ width: '100%' }} />
                     </Form.Item>
                     <Form.Item
                         name="password"
