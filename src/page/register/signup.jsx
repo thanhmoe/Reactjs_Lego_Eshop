@@ -93,7 +93,7 @@ const Signup = () => {
                         <Select placeholder={t('Gender')}>
                             {SELECTGENDER.map(gender => (
                                 <Option key={gender.id} value={gender.gender}>
-                                    {gender.gender}
+                                    {t(gender.nameGender)}
                                 </Option>
                             ))}
                         </Select>

@@ -82,15 +82,18 @@ export const MENUITEMS = [
 export const SELECTGENDER = [
     {
         id: 1,
-        gender: 'Male'
+        gender: 'Male',
+        nameGender: 'Male'
     },
     {
         id: 2,
-        gender: 'Female'
+        gender: 'Female',
+        nameGender: 'Female'
     },
     {
         id: 3,
-        gender: 'Other'
+        gender: 'Other',
+        nameGender: 'Other'
     }
 ]
 
