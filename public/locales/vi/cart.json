@@ -43,5 +43,8 @@
     "Ward_Label": "Phường/Xã",
     "Ward_Required_Message": "Vui lòng chọn phường/xã",
     "Detail_Address_Label": "Địa Chỉ Chi Tiết",
-    "Detail_Address_Required_Message": "Vui lòng nhập địa chỉ chi tiết của bạn"
+    "Detail_Address_Required_Message": "Vui lòng nhập địa chỉ chi tiết của bạn",
+    "New_Address_Added" : "Đã thêm địa chỉ mới!",
+    "Order_placed_successfully" : "Đơn hàng đã được đặt thành công!",
+    "orderError_Shipping address does not exist!" : "Vui lòng chọn dịa chỉ nhận hàng trước!"
 }  
