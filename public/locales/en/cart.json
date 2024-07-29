@@ -43,5 +43,8 @@
     "Ward_Label": "Ward",
     "Ward_Required_Message": "Please select a ward",
     "Detail_Address_Label": "Detail Address",
-    "Detail_Address_Required_Message": "Please enter your detail address"
+    "Detail_Address_Required_Message": "Please enter your detail address",
+    "New_Address_Added" : "New Address Added!",
+    "Order_placed_successfully" : "Order placed successfully!",
+    "orderError_Shipping address does not exist!" : "Shipping address does not exist!"
 }  

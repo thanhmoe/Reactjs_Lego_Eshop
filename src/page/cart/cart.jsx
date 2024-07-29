@@ -179,9 +179,9 @@ const CartComponent = () => {
             if (res.success) {
                 setIsAddAddressModalOpen(false);
                 getAddresses();
-                notify('success', 'New Address Added!')
+                notify('success', t('New_Address_Added'))
             } else {
-                setError(res.message);
+                setError(t(`orderError_${res.message}`));
             }
         } catch (error) {
             setError(error.message);
@@ -218,14 +218,14 @@ const CartComponent = () => {
         try {
             const res = await createOrders(orderData);
             if (res.success) {
-                notify('success', 'Order placed successfully!');
+                notify('success', t('Order_placed_successfully'));
                 setCartItems([]);
                 setIsModalOpen(false);
                 dispatch(getTotalProductInCart());
                 getProducts();
                 navigate('/orders')
             } else {
-                notify('error', res.message)
+                notify('error', t(`orderError_${res.message}`))
             }
         } catch (error) {
             notify(error.message);
