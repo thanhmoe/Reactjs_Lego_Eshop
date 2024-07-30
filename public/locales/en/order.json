@@ -22,7 +22,7 @@
     "Status_processing": "Processing",
     "Status_shipping": "Shipping",
     "Status_delivered": "Delivered",
-    "Status_cancel": "Cancelled",
+    "Status_cancelled": "Cancelled",
     "Loading" : "Loading...",
     "No_More_Orders_Display": "No more orders to display!",
     "More_Products":"More Products...",

@@ -73,7 +73,7 @@ const Orders = () => {
             case '5':
                 return 'delivered';
             case '6':
-                return 'cancel';
+                return 'cancelled';
             default:
                 return null;
         }
