@@ -22,7 +22,7 @@
     "Status_processing": "Đang xử lý",
     "Status_shipping": "Đang giao",
     "Status_delivered": "Đã giao",
-    "Status_cancel": "Đã hủy",
+    "Status_cancelled": "Đã hủy",
     "Loading" : "Đang tải thêm...",
     "No_More_Orders_Display": "Bạn đã xem hết đơn hàng của mình rồi!",
     "More_Products":"Xem thêm sản phẩm...",
