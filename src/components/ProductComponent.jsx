@@ -86,7 +86,7 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
                     alt={product.name}
                 />
                 <h3 className="product-name">{product.name}</h3>
-                {product.quantity === 0 ? <p className="sold-out-label">Sold out</p> : null}
+                {product.quantity === 0 ? <p className="sold-out-label">{t('Sold_Out')}</p> : null}
                 <p className="product-price">${product.price}</p>
             </div>
         );
