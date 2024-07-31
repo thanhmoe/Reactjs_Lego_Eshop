@@ -102,8 +102,9 @@ export const OKBUTTON = {
 }
 
 export const STATUSCOLORS = {
-    cancelled: 'badge-cancelled',
-    delivered: 'badge-delivered',
-    pending: 'badge-pending',
-    shipping: 'badge-shipping'
+    cancelled: 'red',
+    delivered: 'green',
+    processing: 'orange',
+    pending: 'cyan',
+    shipping: 'blue'
 };

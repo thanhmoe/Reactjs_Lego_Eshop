@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Collapse, List, Modal } from 'antd';
+import { Button, Card, Collapse, List, Modal, Tag } from 'antd';
 import { STATUSCOLORS } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 
@@ -53,10 +53,10 @@ const OrderList = ({ orders, cancelOrder, confirmOrder }) => {
                         <p><strong>{t('Phone_Number')}:</strong> {order.phone_number}</p>
                         <p><strong>{t('Total_Amount')}:</strong> ${order.total_amount}</p>
                         <p><strong>{t('Note')}:</strong> {order.note}</p>
-                        <p><strong>{t('Status')}:</strong>
-                            <span className={STATUSCOLORS[order.status] || 'badge-default'}>
+                        <p><strong>{t('Status')}: </strong>
+                            <Tag color={STATUSCOLORS[order.status] || 'default'}>
                                 {t(`Status_${order.status}`) || order.status}
-                            </span>
+                            </Tag>
                         </p>
                         <p><strong>{t('Order_Date')}:</strong> {new Date(order.create_at).toLocaleString()}</p>
                         {order.products.length > 0 && (
