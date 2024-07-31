@@ -33,3 +33,12 @@ export const cancelOrder = async (orderId) => {
         return error.response.data;
     }
 };
+
+export const confirmOrder = async (orderId) => {
+    try {
+        const response = await axios_instance.patch(`${API_PATH}/confirm/${orderId}`);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};

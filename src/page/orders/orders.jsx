@@ -4,7 +4,7 @@ import InfiniteOrderList from "./component/InfiniteOrdersList";
 import "./orders.css";
 import { Button, Result, Tabs, Skeleton } from "antd";
 import { ShoppingOutlined } from '@ant-design/icons';
-import { getOrders, cancelOrder } from "../../services/orders";
+import { getOrders, cancelOrder, confirmOrder } from "../../services/orders";
 import { getToken, setTokenToRedirect } from "../../utils/token_utils";
 import { useTranslation } from 'react-i18next';
 import LoadingModal from "../../modal/loadingModal";
@@ -95,6 +95,21 @@ const Orders = () => {
         }
     };
 
+    const handleConfirmlOrder = async (orderId) => {
+        try {
+            const response = await confirmOrder(orderId);
+            if (response.success) {
+                notify('success', t('Confirm_Order_Successful'))
+                setOrders([]);
+                fetchOrders(orderStatus, 1);
+            } else {
+                notify('error', t(`Confirm_Order_Fail`))
+            }
+        } catch (error) {
+            return error
+        }
+    };
+
     const handleLoginRedirect = () => {
         setTokenToRedirect();
         navigate('/login');
@@ -110,6 +125,7 @@ const Orders = () => {
                 fetchMoreOrders={fetchMoreOrders}
                 hasMore={orders.length < totalOrders}
                 cancelOrder={handleCancelOrder}
+                confirmOrder={handleConfirmlOrder}
             />
         );
     };

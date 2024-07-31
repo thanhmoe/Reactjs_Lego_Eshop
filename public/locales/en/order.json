@@ -32,5 +32,11 @@
     "Btn_Yes" : "Yes",
     "Btn_No" : "No",
     "Cancel_Order_Successful": "Cancel Order Successful",
-    "Cancel_Order_Fail": "Fail to cancel order"
+    "Cancel_Order_Fail": "Fail to cancel order",
+    "Confirm_Received_Order": "Confirm Received Order!",
+    "Are_you_sure_you_have_received_order": "Are you sure you have received order?",
+    "Confirm_Ordered_Button": "Confirm Ordered",
+
+    "Confirm_Order_Successful": "Confirm Order Successful",
+    "Confirm_Order_Fail": "Can not confirm order now"
 }
