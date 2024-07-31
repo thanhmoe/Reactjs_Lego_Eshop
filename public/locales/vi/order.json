@@ -32,5 +32,11 @@
     "Btn_Yes" : "Xác nhận",
     "Btn_No" : "Hủy",
     "Cancel_Order_Successful": "Hủy đơn hàng thành công!",
-    "Cancel_Order_Fail": "Không thể hủy đơn hàng"
+    "Cancel_Order_Fail": "Không thể hủy đơn hàng",
+    "Confirm_Received_Order": "Xác nhận đã nhận được hàng!",
+    "Are_you_sure_you_have_received_order": "Bạn có xác nhận đã nhận được hàng?",
+    "Confirm_Ordered_Button": "Đã nhận hàng",
+
+    "Confirm_Order_Successful": "Đã nhận đơn hàng thành công!",
+    "Confirm_Order_Fail": "Không thể xác nhận đơn hàng bây giờ!" 
 }
