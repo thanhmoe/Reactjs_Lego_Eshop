@@ -11,7 +11,7 @@ const OrderList = ({ orders, cancelOrder, confirmOrder }) => {
 
     const showCancelModal = (order) => {
         setSelectedOrder(order);
-        isCancelModalVisible(true);
+        setIsCancelModalVisible(true);
     };
 
     const showConfirmModal = (order) => {
