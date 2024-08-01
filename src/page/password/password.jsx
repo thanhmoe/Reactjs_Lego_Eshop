@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
+
 import { requestRecoverPassword, sendVerfyOTP, resetPassword } from "../../services/account_services";
+
 import { Form, Input, Button, message, Space, Result } from "antd";
-import { useTranslation } from 'react-i18next';
 import Logo from '../../assets/icons/nintendo.svg';
+
+import { useTranslation } from 'react-i18next';
+
+import LanguageDropdown from "../../components/LanguageDropdown";
+
 import "./password.css";
 
 export default function PasswordRecover() {
@@ -109,7 +116,7 @@ export default function PasswordRecover() {
                         <img className="img-logo" src={Logo} alt="logo" />
                     </div>
                 </div>
-                <p className="text-header">{t('nintendo_account')}</p>
+                <LanguageDropdown />
             </header>
             <div className="password-container">
                 {step === 1 && (

@@ -24,5 +24,6 @@
     "Log_Out_Success_noti": "You've been logged out!",
 
     "Page_Not_Exist" : "Sorry, the page you visited does not exist.",
-    "Back_Home_Btn" : "Back Home"
+    "Back_Home_Btn" : "Back Home",
+    "LANG" : "EN"
 }
