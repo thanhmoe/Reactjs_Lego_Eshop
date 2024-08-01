@@ -9,7 +9,7 @@ import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFille
 
 import { Badge, Drawer, Button, List, Menu, Dropdown, Space } from 'antd';
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -31,7 +31,7 @@ export default function Header() {
   const token = getToken();
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const location = useLocation();
   const showDrawer = () => {
     setOpen(true);
   };
@@ -65,6 +65,13 @@ export default function Header() {
     }
     checkAndFetchData();
   }, [token, dispatch]);
+
+  useEffect(() => {
+    if (!token && location.pathname !== '/login') { // Avoid saving the login page itself
+      setTokenToRedirect(); // Save the current path
+    }
+  }, [location.pathname]);
+
 
   const headerItems = [
     { name: <><HomeFilled /> {t('Home')}</>, path: '/' },
