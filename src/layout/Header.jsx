@@ -48,10 +48,15 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (token) {
-      fetchData();
+    const checkAndFetchData = async () => {
+      if (isTokenExpired()) {
+        clearToken();
+      } else if (token) {
+        await fetchData();
+      }
     }
-  }, []);
+    checkAndFetchData();
+  }, [token, dispatch]);
 
   const headerItems = [
     { name: <><HomeFilled /> {t('Home')}</>, path: '/' },
