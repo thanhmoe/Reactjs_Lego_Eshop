@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from 'react-i18next';
 
 import { changePassword } from "../../services/account_services";
 
-import { clearToken } from "../../utils/token_utils";
+import { clearToken, getToken } from "../../utils/token_utils";
+
+import LanguageDropdown from "../../components/LanguageDropdown";
 
 import Logo from '../../assets/icons/nintendo.svg';
 import "./password.css";
@@ -15,6 +17,7 @@ export default function ChangePassword() {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const token = getToken();
     const { t } = useTranslation('forgot_password');
 
     const validatePasswords = ({ getFieldValue }) => ({
@@ -73,6 +76,13 @@ export default function ChangePassword() {
         );
     }
 
+    useEffect(() => {
+        if (!token) {
+            navigate('/login')
+        }
+    }, [])
+
+
     return (
         <>
             <header className="header-password">
@@ -81,7 +91,7 @@ export default function ChangePassword() {
                         <img className="img-logo" src={Logo} alt="logo" />
                     </div>
                 </div>
-                <p className="text-header">{t('nintendo_account')}</p>
+                <LanguageDropdown />
             </header>
             <div className="password-container">
                 <FirstPageInfo />

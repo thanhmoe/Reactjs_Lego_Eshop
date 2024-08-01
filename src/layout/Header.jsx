@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
+
 import Logo from '../assets/icons/nintendo.svg';
 import CartIcon from '../assets/icons/cart.svg?react';
 import UserIcon from '../assets/icons/user.svg?react';
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled } from '@ant-design/icons';
-import { Badge, Drawer, Button, List } from 'antd';
+import { HomeFilled, ProductFilled, ReadFilled, PhoneFilled, QuestionCircleFilled, DownOutlined } from '@ant-design/icons';
+
+import { Badge, Drawer, Button, List, Menu, Dropdown, Space } from 'antd';
+
 import { NavLink, useNavigate } from "react-router-dom";
-import i18next from "i18next";
+
 import { useTranslation } from "react-i18next";
+
 import { notify } from "../main";
-import { useSelector, useDispatch } from "react-redux";
+
 import { clearToken, isTokenExpired, getToken, setTokenToRedirect } from "../utils/token_utils";
+
+import { useSelector, useDispatch } from "react-redux";
 import { getTotalProductInCart } from "../redux/slice/carts/cartsSlice";
+
+import LanguageDropdown from "../components/LanguageDropdown";
 import "./index.css";
 
 export default function Header() {
@@ -66,33 +74,6 @@ export default function Header() {
     // { name: <><QuestionCircleFilled /> {t('About Us')}</>, path: '/about' },
   ];
 
-  const userMenuItems = [
-    {
-      key: '1',
-      label: t('Setting'),
-      children: [
-        {
-          key: '1-1',
-          label: (
-            <div className="countryName" onClick={() => i18next.changeLanguage('en')}>
-              <img className="countryFlag" src="/assets/usa.png" alt="usa" />
-              <span>{t('English')}</span>
-            </div>
-          ),
-        },
-        {
-          key: '1-2',
-          label: (
-            <div className="countryName" onClick={() => i18next.changeLanguage('vi')}>
-              <img className="countryFlag" src="/assets/vietnam.png" alt="vietnam" />
-              <span>{t('Vietnamese')}</span>
-            </div>
-          ),
-        },
-      ],
-    },
-  ];
-
   return (
     <header>
       <div className="brand">
@@ -132,6 +113,7 @@ export default function Header() {
         <div className="hamburger"></div>
       </div>
       <div className="user-icon">
+        <LanguageDropdown />
         {token ? <a onClick={showDrawer} className="icon-header"><UserIcon /> {t('User')}</a>
           : <a className="icon-header" onClick={() => navigate('/login')}><UserIcon /> {t('User-no-token')}</a>}
       </div>
@@ -139,19 +121,9 @@ export default function Header() {
         <Button onClick={handleSignOut} style={{ width: '100%' }}>{t('SignOut')}</Button>
       }>
         <List>
-          {userMenuItems.map((item) => (
-            <React.Fragment key={item.key}>
-              <List.Item style={{ cursor: 'pointer' }}>{item.label}</List.Item>
-              {item.children && item.children.map((child) => (
-                <List.Item key={child.key} style={{ cursor: 'pointer', paddingLeft: '24px' }}>
-                  {child.label}
-                </List.Item>
-              ))}
-              <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/cart')}>{t('Cart_user')} </List.Item>
-              <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/orders')}>{t('Orders')} </List.Item>
-              <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/change-password')}>{t('Change_Password')} </List.Item>
-            </React.Fragment>
-          ))}
+          <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/cart')}>{t('Cart_user')} </List.Item>
+          <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/orders')}>{t('Orders')} </List.Item>
+          <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/change-password')}>{t('Change_Password')} </List.Item>
         </List>
       </Drawer>
     </header>
