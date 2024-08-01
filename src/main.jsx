@@ -31,6 +31,7 @@ import Orders from './page/orders/orders.jsx';
 import Login from './page/login.jsx';
 import Signup from './page/register/signup.jsx';
 import PasswordRecover from './page/password/password.jsx';
+import ChangePassword from './page/password/changePassword.jsx';
 
 import ProductsDetail from './page/product/productsDetail.jsx';
 import NewsDetail from './page/news/newsDetail.jsx';
@@ -156,6 +157,12 @@ const router = createBrowserRouter([
     path: "/forgot-password",
     element: <Suspense fallback={<LoadingModal />}>
       <PasswordRecover />
+    </Suspense>,
+  },
+  {
+    path: "/change-password",
+    element: <Suspense fallback={<LoadingModal />}>
+      <ChangePassword />
     </Suspense>,
   },
 ]);

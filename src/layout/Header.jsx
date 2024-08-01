@@ -149,6 +149,7 @@ export default function Header() {
               ))}
               <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/cart')}>{t('Cart_user')} </List.Item>
               <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/orders')}>{t('Orders')} </List.Item>
+              <List.Item style={{ cursor: 'pointer' }} onClick={() => navigate('/change-password')}>{t('Change_Password')} </List.Item>
             </React.Fragment>
           ))}
         </List>
