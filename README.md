@@ -54,13 +54,13 @@ To get a local copy up and running, follow these simple steps:
    ```
 
 4. **Setup enviroment:**
-   create a `.env` file in root directory and add you url:
+   create a `.env` file in root directory and add the following variables:
 
    ```plaintext
    VITE_BASE_URL=http://localhost:3000
    ```
 
-   port `3000` is the port for the backend
+   note that port `3000` is the port for the backend in **Step 5**
 
 5. **Setup Backend:**
    browse `https://github.com/KienPT2607-IT/express-boilerplate` for installation instructions.
