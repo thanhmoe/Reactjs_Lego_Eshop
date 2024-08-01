@@ -21,7 +21,7 @@ function App() {
           <div className='label-banner'>
             <h2>{t("Banner_label1")}</h2>
             <p>{t('Banner_text1')}</p>
-            <Button onClick={() => navigate('/products/68')} style={{ height: '40px', marginTop: '5rem', }}>{t('Shop_Now')} {<RightOutlined />}</Button>
+            <Button onClick={() => navigate('/products/68')} style={{ height: '40px', marginTop: '3rem', }}>{t('Shop_Now')} {<RightOutlined />}</Button>
           </div>
           <img className='image-banner' src={banner1} alt="banner1" />
         </div>
