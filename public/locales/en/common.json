@@ -20,5 +20,8 @@
     "Shop_Now": "Shop_Now",
     "Banner_label1": "A model of Italian perfection",
     "Banner_text1": "The new LEGO® Icons Lamborghini Countach 5000 Quattrovalvole has arrived.",
-    "Log_Out_Success_noti": "You've been logged out!"
+    "Log_Out_Success_noti": "You've been logged out!",
+
+    "Page_Not_Exist" : "Sorry, the page you visited does not exist.",
+    "Back_Home_Btn" : "Back Home"
 }
