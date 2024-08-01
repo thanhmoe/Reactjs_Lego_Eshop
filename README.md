@@ -60,7 +60,7 @@ To get a local copy up and running, follow these simple steps:
    VITE_BASE_URL=http://localhost:3000
    ```
 
-   note that port `3000` is the port for the backend in **Step 5**
+   Note that port `3000` is the port for the backend in **Step 5**
 
 5. **Setup Backend:**
    browse `https://github.com/KienPT2607-IT/express-boilerplate` for installation instructions.
@@ -76,12 +76,12 @@ To get a local copy up and running, follow these simple steps:
 7. **(Optional) Configure port:**
    You can configure the port by editing port variable `vite.config.js` in root directory:
 
-   ```plaintext
+   ```javascript
    export default defineConfig({
-   server: {
-    port: 3006,
-   },
-   })
+     server: {
+       port: 3006,
+     },
+   });
    ```
 
 ## Usage
