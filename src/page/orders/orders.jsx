@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteOrderList from "./component/InfiniteOrdersList";
 import "./orders.css";
-import { Button, Result, Tabs, Skeleton } from "antd";
+import { Button, Result, Tabs, Skeleton, Empty } from "antd";
 import { ShoppingOutlined } from '@ant-design/icons';
 import { getOrders, cancelOrder, confirmOrder } from "../../services/orders";
 import { getToken, setTokenToRedirect } from "../../utils/token_utils";
@@ -118,6 +118,9 @@ const Orders = () => {
     const renderTabContent = () => {
         if (isLoading && orders.length === 0) {
             return <Skeleton active />;
+        }
+        if (!isLoading && orders.length === 0) {
+            return <Empty description={t('No_orders_found')} />
         }
         return (
             <InfiniteOrderList
