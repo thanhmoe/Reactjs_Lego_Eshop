@@ -153,7 +153,7 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
                     </div>
                     :
                     <div className="no-result-found">
-                        <Empty />
+                        <Empty description={t('No_products_found')} />
                     </div>}
             </div>
             <div className="pagination-product">
