@@ -111,7 +111,6 @@ const Orders = () => {
     };
 
     const handleLoginRedirect = () => {
-        setTokenToRedirect();
         navigate('/login');
     };
 

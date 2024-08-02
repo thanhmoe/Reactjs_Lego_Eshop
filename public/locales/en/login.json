@@ -13,5 +13,7 @@
     "Invalid_Email": "The input is not valid E-mail!",
     "Logging_In": "Logging In...",
     "Error": "Error",
-    "Incorrect_Email_Or_Password": "Incorrect email or password!"
+    "Incorrect_Email_Or_Password": "Incorrect email or password!",
+    "You_been_login": "Welcome to Bartendo!"
+
 }

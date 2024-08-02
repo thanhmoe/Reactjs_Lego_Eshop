@@ -14,6 +14,7 @@ import {
     getTokenForRememberUser,
     removeTokenForRememberUser
 } from '../utils/token_utils';
+import { notify } from '../main';
 
 const Login = () => {
     const { t } = useTranslation(['login'])
@@ -42,6 +43,7 @@ const Login = () => {
             setToken(response.data.auth_token);
             const url = getTokenToRedirect() || '/';
             removeTokenToRedirect();
+            notify('success', t('You_been_login'))
             if (isCheck) {
                 setTokenForRememberUser(values.email);
             } else {

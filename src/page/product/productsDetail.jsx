@@ -68,7 +68,6 @@ export default function ProductsDetail() {
 
     const handleAddToCart = async () => {
         if (!token) {
-            setTokenToRedirect()
             navigate('/login')
             notify('info', t('Login_to_continues_shopping'))
         }
