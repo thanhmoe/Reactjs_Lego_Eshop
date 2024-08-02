@@ -37,6 +37,8 @@
     "Are_you_sure_you_have_received_order": "Are you sure you have received order?",
     "Confirm_Ordered_Button": "Confirm Ordered",
 
+    "No_orders_found": "No orders found!",
+
     "Confirm_Order_Successful": "Confirm Order Successful",
     "Confirm_Order_Fail": "Can not confirm order now"
 }
