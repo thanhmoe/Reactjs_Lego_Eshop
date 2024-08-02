@@ -9,7 +9,7 @@ import { RightOutlined } from '@ant-design/icons';
 
 import banner1 from '../public/assets/banner1.jpg'
 import TopSellingProducts from './components/TopSellingProducts';
-import ArticlesCarousel from './page/news/components/ArticlesCarousel';
+import BannerCarousel from './components/BannerCarousel';
 
 function App() {
   const navigate = useNavigate();
@@ -17,14 +17,15 @@ function App() {
   return (
     <>
       <div className='app-container'>
-        <div className='banner'>
+        {/* <div className='banner'>
           <div className='label-banner'>
             <h2>{t("Banner_label1")}</h2>
             <p>{t('Banner_text1')}</p>
             <Button onClick={() => navigate('/products/68')} style={{ height: '40px', marginTop: '3rem', }}>{t('Shop_Now')} {<RightOutlined />}</Button>
           </div>
           <img className='image-banner' src={banner1} alt="banner1" />
-        </div>
+        </div> */}
+        <BannerCarousel />
         <div className='top-selling-products-container'>
           <TopSellingProducts />
         </div>

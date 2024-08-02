@@ -1,0 +1,33 @@
+.banner-container {
+    position: relative;
+}
+
+.banner-image {
+    width: 1440px;
+    max-height: 450px;
+}
+
+.banner-content {
+    position: absolute;
+    max-width: 35%;
+    top: 3rem;
+    left: 3rem;
+    color: white;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.banner-content h2{
+    font-size: 2.5rem;
+    color: white;
+    margin: 0;
+}
+.banner-content p{
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+}
+
+.banner-content button {
+   margin-top: 1rem;
+}
