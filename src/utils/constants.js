@@ -2,7 +2,7 @@ export const VALIDEMAIL = new RegExp(
     '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
 );
 
-export const REGNUMBER = /^[0-9]{10,15}$/;
+export const REGNUMBER = /^0\d{9}$/;
 
 export const JOBSELECT = [
     {
