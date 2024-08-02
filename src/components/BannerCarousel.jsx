@@ -51,7 +51,7 @@ const BannerCarousel = () => {
     return (
         <div>
             {banners.length > 0 ? (
-                <Carousel arrows draggable autoplay>
+                <Carousel arrows infinite draggable autoplay>
                     {banners.map((banner) => (
                         <Banner key={banner.id} banner={banner} />
                     ))}
