@@ -39,7 +39,7 @@ export default function PasswordRecover() {
             message.success(t('otp_sent_success'));
             setResendOtpTimeout(60);
         } else {
-            message.error(t(`ERROR_PASS_${response.message}`));
+            message.error(t(`ERROR_${response.message}`));
         }
     };
 
