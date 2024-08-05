@@ -1,5 +1,7 @@
 .banner-container {
     position: relative;
+    width: 1440px;
+    height: 450px;
 }
 
 .banner-image {
@@ -29,5 +31,5 @@
 }
 
 .banner-content button {
-   margin-top: 1rem;
+    margin-top: 1rem;
 }
