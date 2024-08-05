@@ -70,6 +70,7 @@ header a {
 }
 
 .brand {
+    width: 20%;
     display: flex;
 }
 
@@ -133,6 +134,9 @@ header a {
 }
 
 .user-icon {
+    display: flex;
+    justify-content: right;
+    width: 20%;
     margin-right: 1rem;
 }
 
