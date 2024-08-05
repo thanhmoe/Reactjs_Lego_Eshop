@@ -167,7 +167,6 @@ const Orders = () => {
 
     return (
         <>
-            {isLoading && <LoadingModal />}
             {token ? (
                 <Tabs
                     type="card"
