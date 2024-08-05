@@ -15,7 +15,6 @@ export default function PasswordRecover() {
     const [resendOtpTimeout, setResendOtpTimeout] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const { t } = useTranslation('forgot_password');
-    const { Step } = Steps;
 
     useEffect(() => {
         let timer;
@@ -25,7 +24,7 @@ export default function PasswordRecover() {
             }, 1000);
         }
         if (!email) {
-            // setStep(0);
+            setStep(0);
         }
         return () => clearInterval(timer);
     }, [resendOtpTimeout]);
@@ -40,7 +39,7 @@ export default function PasswordRecover() {
             message.success(t('otp_sent_success'));
             setResendOtpTimeout(60);
         } else {
-            message.error(t('otp_sent_failure'));
+            message.error(t(`ERROR_PASS_${response.message}`));
         }
     };
 
@@ -135,10 +134,10 @@ export default function PasswordRecover() {
                             name="otp"
                             rules={[{ required: true, message: t('otp_required_message') }]}
                         >
-                            <Input />
+                            <Input.OTP length={6} />
                         </Form.Item>
                         <Form.Item>
-                            <Space>
+                            <div className="button-otp-group">
                                 <Button loading={isLoading} type="primary" htmlType="submit">
                                     {t('submit_button')}
                                 </Button>
@@ -148,7 +147,7 @@ export default function PasswordRecover() {
                                 >
                                     {resendOtpTimeout > 0 ? `${t('resend_otp_in')} ${resendOtpTimeout}s` : t('resend_otp_button')}
                                 </Button>
-                            </Space>
+                            </div>
                         </Form.Item>
                     </Form>
                 </>
