@@ -46,5 +46,5 @@
     "Detail_Address_Required_Message": "Vui lòng nhập địa chỉ chi tiết của bạn",
     "New_Address_Added" : "Đã thêm địa chỉ mới!",
     "Order_placed_successfully" : "Đơn hàng đã được đặt thành công!",
-    "orderError_Shipping address does not exist!" : "Vui lòng chọn dịa chỉ nhận hàng trước!"
+    "orderError_Shipping address does not exist!" : "Vui lòng chọn địa chỉ nhận hàng trước!"
 }  
