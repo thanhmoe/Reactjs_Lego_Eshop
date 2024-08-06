@@ -32,7 +32,7 @@ export const fetchProductsRefactor = async (params) => {
 export const fetchProductById = async (id) => {
     try {
         const response = await axios_instance.get(`${API_PATH}/${id}`);
-        return response.data.data[0];
+        return response.data;
     } catch (error) {
         return error.response ? error.response.data : { error: 'An error occurred' };
     }
