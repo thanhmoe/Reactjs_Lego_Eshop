@@ -7,7 +7,7 @@ import './styleBanner.css';
 
 const BannerCarousel = () => {
     const navigate = useNavigate();
-    const [itemsPerPage, setItemsPerPage] = useState(3);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
     const [banners, setBanners] = useState([]);
 
