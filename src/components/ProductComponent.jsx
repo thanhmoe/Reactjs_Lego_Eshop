@@ -124,7 +124,7 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
         <>
             {productsStatus === "loading" && <LoadingModal />}
             <div className="content-product">
-                <div className="aside-product">
+                <div className="aside-product" id="style-1">
                     <div className="aside-product-clear-div">
                         <Button className="aside-product-clear-btn" type="text"
                             onClick={handleUncheck}
