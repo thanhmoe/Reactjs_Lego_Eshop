@@ -126,7 +126,9 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
             <div className="content-product">
                 <div className="aside-product" id="style-1">
                     <div className="aside-product-clear-div">
-                        <Button className="aside-product-clear-btn" type="text"
+                        <Button
+                            disabled={selectedCategories.length === 0}
+                            className="aside-product-clear-btn" type="text"
                             onClick={handleUncheck}
                         ><CloseCircleFilled />{t('Products_Clear_All_Btn')}</Button>
                     </div>
