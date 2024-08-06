@@ -23,7 +23,7 @@ export const fetchProductDetail = createAsyncThunk(
     async (productId, { rejectWithValue }) => {
         const response = await fetchProductById(productId);
         if (response.success) {
-            return response.data;
+            return response.data[0];
         } else {
             return rejectWithValue(response.message);
         }
