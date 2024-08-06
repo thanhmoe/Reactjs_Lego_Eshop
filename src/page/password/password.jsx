@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { requestRecoverPassword, sendVerfyOTP, resetPassword } from "../../services/account_services";
-import { Form, Input, Button, message, Space, Result, Steps } from "antd";
+import { Form, Input, Button, message, Space, Result, Steps, Row, Col } from "antd";
 import Logo from '../../assets/icons/nintendo.svg';
 import { useTranslation } from 'react-i18next';
 import LanguageDropdown from "../../components/LanguageDropdown";
@@ -9,7 +9,7 @@ import "./password.css";
 
 export default function PasswordRecover() {
     const navigate = useNavigate();
-    const [step, setStep] = useState(0);
+    const [step, setStep] = useState(2);
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [resendOtpTimeout, setResendOtpTimeout] = useState(0);
@@ -24,7 +24,7 @@ export default function PasswordRecover() {
             }, 1000);
         }
         if (!email) {
-            setStep(0);
+            // setStep(0);
         }
         return () => clearInterval(timer);
     }, [resendOtpTimeout]);
@@ -134,20 +134,33 @@ export default function PasswordRecover() {
                             name="otp"
                             rules={[{ required: true, message: t('otp_required_message') }]}
                         >
-                            <Input.OTP length={6} />
+                            <Input.OTP size="large" length={6} />
                         </Form.Item>
                         <Form.Item>
-                            <div className="button-otp-group">
-                                <Button loading={isLoading} type="primary" htmlType="submit">
-                                    {t('submit_button')}
-                                </Button>
-                                <Button
-                                    onClick={handleResendOtp}
-                                    disabled={resendOtpTimeout > 0}
-                                >
-                                    {resendOtpTimeout > 0 ? `${t('resend_otp_in')} ${resendOtpTimeout}s` : t('resend_otp_button')}
-                                </Button>
-                            </div>
+                            <Row justify={"space-between"}>
+                                <Col>
+                                    <Space>
+                                        <Button loading={isLoading} type="primary" htmlType="submit">
+                                            {t('submit_button')}
+                                        </Button>
+                                        {step > 0 && (
+                                            <Button onClick={() => setStep(step - 1)}>
+                                                {t('previous_button')}
+                                            </Button>
+                                        )}
+                                    </Space>
+                                </Col>
+                                <Col>
+                                    <Button
+                                        style={{ fontWeight: 'normal' }}
+                                        type="text"
+                                        onClick={handleResendOtp}
+                                        disabled={resendOtpTimeout > 0}
+                                    >
+                                        {resendOtpTimeout > 0 ? `${t('resend_otp_in')} ${resendOtpTimeout}s` : t('resend_otp_button')}
+                                    </Button>
+                                </Col>
+                            </Row>
                         </Form.Item>
                     </Form>
                 </>
@@ -180,9 +193,16 @@ export default function PasswordRecover() {
                             <Input.Password />
                         </Form.Item>
                         <Form.Item>
-                            <Button loading={isLoading} type="primary" htmlType="submit">
-                                {t('submit_button')}
-                            </Button>
+                            <Space>
+                                <Button loading={isLoading} type="primary" htmlType="submit">
+                                    {t('submit_button')}
+                                </Button>
+                                {step > 0 && (
+                                    <Button onClick={() => setStep(step - 1)}>
+                                        {t('previous_button')}
+                                    </Button>
+                                )}
+                            </Space>
                         </Form.Item>
                     </Form>
                 </>
