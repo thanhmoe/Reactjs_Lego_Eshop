@@ -19,12 +19,17 @@ export const fetCategories = createAsyncThunk(
 )
 
 export const fetchProductDetail = createAsyncThunk(
-    'productList/fetchProductDetail',
-    async (productId) => {
+    'products/fetchProductDetail',
+    async (productId, { rejectWithValue }) => {
         const response = await fetchProductById(productId);
-        return response;
+        if (response.success) {
+            return response.data;
+        } else {
+            return rejectWithValue(response.message);
+        }
     }
 );
+
 
 export const searchProduct = createAsyncThunk(
     'productList/searchProduct',
@@ -57,7 +62,7 @@ const productsSlice = createSlice({
         status: 'idle',
         hasError: null,
         totalItems: 0,
-        selectedProduct: null,
+        selectedProduct: [],
         productDetailStatus: 'idle',
         productDetailError: null,
         relatedProducts: [],
