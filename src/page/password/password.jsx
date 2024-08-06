@@ -9,7 +9,7 @@ import "./password.css";
 
 export default function PasswordRecover() {
     const navigate = useNavigate();
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(0);
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [resendOtpTimeout, setResendOtpTimeout] = useState(0);
@@ -24,7 +24,7 @@ export default function PasswordRecover() {
             }, 1000);
         }
         if (!email) {
-            // setStep(0);
+            setStep(0);
         }
         return () => clearInterval(timer);
     }, [resendOtpTimeout]);
