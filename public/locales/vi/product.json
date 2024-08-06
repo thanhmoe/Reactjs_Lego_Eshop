@@ -19,7 +19,8 @@
     "Continue_Shopping": "Tiếp Tục Mua Sắm",
     "Sold_Out" : "Hết hàng",
     "No_products_found": "Không tìm thấy sản phẩm!",
-
+    "Products_Not_Exist": "Sản phẩm bạn tìm kiếm không tồn tại!",
+    "Back_Product": "Quay lại trang sản phẩm",
 
     "Login_to_continues_shopping": "Đăng nhập để tiếp tục mua sắm với chúng tôi!",
     "Error_adding_product_to_cart" : "Không thể thêm sản phẩm vào giỏ hàng!",
