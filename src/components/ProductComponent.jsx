@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Checkbox, Pagination, Skeleton, Empty, Spin, Button } from "antd";
+import { Checkbox, Pagination, Skeleton, Empty, Spin, Button, Tag } from "antd";
 import { CloseCircleFilled } from '@ant-design/icons';
 import LoadingModal from "../modal/loadingModal";
 
@@ -86,7 +86,7 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
                     alt={product.name}
                 />
                 <h3 className="product-name">{product.name}</h3>
-                {product.quantity === 0 ? <p className="sold-out-label">{t('Sold_Out')}</p> : null}
+                {product.quantity === 0 ? <Tag style={{ width: 'fit-content' }} color="#969696">{t('Sold_Out')}</Tag> : null}
                 <p className="product-price">${product.price}</p>
             </div>
         );
