@@ -11,7 +11,7 @@ import LanguageDropdown from "../../components/LanguageDropdown";
 
 import Logo from '../../assets/icons/nintendo.svg';
 import "./password.css";
-import { Button, Form, Input, message, Result } from "antd";
+import { Button, Form, Input, message, notification, Result } from "antd";
 
 export default function ChangePassword() {
     const navigate = useNavigate();
@@ -49,10 +49,16 @@ export default function ChangePassword() {
                 setIsSuccess(true)
                 clearToken()
             } else {
-                message.error(t('Password_change_error_message'))
+                notification.error({
+                    message: t('ChangePass_Error'),
+                    description: t(`ChangePass_Noti_${res.message}`),
+                })
             }
         } catch (error) {
-            message.error(t('Password_change_error_message'))
+            notification.error({
+                message: t('ChangePass_Error'),
+                description: t(`Password_change_error_message`),
+            })
         } finally {
             setIsLoading(false)
         }
