@@ -26,5 +26,5 @@
     "Error_adding_product_to_cart" : "An error occurred while adding product to cart",
     
     "Total_sold_this_month": "Total sold this moth",
-    "Out_Of_Stock":"Product out of stock!"
+    "Out_Of_Stock":"Insufficient product quantity available!"
 }

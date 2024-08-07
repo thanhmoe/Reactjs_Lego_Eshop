@@ -26,6 +26,6 @@
     "Error_adding_product_to_cart" : "Không thể thêm sản phẩm vào giỏ hàng!",
 
     "Total_sold_this_month": "Tổng sản phẩm đã bán",
-    "Out_Of_Stock":"Sản phẩm tạm thời hết hàng!"
+    "Out_Of_Stock":"Số lượng sản phẩm không đủ!"
 
 }   
