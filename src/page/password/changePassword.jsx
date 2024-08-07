@@ -29,14 +29,6 @@ export default function ChangePassword() {
         },
     });
 
-    const FirstPageInfo = () => {
-        return (
-            <div>
-                <h2>{t('change_password_title')}</h2>
-                <p className="password-label">{t('change_password_instructions')}</p>
-            </div>
-        )
-    }
 
     const handleChangePassword = async (value) => {
         setIsLoading(true);
@@ -64,6 +56,13 @@ export default function ChangePassword() {
         }
     }
 
+    useEffect(() => {
+        if (!token) {
+            navigate('/login')
+        }
+    }, [])
+
+
 
     if (isSuccess) {
         return (
@@ -82,11 +81,14 @@ export default function ChangePassword() {
         );
     }
 
-    useEffect(() => {
-        if (!token) {
-            navigate('/login')
-        }
-    }, [])
+    const FirstPageInfo = () => {
+        return (
+            <div>
+                <h2>{t('change_password_title')}</h2>
+                <p className="password-label">{t('change_password_instructions')}</p>
+            </div>
+        )
+    }
 
 
     return (
