@@ -1,15 +1,11 @@
 import FacebookLogin from '@greatsumini/react-facebook-login';
 
-const FacebookLoginButton = () => {
+const FacebookLoginButton = ({ onSuccess, onFail }) => {
     return (
         <FacebookLogin
             appId="862117099161328"
-            onSuccess={(response) => {
-                console.log('Login Success!', response);
-            }}
-            onFail={(error) => {
-                console.log('Login Failed!', error);
-            }}
+            onSuccess={onSuccess}
+            onFail={onFail}
             onProfileSuccess={(response) => {
                 console.log('Get Profile Success!', response);
             }}

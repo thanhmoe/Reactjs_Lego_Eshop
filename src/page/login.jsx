@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import FacebookLoginButton from '../components/FacebookLoginButton';
 
-import { fetchCustomers } from '../services/customer_services';
+import { fetchCustomers, facebookLogin } from '../services/customer_services';
 import {
     setToken, getTokenToRedirect,
     removeTokenToRedirect,
@@ -59,9 +59,23 @@ const Login = () => {
             });
         }
     };
-    const handleFacebookLoginSuccess = (response) => {
-        console.log('Facebook login success', response);
+    const handleFacebookLoginSuccess = async (response) => {
+        const result = await facebookLogin(response.accessToken);
+        console.log(123123, response);
+        if (result.success) {
+            setToken(result.authToken);
+            const url = getTokenToRedirect() || '/';
+            removeTokenToRedirect();
+            notify('success', t('You_been_login'));
+            navigate(url);
+        } else {
+            notification.error({
+                message: t('Error'),
+                description: result.message || t('Facebook_Login_Failed'),
+            });
+        }
     };
+
 
     const handleFacebookLoginFail = (error) => {
         console.log('Facebook login failed', error);
