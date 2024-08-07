@@ -73,6 +73,8 @@ export default function ProductsDetail() {
             if (result.success) {
                 dispatch(getTotalProductInCart());
                 showModal();
+            } else {
+                notify('error', t('Out_Of_Stock'))
             }
         } catch (error) {
             message.error('An error occurred while adding product to cart');

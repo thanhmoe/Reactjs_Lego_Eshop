@@ -25,5 +25,6 @@
     "Login_to_continues_shopping": "Login to continues shopping with us!",
     "Error_adding_product_to_cart" : "An error occurred while adding product to cart",
     
-    "Total_sold_this_month": "Total sold this moth"
+    "Total_sold_this_month": "Total sold this moth",
+    "Out_Of_Stock":"Product out of stock!"
 }
