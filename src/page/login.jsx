@@ -6,6 +6,8 @@ import './login.css';
 
 import { useTranslation } from 'react-i18next';
 
+import FacebookLoginButton from '../components/FacebookLoginButton';
+
 import { fetchCustomers } from '../services/customer_services';
 import {
     setToken, getTokenToRedirect,
@@ -57,7 +59,13 @@ const Login = () => {
             });
         }
     };
+    const handleFacebookLoginSuccess = (response) => {
+        console.log('Facebook login success', response);
+    };
 
+    const handleFacebookLoginFail = (error) => {
+        console.log('Facebook login failed', error);
+    };
     return (
         <div className='container-login'>
             <div className='form-login'>
@@ -120,6 +128,9 @@ const Login = () => {
                     <div className='login-text'>
                         <p>{t('Dont_Have_An_Account')} <a onClick={() => navigate('/signup')}>{t('Sign_Up')}</a></p>
                     </div>
+                    <FacebookLoginButton
+                        onSuccess={handleFacebookLoginSuccess}
+                        onFail={handleFacebookLoginFail} />
                 </Form>
             </div>
         </div>

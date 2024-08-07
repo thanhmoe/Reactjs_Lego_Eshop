@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@greatsumini/react-facebook-login": "^3.3.3",
     "@reduxjs/toolkit": "^2.2.5",
     "antd": "^5.17.4",
     "axios": "^1.7.2",
