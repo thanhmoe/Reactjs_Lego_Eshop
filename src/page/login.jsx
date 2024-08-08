@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { Form, Input, Button, Checkbox, notification, Space } from 'antd';
+import {
+    FacebookFilled
+} from '@ant-design/icons';
+import { Form, Input, Button, Checkbox, notification, Space, Flex } from 'antd';
 import './login.css';
 
 import { useTranslation } from 'react-i18next';
@@ -61,7 +64,6 @@ const Login = () => {
     };
     const handleFacebookLoginSuccess = async (response) => {
         const result = await facebookLogin(response.accessToken);
-        console.log(123123, response);
         if (result.success) {
             setToken(result.authToken);
             const url = getTokenToRedirect() || '/';
@@ -142,10 +144,12 @@ const Login = () => {
                     <div className='login-text'>
                         <p>{t('Dont_Have_An_Account')} <a onClick={() => navigate('/signup')}>{t('Sign_Up')}</a></p>
                     </div>
+                </Form>
+                <Flex gap="middle" vertical>
                     <FacebookLoginButton
                         onSuccess={handleFacebookLoginSuccess}
                         onFail={handleFacebookLoginFail} />
-                </Form>
+                </Flex>
             </div>
         </div>
     );

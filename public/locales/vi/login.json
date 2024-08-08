@@ -14,6 +14,7 @@
     "Logging_In": "Đang đăng nhập...",
     "Error": "Không thể đăng nhập",
     "Incorrect_Email_Or_Password": "Email hoặc mật khẩu không đúng!",
-    "You_been_login": "Bạn đã đăng nhập vào Bartendo!"
+    "You_been_login": "Bạn đã đăng nhập vào Bartendo!",
+    "Login_With_Facebook":"Đăng nhập bằng Facebook"
 
 }
