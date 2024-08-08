@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { Form, Input, Button, Checkbox, notification, Space } from 'antd';
+import {
+    FacebookFilled
+} from '@ant-design/icons';
+import { Form, Input, Button, Checkbox, notification, Space, Flex } from 'antd';
 import './login.css';
 
 import { useTranslation } from 'react-i18next';
 
-import { fetchCustomers } from '../services/customer_services';
+import FacebookLoginButton from '../components/FacebookLoginButton';
+
+import { fetchCustomers, facebookLogin } from '../services/customer_services';
 import {
     setToken, getTokenToRedirect,
     removeTokenToRedirect,
@@ -57,7 +62,26 @@ const Login = () => {
             });
         }
     };
+    const handleFacebookLoginSuccess = async (response) => {
+        const result = await facebookLogin(response.accessToken);
+        if (result.success) {
+            setToken(result.authToken);
+            const url = getTokenToRedirect() || '/';
+            removeTokenToRedirect();
+            notify('success', t('You_been_login'));
+            navigate(url);
+        } else {
+            notification.error({
+                message: t('Error'),
+                description: result.message || t('Facebook_Login_Failed'),
+            });
+        }
+    };
 
+
+    const handleFacebookLoginFail = (error) => {
+        console.log('Facebook login failed', error);
+    };
     return (
         <div className='container-login'>
             <div className='form-login'>
@@ -121,6 +145,11 @@ const Login = () => {
                         <p>{t('Dont_Have_An_Account')} <a onClick={() => navigate('/signup')}>{t('Sign_Up')}</a></p>
                     </div>
                 </Form>
+                <Flex gap="middle" vertical>
+                    <FacebookLoginButton
+                        onSuccess={handleFacebookLoginSuccess}
+                        onFail={handleFacebookLoginFail} />
+                </Flex>
             </div>
         </div>
     );

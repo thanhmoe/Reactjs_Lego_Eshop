@@ -14,6 +14,9 @@
     "Logging_In": "Logging In...",
     "Error": "Error",
     "Incorrect_Email_Or_Password": "Incorrect email or password!",
-    "You_been_login": "Welcome to Bartendo!"
+    "You_been_login": "Welcome to Bartendo!",
+    "Login_With_Facebook":"Login With Facebook",
+    "Facebook_Login_Failed": "Failed to login with Facebook, Please try again later!"
+
 
 }
