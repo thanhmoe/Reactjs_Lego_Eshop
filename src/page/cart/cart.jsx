@@ -61,6 +61,10 @@ const CartComponent = () => {
     });
     const [note, setNote] = useState(''); // Add note state
 
+    const linkToDetail = (id) => {
+        navigate(`/products/${id}`);
+    };
+
     const getProducts = async () => {
         try {
             const res = await getProductsOnCart();
@@ -272,7 +276,7 @@ const CartComponent = () => {
                             {cartItems.map(item => (
                                 <div key={item.id} className="cart-item">
                                     <Image style={{ width: '150px' }} src={item.image_path} alt={item.name} className="cart-item-image" />
-                                    <p className="cart-product-name">{item.name}</p>
+                                    <p className="cart-product-name" onClick={() => linkToDetail(item.product_id)}>{item.name}</p>
                                     <div className="cart-item-details">
                                         <div className="quantity-selector">
                                             <Popconfirm
@@ -330,7 +334,7 @@ const CartComponent = () => {
                                 <span>${calculateTotal()}</span>
                             </div>
                             <button onClick={() => setIsModalOpen(true)} className="checkout-button">{t('Checkout_Button')}</button>
-                            <p className="decs">{t('Payment_Methods')}</p>
+                            <p className="decs" style={{ margin: '8px', textAlign: 'center' }}>{t('Payment_Methods')}</p>
                             <div className="payment-methods">
                                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
                                 <FontAwesomeIcon icon={faCcPaypal} size="2x" />
