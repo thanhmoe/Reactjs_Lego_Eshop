@@ -126,7 +126,7 @@ export default function Header() {
         {token ? <a onClick={showDrawer} className="icon-header"><UserIcon /> {username ? username : t('User')}</a>
           : <a className="icon-header" onClick={() => navigate('/login')}><UserIcon /> {t('User-no-token')}</a>}
       </div>
-      <Drawer title="User" onClose={onClose} open={open} footer={
+      <Drawer title={username ? username : t('User')} onClose={onClose} open={open} footer={
         <Button onClick={handleSignOut} style={{ width: '100%' }}>{t('SignOut')}</Button>
       }>
         <List>
