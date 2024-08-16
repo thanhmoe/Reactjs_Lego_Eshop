@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { notify } from "../main";
 
 import { clearToken, isTokenExpired, getToken, setTokenToRedirect } from "../utils/token_utils";
+import { cookies } from "../main";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getTotalProductInCart } from "../redux/slice/carts/cartsSlice";
@@ -24,6 +25,7 @@ import LanguageDropdown from "../components/LanguageDropdown";
 import "./index.css";
 
 export default function Header() {
+  const username = cookies.get('username')
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -121,7 +123,7 @@ export default function Header() {
       </div>
       <div className="user-icon">
         <LanguageDropdown />
-        {token ? <a onClick={showDrawer} className="icon-header"><UserIcon /> {t('User')}</a>
+        {token ? <a onClick={showDrawer} className="icon-header"><UserIcon /> {username ? username : t('User')}</a>
           : <a className="icon-header" onClick={() => navigate('/login')}><UserIcon /> {t('User-no-token')}</a>}
       </div>
       <Drawer title="User" onClose={onClose} open={open} footer={

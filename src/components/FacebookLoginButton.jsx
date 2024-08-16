@@ -8,6 +8,7 @@ import {
 const APPID = import.meta.env.VITE_FB_APP_ID
 
 import { useTranslation } from 'react-i18next';
+import { cookies } from '../main';
 
 const FacebookLoginButton = ({ onSuccess, onFail }) => {
     const { t } = useTranslation(['login'])
@@ -17,6 +18,10 @@ const FacebookLoginButton = ({ onSuccess, onFail }) => {
             onSuccess={onSuccess}
             onFail={onFail}
             onProfileSuccess={(response) => {
+                const username = response.name;
+                if (username) {
+                    cookies.set('username', username, { path: '/' });
+                }
                 console.log('Get Profile Success!', response);
             }}
             render={({ onClick }) => (
