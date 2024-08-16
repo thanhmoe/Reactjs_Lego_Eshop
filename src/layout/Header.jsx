@@ -49,6 +49,7 @@ export default function Header() {
   function handleSignOut() {
     clearToken();
     setOpen(false);
+    cookies.remove('username');
     navigate('/login');
     notify('info', t('Log_Out_Success_noti'));
   }

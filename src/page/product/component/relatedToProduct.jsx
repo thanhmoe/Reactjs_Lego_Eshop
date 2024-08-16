@@ -38,23 +38,25 @@ export default function RelatedProducts({ productId, currentPage, itemsPerPage }
     }
 
     return (
-        <div className="related-products-list">
+        <>
             <h2>{t("Recommend_For_You")}</h2>
-            {relatedProducts.map((product) => (
-                <div
-                    key={product.id}
-                    className="product-info"
-                    onClick={() => linkToDetail(product.id)}
-                >
-                    <img
-                        className="image-product"
-                        src={product.image_path}
-                        alt={product.name}
-                    />
-                    <h3 className="product-name">{product.name}</h3>
-                    <p className="product-price">${product.price}</p>
-                </div>
-            ))}
-        </div>
+            <div className="related-products-list">
+                {relatedProducts.map((product) => (
+                    <div
+                        key={product.id}
+                        className="product-info"
+                        onClick={() => linkToDetail(product.id)}
+                    >
+                        <img
+                            className="image-product"
+                            src={product.image_path}
+                            alt={product.name}
+                        />
+                        <h3 className="product-name">{product.name}</h3>
+                        <p className="product-price">${product.price}</p>
+                    </div>
+                ))}
+            </div>
+        </>
     );
 }

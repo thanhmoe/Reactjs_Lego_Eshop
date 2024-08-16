@@ -47,9 +47,12 @@ const Login = () => {
         setLoading(false);
         if (response.success) {
             setToken(response.data.auth_token);
+            const username = values.email.split('@')[0];
             const url = getTokenToRedirect() || '/';
             removeTokenToRedirect();
-            cookies.remove('username')
+            if (username) {
+                cookies.set('username', username, { path: '/' });
+            }
             notify('success', t('You_been_login'))
             if (isCheck) {
                 setTokenForRememberUser(values.email);

@@ -330,7 +330,7 @@ const CartComponent = () => {
                                 <span>${calculateTotal()}</span>
                             </div>
                             <button onClick={() => setIsModalOpen(true)} className="checkout-button">{t('Checkout_Button')}</button>
-                            <p className="decs">{t('Payment_Methods')}</p>
+                            <p className="decs" style={{ margin: '8px', textAlign: 'center' }}>{t('Payment_Methods')}</p>
                             <div className="payment-methods">
                                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
                                 <FontAwesomeIcon icon={faCcPaypal} size="2x" />
