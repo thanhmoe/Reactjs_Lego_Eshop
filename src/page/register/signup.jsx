@@ -27,6 +27,7 @@ const Signup = () => {
         setLoading(true);
         const response = await registerUser(values);
         setLoading(false);
+
         if (response.success) {
             navigate('/login', { state: { email: values.email } });
             notification.success({
@@ -34,10 +35,26 @@ const Signup = () => {
                 description: t(`Signup_Noti_${response.message}`),
             });
         } else {
-            notification.error({
-                message: t('Error'),
-                description: t(`Signup_Noti_${response.message}`),
-            });
+            if (response.message.includes('Duplicated email!')) {
+                form.setFields([
+                    {
+                        name: 'email',
+                        errors: [t(`Signup_Noti_Duplicated email!`)],
+                    },
+                ]);
+            } else if (response.message.includes('Duplicated phone number!')) {
+                form.setFields([
+                    {
+                        name: 'phone_number',
+                        errors: [t(`Signup_Noti_Duplicated phone number!`)],
+                    },
+                ]);
+            } else {
+                notification.error({
+                    message: t('Error'),
+                    description: t(`Signup_Noti_${response.message}`),
+                });
+            }
         }
     };
 
