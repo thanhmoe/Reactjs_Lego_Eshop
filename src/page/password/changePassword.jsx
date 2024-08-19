@@ -19,6 +19,7 @@ export default function ChangePassword() {
     const [isSuccess, setIsSuccess] = useState(false);
     const token = getToken();
     const { t } = useTranslation('forgot_password');
+    const [form] = Form.useForm();
 
     const validatePasswords = ({ getFieldValue }) => ({
         validator(_, value) {
@@ -41,10 +42,19 @@ export default function ChangePassword() {
                 setIsSuccess(true)
                 clearToken()
             } else {
-                notification.error({
-                    message: t('ChangePass_Error'),
-                    description: t(`ChangePass_Noti_${res.message}`),
-                })
+                if (res.message.includes('Old password not matched!')) {
+                    form.setFields([
+                        {
+                            name: 'oldPassword',
+                            errors: [t(`ChangePass_Noti_Old password not matched!`)],
+                        },
+                    ]);
+                } else {
+                    notification.error({
+                        message: t('Error'),
+                        description: t(`ChangePass_Noti_${res.message}`),
+                    });
+                }
             }
         } catch (error) {
             notification.error({
@@ -103,7 +113,7 @@ export default function ChangePassword() {
             </header>
             <div className="password-container">
                 <FirstPageInfo />
-                <Form className="form-pass" layout="vertical" onFinish={handleChangePassword}>
+                <Form className="form-pass" layout="vertical" onFinish={handleChangePassword} form={form}>
                     <Form.Item
                         label={t('old_password_label')}
                         name="oldPassword"
