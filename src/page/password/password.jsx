@@ -15,6 +15,7 @@ export default function PasswordRecover() {
     const [resendOtpTimeout, setResendOtpTimeout] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const { t } = useTranslation('forgot_password');
+    const [form] = Form.useForm();
 
     useEffect(() => {
         let timer;
@@ -37,7 +38,7 @@ export default function PasswordRecover() {
         if (response.success) {
             setStep(1);
             message.success(t('otp_sent_success'));
-            setResendOtpTimeout(60);
+            setResendOtpTimeout(30);
         } else {
             message.error(t(`ERROR_${response.message}`));
         }
@@ -69,10 +70,10 @@ export default function PasswordRecover() {
     };
 
     const handleResendOtp = async () => {
+        setResendOtpTimeout(30);
         const response = await requestRecoverPassword({ email: email });
         if (response.success) {
             message.success(t('otp_resent_success'));
-            setResendOtpTimeout(60);
         } else {
             message.error(t('otp_resent_failure'));
         }
@@ -86,6 +87,12 @@ export default function PasswordRecover() {
             return Promise.reject(new Error(t('password_mismatch')));
         },
     });
+    const handlePreviousStep = () => {
+        if (step > 0) {
+            form.resetFields(['otp']);
+            setStep(0);
+        }
+    };
 
     const steps = [
         {
@@ -95,7 +102,7 @@ export default function PasswordRecover() {
                         <h2>{t('reset_password_title')}</h2>
                         <p className="password-label">{t('reset_password_instructions')}</p>
                     </div>
-                    <Form className="form-pass" layout="vertical" onFinish={handleEmailSubmit}>
+                    <Form className="form-pass" layout="vertical" onFinish={handleEmailSubmit} form={form}>
                         <Form.Item
                             label={t('email_label')}
                             name="email"
@@ -128,7 +135,7 @@ export default function PasswordRecover() {
                             </div>
                         }
                     />
-                    <Form className="form-pass-otp" layout="vertical" onFinish={handleOtpSubmit}>
+                    <Form className="form-pass-otp" layout="vertical" onFinish={handleOtpSubmit} form={form}>
                         <Form.Item
                             label={t('otp_label')}
                             name="otp"
@@ -144,7 +151,7 @@ export default function PasswordRecover() {
                                             {t('submit_button')}
                                         </Button>
                                         {step > 0 && (
-                                            <Button onClick={() => setStep(step - 1)}>
+                                            <Button onClick={handlePreviousStep}>
                                                 {t('previous_button')}
                                             </Button>
                                         )}
@@ -170,7 +177,7 @@ export default function PasswordRecover() {
             title: t('step_password'), content: (
                 <>
                     <p className="password-label">{t('set_new_password_message')}</p>
-                    <Form className="form-pass" layout="vertical" onFinish={handlePasswordSubmit}>
+                    <Form className="form-pass" layout="vertical" onFinish={handlePasswordSubmit} form={form}>
                         <Form.Item
                             label={t('new_password_label')}
                             name="password"
@@ -198,7 +205,7 @@ export default function PasswordRecover() {
                                     {t('submit_button')}
                                 </Button>
                                 {step > 0 && (
-                                    <Button onClick={() => setStep(step - 1)}>
+                                    <Button onClick={handlePreviousStep}>
                                         {t('previous_button')}
                                     </Button>
                                 )}
