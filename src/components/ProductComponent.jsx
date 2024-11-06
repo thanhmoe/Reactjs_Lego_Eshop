@@ -85,6 +85,7 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
                     onLoad={handleImageLoad}
                     alt={product.name}
                 />
+                <p></p>
                 <h3 className="product-name">{product.name}</h3>
                 {product.quantity === 0 ? <Tag style={{ width: 'fit-content' }} color="#969696">{t('Sold_Out')}</Tag> : null}
                 <p className="product-price">${product.price}</p>
