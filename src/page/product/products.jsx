@@ -17,7 +17,7 @@ export default function Products() {
     const [sortOption, setSortOption] = useState(0);
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-
+    const [products, setProducts] = useState([]);
     // Debounce search input
     const debouncedSearch = debounce((value) => {
         setSearchQuery(value);
@@ -42,23 +42,25 @@ export default function Products() {
     return (
         <div className="container-product">
             <h2 className="products-label">{t('Product_page_label')}</h2>
-            <div className="filter-product">
-                <Space>
-                    <Search
-                        className="searchbar"
-                        placeholder={t("input_search_text")}
-                        onSearch={(value) => onSearch(value)}
-                        onChange={handleSearchChange}
-                    />
-                    <div>
-                        <Select placeholder={t('Sort_Option')} style={{ width: 200 }} onChange={handleSortChange}>
-                            {FILTER_PRODUCTS_OPTIONS.map(option => (
-                                <Option key={option.id} value={option.id}>{t(option.name)}</Option>
-                            ))}
-                        </Select>
-                    </div>
-                </Space>
-            </div>
+            {products.length > 0 && (
+                <div className="filter-product">
+                    <Space>
+                        <Search
+                            className="searchbar"
+                            placeholder={t("input_search_text")}
+                            onSearch={(value) => onSearch(value)}
+                            onChange={handleSearchChange}
+                        />
+                        <div>
+                            <Select placeholder={t('Sort_Option')} style={{ width: 200 }} onChange={handleSortChange}>
+                                {FILTER_PRODUCTS_OPTIONS.map(option => (
+                                    <Option key={option.id} value={option.id}>{t(option.name)}</Option>
+                                ))}
+                            </Select>
+                        </div>
+                    </Space>
+                </div>
+            )}
             <div>
                 <ProductComponent searchQuery={searchQuery} sortOption={sortOption} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>

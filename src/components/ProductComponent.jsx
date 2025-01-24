@@ -120,6 +120,14 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
         getListProduct();
     }, [searchQuery, sortOption, currentPage, itemsPerPage, selectedCategories]);
 
+    if (!products || products.length === 0) {
+        return (
+            <div className="no-result-found">
+                <Empty description={t('No_products_found')} />
+            </div>
+        );
+    }
+
     return (
         <>
             {productsStatus === "loading" && <LoadingModal />}
@@ -147,16 +155,11 @@ const ProductComponent = ({ searchQuery, sortOption, currentPage, setCurrentPage
                         }
                     </div>
                 </div>
-                {products.length !== 0 ?
-                    <div className="products-list">
-                        {products.map((product) => (
-                            <Product key={product.id} product={product} />
-                        ))}
-                    </div>
-                    :
-                    <div className="no-result-found">
-                        <Empty description={t('No_products_found')} />
-                    </div>}
+                <div className="products-list">
+                    {products.map((product) => (
+                        <Product key={product.id} product={product} />
+                    ))}
+                </div>
             </div>
             <div className="pagination-product">
                 <Pagination
